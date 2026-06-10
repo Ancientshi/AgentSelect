@@ -22,6 +22,15 @@
 
 
 
+
+## News 
+* We have updated the camera-ready paper: `icml2026_AgentSelection_cr.pdf`.
+
+* We have further cleaned Part III dataset.
+
+* Additional experimental details and data-processing workflows are provided in the `Other/` folder.
+
+
 ## Why AgentSelectBench ✨
 
 Modern agent ecosystems offer an exploding space of configurations, but existing benchmarks evaluate **components in isolation** (models or tools). AgentSelectBench instead supports the end task:
