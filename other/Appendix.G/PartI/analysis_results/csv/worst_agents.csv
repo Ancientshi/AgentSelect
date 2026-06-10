@@ -1,0 +1,64 @@
+recordId,dirname,rank,agent_name,score,question,rewritten_tool_query,tool_names,llm_names
+leaderboard_bbh_logical_deduction_seven_objects_question_151,bbh_logical_deduction_seven_objects,1,agent_1,1,"The following paragraphs each describe a set of seven objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are seven vehicles: a limousine, a minivan, a bus, a station wagon, a tractor, a truck, and a hatchback. The truck is the oldest. The tractor is older than the minivan. The minivan is the third-newest. The limousine is the fourth-newest. The station wagon is newer than the hatchback. The bus is the second-oldest.
+Options:
+(A) The limousine is the fourth-newest
+(B) The minivan is the fourth-newest
+(C) The bus is the fourth-newest
+(D) The station wagon is the fourth-newest
+(E) The tractor is the fourth-newest
+(F) The truck is the fourth-newest
+(G) The hatchback is the fourth-newest",logic puzzle solve ranking order; compare statements; multiple choice answer,calculator,nvidia__AceInstruct-7B
+leaderboard_bbh_sports_understanding_question_99,bbh_sports_understanding,1,agent_1,1,"Is the following sentence plausible? ""Aleksander Barkov passed the puck.""",text plausibility check; sentence verification; entity-event consistency,Spellcheck + Tokenization + Wordbreak&&GET/v1/spellcheck-tokenize | Spellcheck + Tokenization + Wordbreak&&GET/v1/tokenize,nvidia__AceInstruct-7B
+leaderboard_bbh_tracking_shuffled_objects_three_objects_question_239,bbh_tracking_shuffled_objects_three_objects,1,agent_1,1,"Alice, Bob, and Claire are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Melissa, Bob is dancing with Lola, and Claire is dancing with Izzi.
+Throughout the song, the dancers often trade partners. First, Alice and Bob switch partners. Then, Alice and Claire switch partners. Finally, Bob and Alice switch partners. At the end of the dance, Alice is dancing with
+Options:
+(A) Melissa
+(B) Lola
+(C) Izzi",simulate partner swapping dance state,calculator,deepseek-ai__DeepSeek-R1-Distill-Qwen-7B
+leaderboard_gpqa_extended_question_421,gpqa_extended,1,agent_1,1,"A research group is investigating the production of a candidate recombinant protein to treat an autoimmune disease using bacterial hosts. However, the target gene (45 Kb) requires a tight regulation system. Therefore their objective is to ensure the recombinant genes can be regulated through a double procaryote regulation mechanism.  Which pair of gene regulation mechanisms would be inappropriate for their purposes?",gene regulation mechanisms; recombinant protein expression; bacterial host regulation,python-repl | riza-code-interpreter,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_gpqa_main_question_260,gpqa_main,1,agent_1,1,"Complete the following reactions and select the major products by considering the steric hindrance, and the stability of the products.
+2-ethyl-2,6-dimethylcyclohexan-1-one + ethyl acrylate (t-BuOK) ---> A
+1-nitropropane + (KOH, (E)-but-2-enenitrile, H2O) ---> B",organic reaction product prediction; major product selection; steric hindrance stability analysis; t-BuOK enolate Michael addition; nitropropane KOH nitrile conjugate addition,openai-code-interpreter,mistralai__Mixtral-8x22B-v0.1
+leaderboard_musr_murder_mysteries_question_19,musr_murder_mysteries,1,agent_1,1,Who is the most likely murderer?,crime case analysis; suspect profiling; evidence review,file-search | search_information | background_check,deepseek-ai__deepseek-llm-7b-chat
+leaderboard_musr_murder_mysteries_question_45,musr_murder_mysteries,1,agent_1,1,Who is the most likely murderer?,crime investigation; suspect identification; homicide case analysis,brave-search | file-search | <<Report Insight Test&&Analysis>>,togethercomputer__Llama-2-7B-32K-Instruct
+leaderboard_bbh_logical_deduction_seven_objects_question_151,bbh_logical_deduction_seven_objects,2,agent_2,1,"The following paragraphs each describe a set of seven objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are seven vehicles: a limousine, a minivan, a bus, a station wagon, a tractor, a truck, and a hatchback. The truck is the oldest. The tractor is older than the minivan. The minivan is the third-newest. The limousine is the fourth-newest. The station wagon is newer than the hatchback. The bus is the second-oldest.
+Options:
+(A) The limousine is the fourth-newest
+(B) The minivan is the fourth-newest
+(C) The bus is the fourth-newest
+(D) The station wagon is the fourth-newest
+(E) The tractor is the fourth-newest
+(F) The truck is the fourth-newest
+(G) The hatchback is the fourth-newest",logic puzzle solve ranking order; compare statements; multiple choice answer,calculator,deepseek-ai__deepseek-llm-7b-chat
+leaderboard_bbh_sports_understanding_question_99,bbh_sports_understanding,2,agent_2,1,"Is the following sentence plausible? ""Aleksander Barkov passed the puck.""",text plausibility check; sentence verification; entity-event consistency,Spellcheck + Tokenization + Wordbreak&&GET/v1/spellcheck | Spellcheck + Tokenization + Wordbreak&&GET/v1/spellcheck-tokenize,togethercomputer__RedPajama-INCITE-Chat-3B-v1
+leaderboard_bbh_tracking_shuffled_objects_three_objects_question_239,bbh_tracking_shuffled_objects_three_objects,2,agent_2,1,"Alice, Bob, and Claire are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Melissa, Bob is dancing with Lola, and Claire is dancing with Izzi.
+Throughout the song, the dancers often trade partners. First, Alice and Bob switch partners. Then, Alice and Claire switch partners. Finally, Bob and Alice switch partners. At the end of the dance, Alice is dancing with
+Options:
+(A) Melissa
+(B) Lola
+(C) Izzi",simulate partner swapping dance state,calculator,nvidia__AceInstruct-7B
+leaderboard_gpqa_extended_question_421,gpqa_extended,2,agent_2,1,"A research group is investigating the production of a candidate recombinant protein to treat an autoimmune disease using bacterial hosts. However, the target gene (45 Kb) requires a tight regulation system. Therefore their objective is to ensure the recombinant genes can be regulated through a double procaryote regulation mechanism.  Which pair of gene regulation mechanisms would be inappropriate for their purposes?",gene regulation mechanisms; recombinant protein expression; bacterial host regulation,python-repl,amazon__MegaBeam-Mistral-7B-300k
+leaderboard_gpqa_main_question_260,gpqa_main,2,agent_2,1,"Complete the following reactions and select the major products by considering the steric hindrance, and the stability of the products.
+2-ethyl-2,6-dimethylcyclohexan-1-one + ethyl acrylate (t-BuOK) ---> A
+1-nitropropane + (KOH, (E)-but-2-enenitrile, H2O) ---> B",organic reaction product prediction; major product selection; steric hindrance stability analysis; t-BuOK enolate Michael addition; nitropropane KOH nitrile conjugate addition,openai-code-interpreter,deepseek-ai__deepseek-moe-16b-chat
+leaderboard_musr_murder_mysteries_question_45,musr_murder_mysteries,2,agent_2,1,Who is the most likely murderer?,crime investigation; suspect identification; homicide case analysis,brave-search | file-search | <<Text Analyzer API&&analyze>>,google__flan-t5-base
+leaderboard_bbh_logical_deduction_seven_objects_question_151,bbh_logical_deduction_seven_objects,3,agent_3,1,"The following paragraphs each describe a set of seven objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are seven vehicles: a limousine, a minivan, a bus, a station wagon, a tractor, a truck, and a hatchback. The truck is the oldest. The tractor is older than the minivan. The minivan is the third-newest. The limousine is the fourth-newest. The station wagon is newer than the hatchback. The bus is the second-oldest.
+Options:
+(A) The limousine is the fourth-newest
+(B) The minivan is the fourth-newest
+(C) The bus is the fourth-newest
+(D) The station wagon is the fourth-newest
+(E) The tractor is the fourth-newest
+(F) The truck is the fourth-newest
+(G) The hatchback is the fourth-newest",logic puzzle solve ranking order; compare statements; multiple choice answer,calculator,microsoft__Orca-2-7b
+leaderboard_bbh_sports_understanding_question_99,bbh_sports_understanding,3,agent_3,1,"Is the following sentence plausible? ""Aleksander Barkov passed the puck.""",text plausibility check; sentence verification; entity-event consistency,Spellcheck + Tokenization + Wordbreak&&GET/v1/tokenize | Text Readability&&analyze,nvidia__OpenMath2-Llama3.1-8B
+leaderboard_bbh_tracking_shuffled_objects_three_objects_question_239,bbh_tracking_shuffled_objects_three_objects,3,agent_3,1,"Alice, Bob, and Claire are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Melissa, Bob is dancing with Lola, and Claire is dancing with Izzi.
+Throughout the song, the dancers often trade partners. First, Alice and Bob switch partners. Then, Alice and Claire switch partners. Finally, Bob and Alice switch partners. At the end of the dance, Alice is dancing with
+Options:
+(A) Melissa
+(B) Lola
+(C) Izzi",simulate partner swapping dance state,calculator,tiiuae__falcon-7b
+leaderboard_musr_murder_mysteries_question_19,musr_murder_mysteries,3,agent_3,1,Who is the most likely murderer?,crime case analysis; suspect profiling; evidence review,file-search | background_check | identity_verification,stabilityai__stablelm-2-1_6b-chat
+leaderboard_musr_murder_mysteries_question_30,musr_murder_mysteries,3,agent_3,1,Who is the most likely murderer?,crime investigation; suspect analysis; homicide case evidence review,brave-search | file-search,togethercomputer__Llama-2-7B-32K-Instruct
+leaderboard_musr_murder_mysteries_question_45,musr_murder_mysteries,3,agent_3,1,Who is the most likely murderer?,crime investigation; suspect identification; homicide case analysis,brave-search | <<User Intents Extractor&&/api/analyze_text>>,apple__DCLM-7B
+leaderboard_musr_object_placements_question_135,musr_object_placements,3,agent_3,1,Which location is the most likely place Emily would look to find the iphone given the story?,story question answering; location inference; entity reference resolution,python-repl,mistralai__Mixtral-8x7B-Instruct-v0.1

@@ -1,0 +1,42 @@
+{
+  "num_queries": 111179,
+  "num_sources": 1,
+  "parts": {
+    "PartI": 23073,
+    "PartII": 76197,
+    "PartIII": 11909
+  },
+  "sources_top20": [
+    [
+      "unknown",
+      111179
+    ]
+  ],
+  "global_word_len": {
+    "count": 111179,
+    "mean": 109.04913697730687,
+    "std": 271.09811111390684,
+    "min": 0.0,
+    "p25": 50.0,
+    "median": 78.0,
+    "p75": 126.0,
+    "max": 45839.0
+  },
+  "global_lexical_diversity": {
+    "count": 111179,
+    "mean": 0.6983877802451874,
+    "std": 0.14859708818953538,
+    "min": 0.0,
+    "p25": 0.6062176165803109,
+    "median": 0.6986301369863014,
+    "p75": 0.8059701492537313,
+    "max": 1.0
+  },
+  "num_exact_duplicate_groups": 12530,
+  "num_exact_duplicate_queries": 26921,
+  "num_template_groups": 5137,
+  "num_near_duplicate_pairs": 106764,
+  "dup_ratio_threshold": 0.92,
+  "jaccard_ratio_threshold": 0.85,
+  "prefix_k": 6
+}

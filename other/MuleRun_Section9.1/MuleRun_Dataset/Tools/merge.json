@@ -1,0 +1,881 @@
+{
+  "CheckOutMuleRun": {
+    "description": "Allows the user to browse and select products or services available on the MuleRun Marketplace."
+  },
+  "ShareMuleRunContent": {
+    "description": "Enables users to share MuleRun Marketplace items, including detailed information and playbacks, with others."
+  },
+  "RunMuleRunProduct": {
+    "description": "Facilitates the execution or running of selected products or services directly from the MuleRun Marketplace."
+  },
+  "ViewDetailedInfo": {
+    "description": "Provides access to detailed information about MuleRun Marketplace items, including specifications and descriptions."
+  },
+  "PlaybackMuleRunContent": {
+    "description": "Allows users to view playbacks related to MuleRun Marketplace items for better understanding or demonstration."
+  },
+  "ViewCreatorInfo": {
+    "description": "Displays information about the creators of MuleRun Marketplace items, including profiles and credentials."
+  },
+  "GetDetailedInfo": {
+    "description": "Retrieves detailed information about MuleRun marketplace items, including specifications and descriptions."
+  },
+  "AccessPlaybacks": {
+    "description": "Provides playback functionality to review recorded sessions or demonstrations related to MuleRun products."
+  },
+  "FetchCreatorInfo": {
+    "description": "Obtains information about the creators of MuleRun marketplace items or services."
+  },
+  "RunMuleRunItem": {
+    "description": "Facilitates running or executing selected items or services from the MuleRun marketplace."
+  },
+  "FetchPlaybackData": {
+    "description": "Retrieves playback data associated with MuleRun marketplace items for review or analysis."
+  },
+  "GetCreatorInfo": {
+    "description": "Retrieves information about the creators of items listed on the MuleRun marketplace."
+  },
+  "GetPlaybackInfo": {
+    "description": "Provides access to playback data or recordings related to MuleRun marketplace items."
+  },
+  "AccessPlayback": {
+    "description": "Provides access to playback recordings or demonstrations related to MuleRun marketplace items."
+  },
+  "ShareMuleRunItem": {
+    "description": "Enables sharing of MuleRun Marketplace items with others through various channels."
+  },
+  "PlayBackItem": {
+    "description": "Provides playback functionality for MuleRun Marketplace items that support it."
+  },
+  "PlayBackMuleRun": {
+    "description": "Allows users to view playbacks related to MuleRun Marketplace content."
+  },
+  "GeneratePoseGrid": {
+    "description": "Transforms a single uploaded photo into a 3x3 grid of nine images, each featuring a unique pose or expression."
+  },
+  "MaintainStyleConsistency": {
+    "description": "Ensures all generated images preserve the original photo's style and identity for a cohesive look across the grid."
+  },
+  "FormatForSocialMedia": {
+    "description": "Delivers the 3x3 photo grid in a ready-to-share format optimized for social media platforms without requiring additional editing."
+  },
+  "UploadPhoto": {
+    "description": "Allows users to upload a clear photo with a visible face to be processed into a professional-style portrait."
+  },
+  "GeneratePixelLogo": {
+    "description": "Creates pixel-style square logos with a resolution of 1024x1024 pixels based on user ideas."
+  },
+  "GenerateCartoonCover": {
+    "description": "Produces cartoon-style covers or banners with a resolution of 1536x1024 pixels tailored to user specifications."
+  },
+  "InterrogateSuspect": {
+    "description": "Engage in deep, dynamic conversations with AI suspects to uncover their secrets and lies."
+  },
+  "ExploreEnvironment": {
+    "description": "Interactively explore the Victorian manor by clicking on hotspots to discover clues and hidden areas."
+  },
+  "CollectEvidence": {
+    "description": "Gather crucial clues from various locations such as the crime scene, private chambers, and secret garden."
+  },
+  "UnlockHiddenAreas": {
+    "description": "Reveal and access new parts of the manor as you progress in the investigation and gather evidence."
+  },
+  "AnalyzeClues": {
+    "description": "Examine collected evidence to deduce connections and progress the mystery narrative."
+  },
+  "TrackInvestigationProgress": {
+    "description": "Maintain and update the state of the investigation based on player choices and discovered information."
+  },
+  "AdaptSuspectBehavior": {
+    "description": "Modify AI suspect personalities and dialogue dynamically in response to the player's investigation actions."
+  },
+  "RevealCulprit": {
+    "description": "Determine and disclose the identity of the real killer based on accumulated evidence and deductions."
+  },
+  "GoogleAccountLogin": {
+    "description": "Allows the agent to log into a user's Google account through a browser to access Veo3 services securely."
+  },
+  "VideoContentGeneration": {
+    "description": "Generates AI-created videos based on user-provided content descriptions using Google Flow's Veo3."
+  },
+  "VideoDownloadAutomation": {
+    "description": "Automatically downloads the generated videos to the user's device, streamlining access to the content."
+  },
+  "ProvideCookingTutorials": {
+    "description": "Offers step-by-step Chinese cooking lessons tailored to the user's skill level."
+  },
+  "ExplainCulturalContext": {
+    "description": "Delivers cultural stories and background information related to each Chinese dish."
+  },
+  "TeachPinyinAndKeywords": {
+    "description": "Teaches Chinese language elements including pinyin and English keywords relevant to cooking."
+  },
+  "PersonalizeLearningExperience": {
+    "description": "Adapts cooking lessons and cultural teachings based on the user's proficiency and preferences."
+  },
+  "BuildRelationshipGraph": {
+    "description": "Constructs a unified interactive knowledge graph capturing person-to-person, person-to-company, and company-to-company connections within seconds."
+  },
+  "FilterCoreNodes": {
+    "description": "Instantly isolates core nodes by filtering to show only individuals or organizations connected to a selected person or company."
+  },
+  "DiscoverHiddenConnectors": {
+    "description": "Uses graph algorithms to identify non-obvious intermediaries, key influencers, and hidden relationships around a core node."
+  },
+  "ExpandDetailCards": {
+    "description": "Opens detailed side panels for any selected node showing bullet point context such as recent milestones, shared affiliations, mutual contacts, and event timelines."
+  },
+  "AggregateMultiSourceProfiles": {
+    "description": "Combines and de-duplicates data from news, social media, corporate filings, and LLM summaries into a confidence-scored profile for each entity."
+  },
+  "ConsolidateFragmentedData": {
+    "description": "Aggregates scattered mentions from diverse sources like news articles, social media, and public records into a single coherent view."
+  },
+  "AutomateResearchInvestigation": {
+    "description": "Automates manual investigation processes by rapidly analyzing and mapping connections and risks in seconds instead of hours or days."
+  },
+  "HighlightDataTrustworthiness": {
+    "description": "Aggregates multiple data sources and provides confidence scores to help verify the reliability of information at a glance."
+  },
+  "MultiSubredditScanner": {
+    "description": "Simultaneously searches a curated list of top business and startup subreddits to gather diverse, high-quality insights relevant to the user's query."
+  },
+  "PostPainPointAnalyzer": {
+    "description": "Analyzes individual Reddit posts to identify specific user pain points and problems within each thread."
+  },
+  "StrategicSynthesisAI": {
+    "description": "Synthesizes analyzed pain points from multiple posts into a high-level strategic report highlighting trends and opportunities."
+  },
+  "OpportunityReportGenerator": {
+    "description": "Generates a comprehensive opportunity report in Markdown and Google Sheet formats, outlining core trends, top pain points, and actionable business recommendations."
+  },
+  "BusinessIdeaInputHandler": {
+    "description": "Accepts and processes user-described business ideas or problem areas to guide the subreddit scanning and analysis process."
+  },
+  "GenerateExpressionGrid": {
+    "description": "Transforms a single portrait into a 3x3 grid of nine diverse facial expressions, creating multiple unique avatars instantly."
+  },
+  "UploadPortrait": {
+    "description": "Allows users to upload any photo or illustrated face to be processed and transformed into expressive avatars."
+  },
+  "MaintainConsistentStyle": {
+    "description": "Ensures that all generated images retain the original character’s look and style for visual consistency."
+  },
+  "CreateUniqueAvatars": {
+    "description": "Generates multiple distinct avatars from one image, showcasing different expressions and personalities."
+  },
+  "HotTopicTracking": {
+    "description": "Instantly captures trending keywords and topics on YouTube to keep users updated on the latest trends."
+  },
+  "VideoFiltering": {
+    "description": "Automatically identifies and filters relevant videos based on user-defined topics or keywords to reduce manual search time."
+  },
+  "MultilingualCommentGeneration": {
+    "description": "Generates comments in Chinese, Korean, Japanese, and English, allowing customization of emoji combinations for engaging replies."
+  },
+  "PersonalizedReplies": {
+    "description": "Enables users to define different comment styles and keywords to ensure comment content aligns with brand identity or specific audience needs."
+  },
+  "CommentClassification": {
+    "description": "Automatically classifies comments to help manage high volumes efficiently and maintain organized conversations."
+  },
+  "CommentFiltering": {
+    "description": "Filters comments to prioritize or remove irrelevant or inappropriate content, streamlining comment management."
+  },
+  "RealTimeTrendTracking": {
+    "description": "Tracks trending topics in real-time to help users stay ahead in content engagement and community interaction."
+  },
+  "TransformPetPhotoToOilPainting": {
+    "description": "Transforms a pet photo into a majestic Napoleon-style oil painting portrait."
+  },
+  "GenerateRegalPortrait": {
+    "description": "Creates humorous and regal themed portraits of pets styled as noble historical figures."
+  },
+  "CreateShareableDigitalMasterpiece": {
+    "description": "Generates a high-quality, shareable digital artwork suitable for social media and digital sharing."
+  },
+  "DesignCustomPetGift": {
+    "description": "Designs unique digital mementos and gifts featuring the transformed pet portraits."
+  },
+  "UploadCurrentPhoto": {
+    "description": "Allows the user to upload a current photo to be used as the base for the composite image."
+  },
+  "GenerateCompositeImage": {
+    "description": "Creates a photorealistic composite image merging the user's current photo with a representation of their younger self."
+  },
+  "MatchPoseAndExpression": {
+    "description": "Automatically aligns the pose and expression of the adult and childhood versions to create a natural and emotionally resonant image."
+  },
+  "OutputHighResolutionImage": {
+    "description": "Produces the final composite image in high-resolution formats suitable for printing or digital sharing."
+  },
+  "TransformBuildingPhoto": {
+    "description": "Transforms ordinary building photos into extraordinary, shareable works of art using AI-powered creative styles."
+  },
+  "PreserveBackground": {
+    "description": "Intelligently preserves the original background of the photo while rebuilding the architectural elements for a seamless and hyper-realistic effect."
+  },
+  "ApplyArtisticStyle": {
+    "description": "Applies unique and imaginative artistic styles from a curated library, such as Floral, Ice, and Dessert, to reimagine architectural photos."
+  },
+  "RecognizeArchitecture": {
+    "description": "Specifically recognizes and interprets architectural structures to enable coherent and high-quality creative transformations."
+  },
+  "GoogleTrendsTopicDiscovery": {
+    "description": "Automatically identifies and selects high-growth, trending topics related to an initial keyword using the Google Trends API."
+  },
+  "SERPScrapeAndAnalyze": {
+    "description": "Scrapes and analyzes the top 3 ranking Google search results to reverse-engineer a content structure proven to rank."
+  },
+  "EEATContentGeneration": {
+    "description": "Generates a complete, well-structured article draft by synthesizing trend data and competitor analysis aligned with Google's Experience, Expertise, Authoritativeness, and Trust guidelines."
+  },
+  "TransformPhotoToCover": {
+    "description": "Transforms a single or group photo into a high-end, editorial-style magazine cover with bold typography and fashion-forward styling."
+  },
+  "ApplySmartLayout": {
+    "description": "Automatically arranges design elements and photos into a smart, visually appealing magazine cover layout."
+  },
+  "SupportMultiPersonPhotos": {
+    "description": "Processes photos containing multiple people and integrates them seamlessly into the magazine cover design."
+  },
+  "GenerateHighResolutionOutput": {
+    "description": "Produces professional-quality, high-resolution magazine cover images suitable for printing or digital sharing."
+  },
+  "InstantVirtualStaging": {
+    "description": "Automatically furnish an empty room photo with stylish, modern decor within seconds to create a fully staged space."
+  },
+  "ApplyDesignConcept": {
+    "description": "Select and arrange furniture and decor in a cohesive, professional, and modern style with a built-in color palette."
+  },
+  "AnalyzeArchitecturalIntegrity": {
+    "description": "Analyze the spatial layout of a room from a 2D photo and preserve original architectural features like walls, floors, and windows."
+  },
+  "GenerateDesignMockups": {
+    "description": "Convert a simple room photograph into a high-quality, fully-realized design mockup suitable for marketing or presentations."
+  },
+  "InstantStylisticConversion": {
+    "description": "Transforms any standard building photograph into a high-quality isometric illustration instantly, reducing manual drafting time."
+  },
+  "AutomaticImageCleanup": {
+    "description": "Isolates the building from its environment by removing distracting backgrounds and standardizing lighting to a clear daytime setting."
+  },
+  "ConsistentAestheticConversion": {
+    "description": "Converts photos from various sources and lighting conditions into a cohesive, professional visual style for branding and presentations."
+  },
+  "ProfessionalStyleAccess": {
+    "description": "Provides users with access to a technical isometric art style without requiring specialized CAD, 3D modeling, or illustration skills."
+  },
+  "GenerateCosplayPhoto": {
+    "description": "Transforms a live photo into a cosplay image of a chosen character, replicating their pose accurately."
+  },
+  "CreateCosplayScene": {
+    "description": "Generates a complete cosplay scene background, such as a comic exhibition setting, to enhance the cosplay photo."
+  },
+  "ReplicateCharacterPose": {
+    "description": "Perfectly mimics the pose of the selected cartoon character in the user's photo."
+  },
+  "VisualizeCosplayIdea": {
+    "description": "Allows users to preview and generate images of cosplay ideas before actual execution."
+  },
+  "GenerateSocialMediaContent": {
+    "description": "Creates shareable social media-ready images or content featuring the mecha pet avatars."
+  },
+  "TransformAppearance": {
+    "description": "Alters the user's appearance to match any chosen character's look in the cosplay photo."
+  },
+  "CheckOutAgent": {
+    "description": "Allows users to check out the Kabutack Agent on the MuleRun Marketplace, accessing detailed information and playbacks."
+  },
+  "ShareAgent": {
+    "description": "Enables sharing of the Kabutack Agent details and playbacks with others."
+  },
+  "RunAgent": {
+    "description": "Facilitates running the Kabutack Agent directly from the MuleRun Marketplace."
+  },
+  "SearchInformation": {
+    "description": "Performs information searches using built-in search tools to retrieve relevant data."
+  },
+  "PerformCalculations": {
+    "description": "Executes mathematical calculations as requested by the user."
+  },
+  "ManageMemory": {
+    "description": "Maintains conversational context to provide coherent and context-aware interactions."
+  },
+  "YouTubeLinkVerification": {
+    "description": "Validates the provided YouTube video link to ensure it is accessible and supports subtitles."
+  },
+  "RetrieveVideoDetails": {
+    "description": "Fetches metadata about the YouTube video including title, description, and cover image."
+  },
+  "ExtractTranscript": {
+    "description": "Extracts and cleans the subtitle transcript text from the YouTube video for further processing."
+  },
+  "GeneratePlatformCopy": {
+    "description": "Uses AI to rewrite and optimize the extracted transcript into social media posts tailored for X, LinkedIn, and Instagram."
+  },
+  "FormatOutputMarkdown": {
+    "description": "Formats the generated social media copy into markdown text with distinct sections per platform and includes the highest resolution thumbnail image."
+  },
+  "GenerateBWPortrait": {
+    "description": "Creates a high-resolution black-and-white portrait from any input photo, preserving rich detail."
+  },
+  "ApplyClassicLightingTexture": {
+    "description": "Applies soft, directional lighting combined with subtle film grain texture to produce a classic photographic atmosphere."
+  },
+  "RemoveExtraneousElements": {
+    "description": "Automatically removes background clutter and extraneous elements to maintain a minimalist composition focused on the subject."
+  },
+  "RenderSmoothGradientBackground": {
+    "description": "Generates a smooth gradient background to highlight the subject and enhance the portrait's natural and quiet feel."
+  },
+  "TransformTopicToCards": {
+    "description": "Convert any given topic into visually engaging learning cards combining images and descriptive text."
+  },
+  "GenerateCardImages": {
+    "description": "Create AI-powered images in various visual styles such as doodle or professional infographics to illustrate learning cards."
+  },
+  "AnalyzeTextForCards": {
+    "description": "Perform text analysis to simplify complex ideas and generate audience-appropriate educational content for cards."
+  },
+  "AssembleLearningCards": {
+    "description": "Combine generated images and analyzed text into cohesive, shareable learning cards."
+  },
+  "BatchGenerateCards": {
+    "description": "Process multiple topics or concepts simultaneously to generate a comprehensive set of learning cards."
+  },
+  "ScriptOutlineGeneration": {
+    "description": "Generates a structured three-act or five-act story framework with key plot points based on the provided theme."
+  },
+  "CharacterBuilding": {
+    "description": "Creates detailed character arcs, relationship webs, and iconic dialogue designs to develop rich characters."
+  },
+  "PlotConflictDesign": {
+    "description": "Constructs main and sub-conflicts intelligently, offering multiple versions of turning point solutions."
+  },
+  "DialogueSceneOptimization": {
+    "description": "Generates dialogue tailored to character personas and traits, supporting adjustments to language styles such as colloquial or poetic."
+  },
+  "ScriptFormatting": {
+    "description": "Automatically formats scripts according to industry standards tailored to the creative vision."
+  },
+  "GenerateCaricature": {
+    "description": "Transforms the uploaded photo into a unique, AI-generated caricature with exaggerated and funny features."
+  },
+  "PreserveIdentityStyle": {
+    "description": "Applies a cartoon style that maintains the user's recognizable identity while exaggerating features."
+  },
+  "RenderHighQualityImage": {
+    "description": "Produces a quick, high-quality rendering of the caricature suitable for sharing or printing."
+  },
+  "ShareCaricature": {
+    "description": "Enables sharing the generated caricature on social media or via other platforms."
+  },
+  "GenerateRedCarpetPhoto": {
+    "description": "Transforms an uploaded clear, front-facing pet photo into a realistic red carpet scene with professional lighting, posing, and background elements."
+  },
+  "ApplyThemeOptions": {
+    "description": "Allows selection and application of multiple red carpet theme variations to customize the pet photo's appearance."
+  },
+  "OneClickPhotoGeneration": {
+    "description": "Enables instant generation of the red carpet pet photo with a single click, automating the entire rendering process."
+  },
+  "ExportHighResolutionPhoto": {
+    "description": "Exports the generated pet photo in high-resolution format suitable for sharing or printing."
+  },
+  "TryHairstyle": {
+    "description": "Allows users to try different hairstyles virtually without any commitment or physical changes."
+  },
+  "ShareHairstyle": {
+    "description": "Enables users to share hairstyle looks with friends, including those who are not participating, for fun or prank purposes."
+  },
+  "GenerateHairstyle": {
+    "description": "Generates new hairstyles based on user-inputted style descriptions entered in the 'Style' box."
+  },
+  "ViewPlayback": {
+    "description": "Provides playback functionality to review hairstyle changes and transformations over time."
+  },
+  "TransformPortraitToHeadshot": {
+    "description": "Transforms any personal portrait into a polished American-style professional headshot suitable for executives and professionals."
+  },
+  "ApplyCorporateStudioAesthetics": {
+    "description": "Enhances portraits with corporate studio aesthetics including half-body framing, elegant composition, and blue textured backgrounds."
+  },
+  "EnhanceLightingAndBackground": {
+    "description": "Applies natural soft lighting and blue textured studio backgrounds to create a professional and approachable look."
+  },
+  "MaintainTrueIdentity": {
+    "description": "Enhances images while preserving true facial features and identity of the subject."
+  },
+  "ApplyProfessionalAttire": {
+    "description": "Adds professional attire such as dark suits, crisp white shirts, and classic ties to the portrait."
+  },
+  "EnhanceImageClarityAndSkinTone": {
+    "description": "Improves image resolution to high-definition clarity and renders realistic skin tones."
+  },
+  "GenerateConfidentExpression": {
+    "description": "Adjusts facial expressions to appear confident and approachable for professional use."
+  },
+  "PrepareForProfessionalUse": {
+    "description": "Formats and optimizes the final headshot image for LinkedIn, resumes, websites, press kits, and branding."
+  },
+  "PhotoUpload": {
+    "description": "Allows users to upload pet photos to be transformed into mecha warrior avatars."
+  },
+  "GenerateMechaAvatar": {
+    "description": "Transforms ordinary pet photos into futuristic mecha warrior avatars with dynamic effects and metallic plating."
+  },
+  "ApplyMechaAesthetics": {
+    "description": "Applies multiple mecha design styles to customize the appearance of the pet avatar."
+  },
+  "PreservePetIdentity": {
+    "description": "Ensures the pet's original identity is maintained while integrating robotic armor elements."
+  },
+  "AddDynamicEffects": {
+    "description": "Enhances the mecha pet avatar with glowing and animated cyberpunk-style visual effects."
+  },
+  "PhotoTo3DModel": {
+    "description": "Transforms a single portrait photo into an ultra-realistic 3D collectible figure that preserves facial features faithfully."
+  },
+  "GenerateDesktopDisplay": {
+    "description": "Creates a lifelike desktop-style display effect for the generated 3D figure to enhance its presence."
+  },
+  "CustomizePackaging": {
+    "description": "Allows customization of the figure's packaging, including printing a personalized name on it."
+  },
+  "IllustrateSocialPost": {
+    "description": "Transforms input text into a social media post with matching illustrations, suitable for platforms like Twitter, Reddit, Instagram, and LinkedIn."
+  },
+  "AddArtworkToText": {
+    "description": "Adds relevant artwork to poems, quotes, movie lines, jokes, or short stories to enhance social media posts."
+  },
+  "GenerateMarketingContent": {
+    "description": "Creates engaging marketing posts for products with both text and illustrations tailored to social platforms."
+  },
+  "SummarizeResearchWithFigures": {
+    "description": "Summarizes the latest research and generates styled figures to visually represent the information in social posts."
+  },
+  "SearchAndSummarizeWeb": {
+    "description": "Uses web tools to search for reliable information and summarizes it to produce accurate and trustworthy social media content."
+  },
+  "GenerateHTMLPost": {
+    "description": "Outputs the complete social media post and its illustration as an HTML page for easy sharing and platform compatibility."
+  },
+  "IncludeReferences": {
+    "description": "Adds appropriate references to the generated content, tailored to the social media platform for credibility."
+  },
+  "SelectTimePeriodAndPlace": {
+    "description": "Enables the user to choose a specific historical or futuristic era and optionally a location for the portrait transformation."
+  },
+  "AnalyzeAppearanceAndAge": {
+    "description": "Analyzes the uploaded portrait to determine the user's facial features and approximate age for accurate styling."
+  },
+  "MatchProfessionToEraAndPlace": {
+    "description": "Automatically selects a historically or futuristically appropriate profession based on the chosen time period and location."
+  },
+  "ApplyEraAccurateStyling": {
+    "description": "Transforms the portrait by adding era-appropriate clothing, tools, props, and environmental details while preserving facial features."
+  },
+  "GeneratePhotorealisticImage": {
+    "description": "Creates a high-resolution, photography-style image with natural lighting and fine textures that reflect the chosen era and profession."
+  },
+  "SupportFlexibleThemes": {
+    "description": "Allows the creation of portraits with historical, futuristic, or fantasy-inspired themes and settings."
+  },
+  "GenerateOptimizedPost": {
+    "description": "Automatically generates high-quality, platform-optimized social media posts using Google Gemini AI based on user-provided titles, keywords, and images."
+  },
+  "PublishToLinkedIn": {
+    "description": "Publishes generated posts directly to LinkedIn, supporting inclusion of uploaded images and tracking links."
+  },
+  "PublishToX": {
+    "description": "Publishes generated posts directly to X (formerly Twitter), supporting inclusion of tracking links."
+  },
+  "UploadImageForLinkedIn": {
+    "description": "Uploads images to be included in LinkedIn posts, as currently only LinkedIn supports image display."
+  },
+  "IncorporateTrackingLinks": {
+    "description": "Adds tracking links into the content of social media posts to enable performance monitoring."
+  },
+  "SchedulePostPublishing": {
+    "description": "Automates the scheduling and publishing of posts to supported social media platforms."
+  },
+  "GenerateTransparentMechanicalModel": {
+    "description": "Generates a hyper-realistic 8K HD transparent mechanical visualization of any specified electronic product, showing all internal circuits and mechanical details."
+  },
+  "RenderFullRealWorldForm": {
+    "description": "Renders the electronic product in its complete real-world form made entirely from transparent solid plastic with no missing or protruding parts."
+  },
+  "ApplyOpticalRefractionEffects": {
+    "description": "Applies realistic refraction and light distortion effects to create a strong sense of depth in the transparent mechanical model."
+  },
+  "CenterProductOnWhiteBackground": {
+    "description": "Positions the rendered product perfectly centered against a pure white background for a clean and professional presentation."
+  },
+  "UploadPetPhoto": {
+    "description": "Allows the user to upload a photo of their pet to be used in the generation process."
+  },
+  "SelectNFLTeam": {
+    "description": "Enables the user to choose an NFL team whose uniform will be applied to the pet's photo."
+  },
+  "GeneratePetInUniform": {
+    "description": "Generates an image of the uploaded pet wearing the selected NFL team's uniform during a game."
+  },
+  "CreateShareableContent": {
+    "description": "Transforms the generated pet image into unique, eye-catching content suitable for sharing on social media platforms."
+  },
+  "GenerateIDPhoto": {
+    "description": "Creates a high-quality ID photo that meets official requirements for passports, visas, and other IDs using AI technology."
+  },
+  "RemoveBackground": {
+    "description": "Automatically removes the background from the uploaded photo to comply with ID photo standards."
+  },
+  "CropAndAdjustImage": {
+    "description": "Precisely crops and adjusts the image, including head positioning, face dimensions, and resolution, to meet international ID photo standards."
+  },
+  "FacialRecognition": {
+    "description": "Accurately recognizes the user's face in the photo to ensure the final image is a clear and accurate representation."
+  },
+  "ValidatePhotoStandards": {
+    "description": "Checks the adjusted photo against official ID photo requirements to guarantee it will pass official checks."
+  },
+  "SelectHolidayTheme": {
+    "description": "Enables the user to specify a holiday theme, such as Halloween, Christmas, or Lunar New Year, to guide the costume generation."
+  },
+  "GenerateHolidayCostume": {
+    "description": "Automatically creates a photo-realistic holiday costume transformation based on the uploaded portrait and selected holiday theme."
+  },
+  "ApplyCharacterPreset": {
+    "description": "Selects and applies curated character presets appropriate for popular holidays to enhance the costume design."
+  },
+  "PreserveFacialFeatures": {
+    "description": "Ensures the user's authentic facial features and natural smile are maintained while blending seamlessly into the superhero scene."
+  },
+  "ProduceHighResolutionOutput": {
+    "description": "Generates a high-resolution image of the transformed portrait suitable for social sharing, posters, and greetings."
+  },
+  "VirtualTryOn": {
+    "description": "Transforms the outfit on a full-body photo by replacing the subject's attire with a new clothing style while preserving facial features, hairstyle, pose, and background."
+  },
+  "ProcessImageInputs": {
+    "description": "Accepts and processes two image inputs: a full-body human photo and a clothing reference image to prepare for outfit transformation."
+  },
+  "IntelligentRetryMechanism": {
+    "description": "Automatically detects and retries transient errors during image generation to ensure high reliability and consistent success rates."
+  },
+  "PreserveSubjectAttributes": {
+    "description": "Maintains the subject's face, hair, pose, and background intact during the outfit replacement process for a natural and seamless look."
+  },
+  "GenerateHighFidelityVisualization": {
+    "description": "Produces realistic, high-resolution virtual try-on images that clearly and accurately depict the new outfit on the subject."
+  },
+  "ErrorHandlingWorkflow": {
+    "description": "Manages errors comprehensively throughout the workflow to minimize failures and maintain smooth user experience."
+  },
+  "GenerateNineGridCollage": {
+    "description": "Converts a single pet photo into a visually appealing nine-grid collage instantly."
+  },
+  "ApplySmartAIAlignment": {
+    "description": "Optimizes spacing, focus, and visual harmony within the nine-grid layout using AI."
+  },
+  "SelectCustomTemplate": {
+    "description": "Allows users to choose from various templates such as playful, minimalist, or seasonal to style the nine-grid collage."
+  },
+  "GenerateGhibliStyleIllustration": {
+    "description": "Transforms an uploaded photo into a hand-painted Studio Ghibli–style illustration with soft colors, textured brushstrokes, and whimsical details."
+  },
+  "PreserveTrueFeatures": {
+    "description": "Ensures the generated illustration maintains the user's true facial features while applying the whimsical art style."
+  },
+  "JoinMeetingAsListener": {
+    "description": "Join Google Meet sessions as a silent listener to capture all spoken content without disrupting the meeting."
+  },
+  "GenerateTranscript": {
+    "description": "Create accurate transcripts of the meeting with speaker identification and timestamps throughout the session."
+  },
+  "GenerateSummary": {
+    "description": "Produce AI-powered summaries that highlight key discussion points, decisions made, and action items from the meeting."
+  },
+  "LeaveMeeting": {
+    "description": "Leave the Google Meet session at any point during or after the meeting, requiring manual invocation to end participation."
+  },
+  "GeneratePortraitGrid": {
+    "description": "Transforms a single photo into a grid of twelve portraits, each with distinct cinematic styles and expressions."
+  },
+  "SimulateFilmStockStyle": {
+    "description": "Applies classic film stock aesthetics such as Kodak Portra 400, Ilford HP5 Plus 400, and Fuji to portraits."
+  },
+  "ApplyMoodExpression": {
+    "description": "Modifies portraits to display various moods and expressions including smiling, laughing, dreamy, and confident."
+  },
+  "RenderPhotorealisticPortrait": {
+    "description": "Produces photorealistic portraits that preserve natural skin textures while applying artistic effects."
+  },
+  "ExtractVideoTranscript": {
+    "description": "Extracts the full transcript of a given YouTube video to capture all spoken content."
+  },
+  "ExtractVideoMetadata": {
+    "description": "Retrieves the author's description and the publication date of the YouTube video to provide comprehensive context."
+  },
+  "GenerateVideoSummary": {
+    "description": "Creates a detailed summary of the YouTube video's core content in either English or Chinese."
+  },
+  "ReviewAndCorrectSummary": {
+    "description": "Reviews the generated summary for factual inaccuracies and outdated information, making necessary corrections."
+  },
+  "FormatSummaryOutput": {
+    "description": "Presents the final summary text in a clean and readable format for easy consumption."
+  },
+  "CheckLegoFigBox": {
+    "description": "Retrieve detailed information about LegoFigBox available on the MuleRun Marketplace."
+  },
+  "ShareLegoFigBox": {
+    "description": "Share LegoFigBox details or links with others through supported channels."
+  },
+  "RunLegoFigBox": {
+    "description": "Execute or run LegoFigBox directly from the MuleRun Marketplace."
+  },
+  "ViewPlaybacks": {
+    "description": "Access and review playback sessions related to LegoFigBox."
+  },
+  "AnalyzePhoto": {
+    "description": "Intelligently analyzes the uploaded photo's light, composition, and subject to prepare for portrait transformation."
+  },
+  "GeneratePortrait": {
+    "description": "Transforms the analyzed photo into a high-resolution, studio-quality portrait that highlights the user's best features."
+  },
+  "EnhanceImageQuality": {
+    "description": "Applies enhancements to improve detail, texture, and lighting in the generated portrait for professional-grade output."
+  },
+  "OneClickPortraitGeneration": {
+    "description": "Enables fast and efficient creation of a professional portrait with a single user action."
+  },
+  "UploadSelfie": {
+    "description": "Allows the user to upload a single clear selfie photo as the base input for generating headshots."
+  },
+  "SubmitCustomizationPrompt": {
+    "description": "Enables users to provide a natural language prompt describing desired outfit, accessories, background, and style for the headshot."
+  },
+  "GenerateHeadshot": {
+    "description": "Generates a high-quality, studio-grade professional headshot based on the uploaded selfie and customization prompt."
+  },
+  "ApplyAIEnhancements": {
+    "description": "Automatically refines lighting, sharpness, and composition to produce realistic and polished portraits."
+  },
+  "GenerateVariations": {
+    "description": "Creates unlimited variations of professional headshots from the same base selfie and prompt."
+  },
+  "DownloadHighResolution": {
+    "description": "Provides high-resolution downloads of the generated headshots suitable for LinkedIn, resumes, dating profiles, and personal branding."
+  },
+  "GenerateHairstyleGrid": {
+    "description": "Generates a 3x3 grid displaying 9 unique hairstyle options applied to the uploaded portrait for easy comparison."
+  },
+  "RenderHighQualityHairstyles": {
+    "description": "Renders hairstyles with high-quality detail while preserving the user's true facial features."
+  },
+  "ExploreHairstyleCategories": {
+    "description": "Enables exploration of various hairstyle categories including casual, trendy, and professional looks."
+  },
+  "GenerateRandomZodiacAnimal": {
+    "description": "Randomly selects one of the 12 Chinese zodiac animals to pair with the user's photo."
+  },
+  "CreateZodiacPortrait": {
+    "description": "Generates a high-quality, realistic portrait combining the user's photo with the selected zodiac animal in a cute and friendly style."
+  },
+  "AdjustPhotoBlend": {
+    "description": "Automatically adjusts lighting, perspective, and details to seamlessly blend the user's photo with the zodiac animal for a natural-looking group photo."
+  },
+  "ProvideInstantResult": {
+    "description": "Delivers the final combined portrait quickly, ready for sharing or use as profile pictures or greeting cards."
+  },
+  "TransformSelfieToPortrait": {
+    "description": "Transforms a simple selfie into a high-quality portrait with professional lighting, color tones, and composition inspired by Kai Böttcher's photography style."
+  },
+  "GeneratePortraitWithLightingAndTones": {
+    "description": "Applies realistic lighting and natural color tones to the uploaded photo to create a visually appealing portrait."
+  },
+  "CreateShareReadyImage": {
+    "description": "Produces a finalized portrait image optimized for sharing on social media, resumes, or portfolios."
+  },
+  "SelectMarvelHero": {
+    "description": "Enables the user to choose from iconic Marvel characters such as Iron Man, Captain America, and Thor to appear alongside them in the portrait."
+  },
+  "GenerateHyperRealisticPortrait": {
+    "description": "Creates a hyper-realistic image placing the user side by side with the selected Marvel hero, preserving true facial features and natural expressions."
+  },
+  "ProduceProfessionalQualityImage": {
+    "description": "Generates a high-resolution, professional-quality image suitable for sharing and keepsakes."
+  },
+  "TextToSilhouetteArt": {
+    "description": "Transforms input text into typographic illustrations that fill the silhouette of a chosen object."
+  },
+  "SilhouetteSelection": {
+    "description": "Allows selection of an object silhouette to shape the typographic illustration."
+  },
+  "CurveAdaptation": {
+    "description": "Adjusts the typographic letters to smoothly follow the curves and contours of the chosen silhouette."
+  },
+  "ApplyColorPalette": {
+    "description": "Applies vibrant, high-contrast color palettes to enhance the visual impact of the illustration."
+  },
+  "GenerateVectorOutput": {
+    "description": "Produces clean, scalable vector-style artwork suitable for high-resolution and poster-ready use."
+  },
+  "GenerateHyperRealisticPhoto": {
+    "description": "Creates a lifelike image of the user standing next to Elon Musk with natural facial expressions."
+  },
+  "ApplyAppleStyleEventBackground": {
+    "description": "Adds an Apple-style event background with premium lighting and detailed effects to the generated photo."
+  },
+  "ProduceShareReadyImage": {
+    "description": "Generates a professional and polished final image that is ready for sharing."
+  },
+  "BackgroundRemoval": {
+    "description": "Automatically removes and replaces photo backgrounds with official standard colors such as white, light blue, red, or blue."
+  },
+  "FaceDetection": {
+    "description": "Uses AI-powered facial recognition to accurately detect and locate the face in the photo for clarity and compliance."
+  },
+  "PhotoCroppingAndResizing": {
+    "description": "Crops and resizes photos with pixel-level precision to meet official ID photo dimension requirements."
+  },
+  "HeadProportionCalibration": {
+    "description": "Automatically aligns and calibrates head position, size, and face proportions according to official standards."
+  },
+  "MultiStandardCompliance": {
+    "description": "Generates ID photos compliant with multiple standards including passports, visas, driver’s licenses, and student or office IDs."
+  },
+  "BackgroundColorCustomization": {
+    "description": "Allows users to change the background color of the ID photo to other official standard colors via prompts."
+  },
+  "CasualPhotoEnhancement": {
+    "description": "Transforms casual everyday photos into professional, compliant ID photos that look natural and sharp."
+  },
+  "GenerateIllustratedPost": {
+    "description": "Transforms input text such as quotes, poems, or jokes into a social media post with matching illustrations."
+  },
+  "CreateMarketingContent": {
+    "description": "Generates engaging marketing posts for products with styled text and illustrations."
+  },
+  "ShareOnSocialPlatforms": {
+    "description": "Formats and prepares posts for sharing on supported social media platforms like Twitter, Reddit, Instagram, and LinkedIn."
+  },
+  "GenerateHTMLPage": {
+    "description": "Outputs a complete HTML page containing the social media post and its matching illustration for easy sharing."
+  },
+  "TeleportToLocation": {
+    "description": "Instantly transport the user to any specified location based on a provided photo or bird's-eye view."
+  },
+  "ReuniteWithLovedOnes": {
+    "description": "Facilitate virtual reunions with loved ones, including those who are deceased, enabling shared moments and interactions."
+  },
+  "ReliveMemory": {
+    "description": "Allow the user to revisit and experience cherished past memories, such as hugs or significant moments."
+  },
+  "ProcessLocationPhoto": {
+    "description": "Analyze and interpret photos of desired locations or maps to determine teleportation coordinates."
+  },
+  "EarlyStageTokenDetection": {
+    "description": "Identifies pre-breakout high-potential crypto tokens using AI-powered analysis of multidimensional trading data."
+  },
+  "TokenMarketAnalysisReport": {
+    "description": "Generates comprehensive reports including trend forecasts, support and resistance levels, and volume analysis for tokens."
+  },
+  "RealTimeNewsAlerts": {
+    "description": "Provides critical real-time news updates that impact cryptocurrency prices."
+  },
+  "RiskRadar": {
+    "description": "Detects pump-and-dump schemes and abnormal market volatility to assess risk."
+  },
+  "GenerateLabubuPortrait": {
+    "description": "Transforms the uploaded selfie into a Labubu-inspired artwork within 60 seconds using AI."
+  },
+  "ApplyLabubuStyle": {
+    "description": "Applies the unique playful and whimsical Labubu artistic style to the portrait automatically."
+  },
+  "AutoAdjustImage": {
+    "description": "Automatically adjusts color, detail, and character consistency in the generated portrait without requiring manual edits."
+  },
+  "DownloadPortrait": {
+    "description": "Enables the user to download the final Labubu-style portrait for sharing or personal use."
+  },
+  "TransformCharacterToPuzzleToy": {
+    "description": "Transforms any character into a Puzzle Toy chibi style with an oversized head and tiny body for maximum cuteness."
+  },
+  "GeneratePuzzlePieceTexture": {
+    "description": "Creates realistic interlocking jigsaw puzzle piece textures that form the character's body."
+  },
+  "ApplySignatureCostumeColors": {
+    "description": "Applies the character's signature costume colors piece by piece onto the puzzle toy."
+  },
+  "AddPlayfulPuzzlePieceDetail": {
+    "description": "Adds a playful detail of the character holding a puzzle piece in hand."
+  },
+  "CreateCollectiblePortrait": {
+    "description": "Generates a collectible-style portrait combining creativity, nostalgia, and share-worthy charm."
+  },
+  "PrepareForSocialSharing": {
+    "description": "Formats the puzzle toy character image for optimal social media sharing and merchandising."
+  },
+  "GenerateTitles": {
+    "description": "Generates multiple high-conversion title options for images and social posts based on provided assets and preferences."
+  },
+  "AnalyzeVisualAndTextContent": {
+    "description": "Analyzes both visual and textual content to extract core hooks, themes, and audience intent."
+  },
+  "PlatformComplianceCheck": {
+    "description": "Ensures generated titles comply with platform-specific rules including character limits, style, and content guidelines."
+  },
+  "OptimizeForSEO": {
+    "description": "Enhances titles with keyword and SEO optimization to improve discoverability and recommendation potential."
+  },
+  "CustomizeTitleStyle": {
+    "description": "Allows customization of title tone, structure, call-to-action elements, numbers, emojis, and other stylistic preferences."
+  },
+  "BatchTitleGeneration": {
+    "description": "Generates multiple title versions in batch for quick selection and A/B testing."
+  },
+  "TransformPhotoToStickFigure": {
+    "description": "Transforms the user's body in a photo into a chalk-drawn stick figure with exaggerated, humorous poses."
+  },
+  "RetainPhotorealisticHead": {
+    "description": "Keeps the user's real 3D head photorealistic and integrates it seamlessly on top of the stick figure body."
+  },
+  "ApplyChalkboardBackground": {
+    "description": "Adds an authentic chalkboard-style background with chalk textures to the transformed image."
+  },
+  "GenerateExaggeratedPoses": {
+    "description": "Creates exaggerated and hilarious stickman poses to enhance the comedic effect of the image."
+  },
+  "CreateMixedRealismCartoonStyle": {
+    "description": "Blends photorealistic elements with cartoon sketch styles to produce a unique and playful visual."
+  },
+  "PrepareImageForSharing": {
+    "description": "Formats the final image to be instantly shareable on social media or usable as playful avatars and memes."
+  },
+  "GenerateWorkflowName": {
+    "description": "Automatically creates a memorable and polished name for an uploaded n8n workflow JSON."
+  },
+  "GenerateWorkflowDescription": {
+    "description": "Generates a clear and concise description for the uploaded n8n workflow JSON."
+  },
+  "GenerateLogoConcept": {
+    "description": "Creates a logo concept based on the uploaded workflow JSON to support consistent branding."
+  },
+  "GenerateShareableHtmlPreview": {
+    "description": "Produces a shareable HTML preview including the generated image link for easy distribution."
+  },
+  "SupportMultipleLanguages": {
+    "description": "Processes input in multiple languages to generate names, descriptions, and logos accordingly."
+  },
+  "ControlBrandVoice": {
+    "description": "Adjusts tone, style, and terminology of generated content to align with user-provided brand guidelines."
+  },
+  "GenerateVariantsAndABTests": {
+    "description": "Creates multiple content variants with different angles such as benefit-focused, curiosity-driven, and technical for A/B testing."
+  },
+  "ExportCopyReadyText": {
+    "description": "Exports generated content in a copy-ready format suitable for documentation, listings, and websites."
+  }
+}

@@ -1,0 +1,2 @@
+has_rewritten_tool_query,n_records,tools_per_record,top1_tool_mean,top3_tool_mean,best_tool_mean,tool_mean,tool_eq3_rate,tool_neg_rate,agent_mean,agent_eq3_rate
+False,150,13.9933,1.6067,1.1422,2.9867,1.3545,54.12,20.1,2.12,43.47

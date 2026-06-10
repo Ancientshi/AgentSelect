@@ -1,0 +1,206 @@
+recordId,dirname,rank,tool_name,score,question,rewritten_tool_query
+leaderboard_bbh_date_understanding_question_132,PartII,1,check_table_availability,-3,"User: Book a meeting for me, including all employees in the JD who are not traveling. Today is 2023.6.8, the meeting is from 14:00 to 15:00.
+AI: The meeting for the JD team has been scheduled successfully. It will take place on June 8, 2023, from 14:00 to 15:00 in Conference Room A. Both Mike and Jane, who are working from the office, will be attending the meeting.",
+leaderboard_math_algebra_hard_question_278,PartII,1,Linear Program Solver&&solve,-3,"User: ""Solve for x: 5x - 2 = 18.""
+AI: ==================================================
+User Message: Solve for x: 5x - 2 = 18.
+==================================================
+Initial Response:
+Stop Reason: tool_use
+Content: [TextBlock(text=""Okay, let's solve this step-by-step:"", type='text'), ToolUseBlock(id='toolu_01KcFkMBBqRwuYM1HcxcgBgU', input={'expression': '(18 + 2) / 5'}, name='calculator', type='tool_use')]
+Tool Used: calculator
+Tool Input: {'expression': '(18 + 2) / 5'}
+Tool Result: 4.0
+[TextBlock(text='Therefore, the solution for x is 4.', type='text')]
+Final Response: Therefore, the solution for x is 4.",
+leaderboard_mmlu_pro_question_1528,PartII,1,global_population_search,-3,"User: ""Discuss the cultural impact of the internet on global communication.""
+AI: [notice] A new release of pip is available: 24.0 -> 24.2[notice] To update, run: pip install --upgrade pipAdded user message to memory: Discuss the cultural impact of the internet on global communication.The internet has profoundly transformed global communication, reshaping cultural interactions and exchanges in numerous ways. Here are some key aspects of its cultural impact:1. **Increased Connectivity**: The internet has connected people from different parts of the world, allowing for real-time communication and collaboration. This has led to a more interconnected global community where cultural exchange is more accessible than ever before.2. **Cultural Exchange and Diversity**: The internet facilitates the sharing of cultural content, such as music, art, literature, and film, across borders. This has led to greater exposure to diverse cultures and traditions, fostering understanding and appreciation among different cultural groups.3. **Language and Communication**: While English has become a dominant language online, the internet also supports multilingual communication, allowing people to communicate in their native languages. Translation tools and platforms have made it easier for people to access content in different languages, promoting linguistic diversity.4. **Social Media and Identity**: Social media platforms have become spaces for cultural expression and identity formation. People can share their cultural experiences, traditions, and perspectives, contributing to a global dialogue on cultural identity and diversity.5. **Digital Activism and Social Movements**: The internet has empowered individuals and groups to organize and mobilize around cultural and social issues. Online platforms have been instrumental in raising awareness and driving change on issues such as human rights, environmental protection, and social justice.6. **Globalization and Cultural Homogenization**: While the internet promotes cultural exchange, it also raises concerns about cultural homogenization. The widespread influence of dominant cultures, particularly Western culture, can overshadow local traditions and practices, leading to a loss of cultural diversity.7. **Access to Information and Education**: The internet provides access to a vast array of information and educational resources, enabling people to learn about different cultures and histories. This has the potential to break down cultural barriers and promote cross-cultural understanding.8. **Challenges of Misinformation and Cultural Stereotypes**: The rapid spread of information online can also lead to the dissemination of misinformation and cultural stereotypes. This can perpetuate misunderstandings and biases, highlighting the need for critical media literacy.Overall, the internet has had a profound impact on global communication, offering both opportunities and challenges for cultural exchange and understanding. It continues to shape how cultures interact and influence each other in an increasingly connected world.",
+leaderboard_mmlu_pro_question_7511,PartII,1,Photolab&&Send image and get result,-3,"User: ""How do solar panels convert sunlight into electricity?""
+AI: [notice] A new release of pip is available: 24.0 -> 24.2
+[notice] To update, run: pip install --upgrade pip
+/opt/render/project/src/.venv/lib/python3.11/site-packages/langchain/tools/__init__.py:73: 
+`from langchain_community.tools import WikipediaQueryRun`.
+To install langchain-community run `pip install -U langchain-community`.
+  warnings.warn(
+/tmp/19343e85-e163-43a4-81e3-3527b27636bc.py:32: 
+> Entering new AgentExecutor chain...
+  agent = initialize_agent(tools, llm, agent=""zero-shot-react-description"", verbose=True, handle_parsing_errors=True)
+I need to find information about the process by which solar panels convert sunlight into electricity. This involves understanding the technology behind solar panels, specifically photovoltaic cells. 
+/tmp/19343e85-e163-43a4-81e3-3527b27636bc.py:36: 
+  output = agent.run(""How do solar panels convert sunlight into electricity?"")
+Action: wikipedia
+Action Input: ""how do solar panels convert sunlight into electricity""
+Observation: Page: Solar panel
+Summary: A solar panel is a device that converts sunlight into electricity by using photovoltaic (PV) cells. PV cells are made of materials that produce excited electrons when exposed to light. The electrons flow through a circuit and produce direct current (DC) electricity, which can be used to power various devices or be stored in batteries. Solar panels are also known as solar cell panels, solar electric panels, or PV modules.
+Solar panels are usually arranged in groups called arrays or systems. A photovoltaic system consists of one or more solar panels, an inverter that converts DC electricity to alternating current (AC) electricity, and sometimes other components such as controllers, meters, and trackers. Most panels are in solar farms, which  supply the electricity grid as can some rooftop solar.
+Some advantages of solar panels are that they use a renewable and clean source of energy, reduce greenhouse gas emissions, and lower electricity bills. Some disadvantages are that they depend on the availability and intensity of sunlight, require cleaning, and have high initial costs. Solar panels are widely used for residential, commercial, and industrial purposes, as well as in space, often together with batteries.
+Page: Solar power
+Summary: Solar power, also known as solar electricity, is the conversion of energy from sunlight into electricity, either directly using photovoltaics (PV) or indirectly using concentrated solar power. Solar panels use the photovoltaic effect to convert light into an electric current. Concentrated solar power systems use lenses or mirrors and solar tracking systems to focus a large area of sunlight to a hot spot, often to drive a steam turbine.
+Photovoltaics (PV) were initially solely used as a source of electricity for small and medium-sized applications, from the calculator powered by a single solar cell to remote homes powered by an off-grid rooftop PV system. Commercial concentrated solar power plants were first developed in the 1980s. Since then, as the cost of solar panels has fallen, grid-connected solar PV systems' capacity and production has doubled about every three years. Three-quarters of new generation capacity is solar, with both millions of rooftop installations and gigawatt-scale photovoltaic power stations continuing to be built.
+In 2023, solar power generated 5.5% (1,631 TWh) of global electricity and over 1% of primary energy, adding twice as much new electricity as coal. 
+Along with onshore wind power, utility-scale solar is the source with the cheapest levelised cost of electricity for new installations in most countries. 
+As of 2023, 33 countries generated more than a tenth of their electricity from solar, with China making up more than half of solar growth.
+Almost half the solar power installed in 2022 was mounted on rooftops. 
+Much more low-carbon power is needed for electrification and to limit climate change. The International Energy Agency said in 2022 that more effort was needed for grid integration and the mitigation of policy, regulation and financing challenges. Nevertheless solar may greatly cut the cost of energy.
+Page: Solar energy
+Summary: Solar energy is radiant light and heat from the Sun that is harnessed using a range of technologies such as solar power to generate electricity, solar thermal energy (including solar water heating), and solar architecture. It is an essential source of renewable energy, and its technologies are broadly characterized as either passive solar or active solar depending on how they capture and distribute solar energy or convert it into solar power. Active solar techniques include the use of photovoltaic systems, concentrated solar power, and solar water heating to harness the energy. Passive solar techniques include orienting a building to the Sun, selecting materials with favorable thermal mass or light-dispersing properties, and designing spaces that naturally circulate air.
+In 2011, the International Energy Agen
+Thought:I now know the final answer
+Final Answer: Solar panels convert sunlight into electricity using photovoltaic (PV) cells, which generate excited electrons when exposed to light. These electrons flow through a circuit, producing direct current (DC) electricity. An inverter then converts this DC electricity into alternating current (AC) electricity for use in homes and businesses.
+> 
+Solar panels convert sunlight into electricity using photovoltaic (PV) cells, which generate excited electrons when exposed to light. These electrons flow through a circuit, producing direct current (DC) electricity. An inverter then converts this DC electricity into alternating current (AC) electricity for use in homes and businesses.
+[notice] A new release of pip is available: 24.0 -> 24.2
+[notice] To update, run: pip install --upgrade pip
+/opt/render/project/src/.venv/lib/python3.11/site-packages/langchain/tools/__init__.py:73: 
+`from langchain_community.tools import WikipediaQueryRun`.
+To install langchain-community run `pip install -U langchain-community`.
+  warnings.warn(
+/tmp/f209f221-aa78-42b2-973d-c16213e4cb9f.py:32: 
+> Entering new AgentExecutor chain...
+  agent = initialize_agent(tools, llm, agent=""zero-shot-react-description"", verbose=True, handle_parsing_errors=True)
+I need to find information about the process by which solar panels convert sunlight into electricity. This involves understanding the technology behind solar panels, specifically photovoltaic cells. 
+/tmp/f209f221-aa78-42b2-973d-c16213e4cb9f.py:36: 
+  output = agent.run(""How do solar panels convert sunlight into electricity?"")
+Action: wikipedia
+Action Input: ""how do solar panels convert sunlight into electricity""
+Observation: Page: Solar panel
+Summary: A solar panel is a device that converts sunlight into electricity by using photovoltaic (PV) cells. PV cells are made of materials that produce excited electrons when exposed to light. The electrons flow through a circuit and produce direct current (DC) electricity, which can be used to power various devices or be stored in batteries. Solar panels are also known as solar cell panels, solar electric panels, or PV modules.
+Solar panels are usually arranged in groups called arrays or systems. A photovoltaic system consists of one or more solar panels, an inverter that converts DC electricity to alternating current (AC) electricity, and sometimes other components such as controllers, meters, and trackers. Most panels are in solar farms, which  supply the electricity grid as can some rooftop solar.
+Some advantages of solar panels are that they use a renewable and clean source of energy, reduce greenhouse gas emissions, and lower electricity bills. Some disadvantages are that they depend on the availability and intensity of sunlight, require cleaning, and have high initial costs. Solar panels are widely used for residential, commercial, and industrial purposes, as well as in space, often together with batteries.
+Page: Solar power
+Summary: Solar power, also known as solar electricity, is the conversion of energy from sunlight into electricity, either directly using photovoltaics (PV) or indirectly using concentrated solar power. Solar panels use the photovoltaic effect to convert light into an electric current. Concentrated solar power systems use lenses or mirrors and solar tracking systems to focus a large area of sunlight to a hot spot, often to drive a steam turbine.
+Photovoltaics (PV) were initially solely used as a source of electricity for small and medium-sized applications, from the calculator powered by a single solar cell to remote homes powered by an off-grid rooftop PV system. Commercial concentrated solar power plants were first developed in the 1980s. Since then, as the cost of solar panels has fallen, grid-connected solar PV systems' capacity and production has doubled about every three years. Three-quarters of new generation capacity is solar, with both millions of rooftop installations and gigawatt-scale photovoltaic power stations continuing to be built.
+In 2023, solar power generated 5.5% (1,631 TWh) of global electricity and over 1% of primary energy, adding twice as much new electricity as coal. 
+Along with onshore wind power, utility-scale solar is the source with the cheapest levelised cost of electricity for new installations in most countries. 
+As of 2023, 33 countries generated more than a tenth of their electricity from solar, with China making up more than half of solar growth.
+Almost half the solar power installed in 2022 was mounted on rooftops. 
+Much more low-carbon power is needed for electrification and to limit climate change. The International Energy Agency said in 2022 that more effort was needed for grid integration and the mitigation of policy, regulation and financing challenges. Nevertheless solar may greatly cut the cost of energy.
+Page: Solar energy
+Summary: Solar energy is radiant light and heat from the Sun that is harnessed using a range of technologies such as solar power to generate electricity, solar thermal energy (including solar water heating), and solar architecture. It is an essential source of renewable energy, and its technologies are broadly characterized as either passive solar or active solar depending on how they capture and distribute solar energy or convert it into solar power. Active solar techniques include the use of photovoltaic systems, concentrated solar power, and solar water heating to harness the energy. Passive solar techniques include orienting a building to the Sun, selecting materials with favorable thermal mass or light-dispersing properties, and designing spaces that naturally circulate air.
+In 2011, the International Energy Agen
+Thought:I now know the final answer
+Final Answer: Solar panels convert sunlight into electricity using photovoltaic (PV) cells, which generate excited electrons when exposed to light. These electrons flow through a circuit, producing direct current (DC) electricity. An inverter then converts this DC electricity into alternating current (AC) electricity for use in homes and businesses.
+> 
+Solar panels convert sunlight into electricity using photovoltaic (PV) cells, which generate excited electrons when exposed to light. These electrons flow through a circuit, producing direct current (DC) electricity. An inverter then converts this DC electricity into alternating current (AC) electricity for use in homes and businesses.",
+MTU_MMTN_question_19,PartII,1,Kitten Placeholder&&Cat,-3,"User: 
+I'm planning a virtual party for my friends and I want to keep everyone entertained. Can you suggest some manatee jokes, chuck Norris jokes, and funny gifs that I can share in our group chat?
+Begin!
+
+AI: {
+""return_type"": ""give_answer"",
+""final_answer"": ""For some manatee jokes, you can share this one: 'What is the preferred beverage of British whales? Earl Grey manatea.'\n\nAs for Chuck Norris jokes, here's one: 'Chuck Norris doesn't clip his fingernails... he rips them out with his bare hands and regrows new ones immediately.'\n\nFor funny gifs, you can share these:\n1. Gif 1: ![Gif 1](https://media.tenor.com/d4sPgSJml54AAAAC/opihomm-funny.gif)\n2. Gif 2: ![Gif 2](https://media.tenor.com/nywtA7PYJrMAAAAC/monke-funny-monke.gif)\n3. Gif 3: ![Gif 3](https://media.tenor.com/kE3Eiew6niwAAAAC/too-funny-funny.gif)\n\nAnd here's a funny joke for you: 'Why don't scientists trust atoms? Because they make up everything!'\n\nHave a great virtual party with your friends!""
+}",
+MTU_MSTS_question_34,PartII,1,Twitch API&&Get User Id,-3,"User: 
+I want to analyze the transfer events for chainId 54321 and need the transaction data. Additionally, I would like to fetch the balances of tokens in the faucet.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",
+leaderboard_bbh_object_counting_question_221,PartII,1,Pinnacle Odds&&List of markets,-3,"User: 
+I'm planning a family workout session at home and I need a customized workout plan. Please generate a 45-minute workout plan that focuses on the legs and requires dumbbells as equipment. Additionally, provide me with a list of food items that are suitable for a post-workout meal.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Here is a 45-minute workout plan focusing on the legs and requiring dumbbells as equipment:\n\nWarm Up:\n- Jumping Jacks (5 minutes)\n- Leg swings (5 minutes)\n- High knees (5 minutes)\n\nExercises:\n- Goblet Squats (3 sets of 12-15 repetitions)\n- Bulgarian Split Squats (3 sets of 12-15 repetitions)\n- Dumbbell Lunges (3 sets of 12-15 repetitions)\n- Romanian Deadlifts (3 sets of 12-15 repetitions)\n- Calf Raises (3 sets of 12-15 repetitions)\n\nCool Down:\n- Leg Stretches (5 minutes)\n- Walking or light jogging (5 minutes)\n\nHere are some food items suitable for a post-workout meal:\n\n1. Aloo Paratha: 330 calories, 47.72g of carbohydrates, 13.45g of fat, and 5.94g of protein.\n[More Info](https://indnutrientsapi.tech/food/name/Aloo-Paratha)\n\n2. Aloo Matar: 123 calories (carbohydrates, fat, and protein information is missing).\n[More Info](https://indnutrientsapi.tech/food/name/Aloo-Matar)""
+}",
+leaderboard_ifeval_question_177,PartII,1,set_single_alarm,-3,"User: 
+I'm feeling down and could use a good laugh. How about finding me a funny joke? It should be short and witty. Also, I'd like to browse through a collection of jokes to keep the laughter going. Can you help me with that?
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Sure! Here's a short and witty joke for you: What do you call people who pretend to be Irish on St. Patrick's Day? Counterfitz. And if you'd like to browse through a collection of jokes, you can find them here: [link to the collection of jokes]. Enjoy your laughter!""
+}",
+MTU_MSTS_question_144,PartII,1,"Portfolio Performance and Risk Analytics - Basic&&Calculate the periodic XIRR for a portfolio, a basket of investment, a position, an asset or a trade",-3,"User: 
+My company is expanding its online presence and we need reliable proxies to manage multiple social media accounts. Can you recommend some tier 1 proxies that support HTTPS and have low latency? Furthermore, I would like to detect if any of these proxies are anonymous. Please assist me with this.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",
+MTU_MSTS_question_62,PartII,1,Happy Birthday API&&Greet me Cuz it's my Birthday and I'm lonely!,-3,"User: 
+I'm planning a surprise anniversary party for my parents and I need help with the preparations. Can you suggest some creative party themes and decorations? I also want to gather news articles about successful marriage milestones for inspiration. Additionally, I would appreciate information about local event venues and caterers.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",
+leaderboard_ifeval_question_283,PartII,1,SteamGames Special offers&&GamesData,-3,"User: 
+I'm planning a Fortnite-themed game night with my friends, and we need some cool skins to dress up as. Can you search for available Fortnite skins in the system and provide me with a list? Additionally, fetch the profile of the Steam Community group 'l4d' to see if they have any announcements or comments related to Fortnite. Furthermore, fetch a list of my aliases and the dates they were changed using the User Aliases API.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Here's the information I found:\n\n- Available Fortnite skins: [No data available]\n- Steam Community group 'l4d' profile:\n  - Group name: Left 4 Dead\n  - Founded: August 6, 2007\n  - Latest announcements: \n    - Evolve Game announced, Turtle Rock's Next Project: [Link](https://steamcommunity.com/groups/l4d/announcements/detail/1748820951345138057)\n    - Left 4 Dead Addicts: Comedy Videos!: [Link](https://steamcommunity.com/groups/l4d/announcements/detail/73339197635892763)\n- Your Steam Community aliases: [No aliases recorded]""
+}",
+MTU_MMTN_question_24,PartII,1,QR Code API updated&&qr endpoint,-3,"User: 
+Find the document types that have been modified in the last 24 hours. Retrieve the updated document types and provide me with the list. Additionally, search for the companies that have been modified recently and fetch the lyrics for the song 'Bad' by Michael Jackson.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",
+leaderboard_bbh_logical_deduction_five_objects_question_148,PartII,1,SpaceX API&&b6777bac-f225-41af-ab9d-db80a7de448b,-3,"User: 
+I am organizing a Beyblade tournament for my friends and I need to gather information about the latest Beyblades available. Fetch the details of the top 10 Beyblades from the 'beyblade-api' tool and also provide me with the list of all the matches scheduled for the tournament from the 'Official World Cup' tool.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Here are the details of the top 10 Beyblades:\n1. Abyss Devolos D6 5 Fusional-SP\n2. Abyss Diabolos 5 Fusion' 1S\n3. Abyss Fafnir F6 Wheel-SP Evolution\n4. Abyss Longinus 13 Spiral' 4A\n5. Ace Ashura 00Meteor Variable' Retsu\n6. Ace Dragon 0Glaive Zephyr' Ten\n7. Ace Dragon D5 Sting Charge I-H\n8. Ace Dragon Drake-P Reboot Zan\n9. Ace Dragon Sting Cha...\n\nI apologize for not being able to fetch the list of matches scheduled for the tournament. If you have any other queries, feel free to ask.""
+}",
+MTU_MSTS_question_180,PartII,1,Volleyball Data&&Tournament Info,-3,"User: 
+I am planning a surprise party for my best friend's birthday. Can you suggest some popular songs from the France Songs chart on Billboard? Also, provide me with information about the venue where the party can be held. Additionally, find some interesting comments about the songs from the Deezer comment API.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",
+leaderboard_bbh_logical_deduction_seven_objects_question_121,PartII,1,calculator&&add,-3,"User: 
+I'm writing an article about flowers and I need some information. Can you fetch the details of a specific flower using its ID? Also, I would like to include the ZIP code detail for a specific location in the article.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""The flower I found is the African Daisy (Osteospermum). It is an excellent choice for bright and beautiful blooms throughout summer and fall. The ZIP code 90210 corresponds to Beverly Hills in Los Angeles County. The population of Beverly Hills is 19,627, with a racial majority of White (86.31%). The unemployment rate is 5.1% and the median household income is $154,740. The details of the flower and location can be included in the article.""
+}",
+PartII_question_32123,PartII,1,hello 123&&addPet,-3,"User: 
+I am searching for cat breeds using the keyword 'american'. Can you search for cat breeds using the keyword 'american'? Moreover, provide me with the details of a single cat breed with ID 34.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""The keyword 'american' matches multiple cat breeds. One of them is the American Bobtail, which is a natural breed. It is most notable for its stubby 'bobbed' tail and originates from the United States and Canada. The fur color of the American Bobtail is silver and dilute colors. Another breed is the American Curl, also a natural breed. It is known for its distinctive curled ears. As for the cat breed with ID 34, it is the Desert Lynx. It is a mixed breed cat, a cross between the American Lynx, Maine Coon, and Pixie Bob. The Desert Lynx is outgoing, playful, and social, with fur colors including chocolate brown, silver, ebony, and blue. It originates from the United States.""
+}",
+leaderboard_ifeval_question_43,PartII,1,Optimism&&Current Block Number,-3,"User: 
+I need some inspiration for a blog post I'm writing about happiness. Can you provide me with a quote of the day related to happiness? Additionally, I'm curious about the vehicle information for a car with license plates 'XYZ987'. Can you give me the details?
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Here is a quote of the day related to happiness: 'Plant thy foot firmly in the prints which His foot has made before thee.' - Joseph Barber Lightfoot.""
+}",
+leaderboard_mmlu_pro_question_9975,PartII,1,Powerball&&Random QuickPick for Play,-3,"User: 
+I'm hosting a game night with my friends and I need some trivia questions. Can you provide me with random trivia facts? Also, share a Chuck Norris joke to lighten the mood.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Trivia fact: The number of checkers each side has at the start of a backgammon game is 15. Chuck Norris joke: Chuck Norris doesn't clip his fingernails... he rips them out with his bare hands and regrows new ones immediately.""
+}",
+MTU_MSTS_question_110,PartII,1,search_available_rooms,-3,"User: 
+I'm interested in buying a property in San Francisco, California. Could you provide me with a list of available properties including their details like address, listing price, square footage, number of bedrooms, and bathrooms? Additionally, I would like to know the names of real estate agents associated with these properties and their office details.
+Begin!
+
+AI: {
+  ""return_type"": ""give_answer"",
+  ""final_answer"": ""Here is a list of available properties in San Francisco, California:\n\n1. Address: 1739 19th Ave, San Francisco, CA 94122\n   Listing Price: $475,791\n   Square Footage: N/A\n   Number of Bedrooms: N/A\n   Number of Bathrooms: N/A\n   Real Estate Agent: N/A\n\nUnfortunately, I was unable to retrieve the names of real estate agents associated with these properties. If you have any other questions or need further assistance, feel free to ask!""
+}",
+leaderboard_bbh_object_counting_question_30,PartII,1,SofaSport&&Rounds,-3,"User: 
+I'm planning a surprise party for my family and I need some unique and healthy food ideas. Can you provide me with nutritional analysis for the ingredient 'avocado' and suggest some recipes that incorporate avocado? Additionally, I would like to know if there are any vaccination guidelines for children that I should be aware of.
+Begin!
+
+AI: {
+  ""return_type"": ""give_up_and_restart""
+}",

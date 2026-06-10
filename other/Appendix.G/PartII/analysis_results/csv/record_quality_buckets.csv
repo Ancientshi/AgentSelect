@@ -1,0 +1,5 @@
+metric,count,total,percent,ci95_low,ci95_high
+Record has >=1 score-3 retrieved tool,149,150,99.33333333333333,96.32062470660242,99.88222289768663
+Record has >=1 negative retrieved tool,112,150,74.66666666666667,67.15044398939715,80.9509798127474
+Record all retrieved tools are negative,0,150,0.0,0.0,2.4971139145718713
+Record top-1 retrieved tool scores 3,99,150,66.0,58.10413820559242,73.09678534174458

@@ -1,0 +1,806 @@
+tool_name,n,mean_score,score3_rate,negative_rate
+Travelling Salesman&&solve,24,-3.0,0.0,100.0
+Bad Word Filter&&Bad Word Filter,17,-2.7059,0.0,94.12
+TikTok captcha&&Captcha 3D (two the same shapes),17,-3.0,0.0,100.0
+TikTok captcha&&Captcha circle,17,-3.0,0.0,100.0
+Sentiment Analysis&&sentence,14,-2.6429,0.0,92.86
+Word Scramble&&scramble/{word},13,-2.6923,0.0,92.31
+TikTok captcha&&Check balance,12,-3.0,0.0,100.0
+Wordle Breaker&&Get Last Letter,11,-3.0,0.0,100.0
+Just Compare&&Word Compare,10,1.5,50.0,20.0
+Semantic Analysis&&Texts_Comparison_v1_text_compare_post,9,2.1111,22.22,0.0
+AI endpoint&&Question endpoint,9,1.2222,33.33,11.11
+Linear Program Solver&&solve,9,-0.6667,0.0,44.44
+Lingulab&&Get Updated Text,9,-2.5556,0.0,88.89
+Food Quiz&&all questions,9,-3.0,0.0,100.0
+Food Quiz&&levels,9,-3.0,0.0,100.0
+Kiann_Options_Project&&opt_theta,9,-3.0,0.0,100.0
+Lingulab&&Login,9,-3.0,0.0,100.0
+Text Similarity&&Text Similarity (get),8,2.0,25.0,0.0
+Lingulab&&Get Keyword Items,8,-3.0,0.0,100.0
+Lingulab&&Get Languages,8,-3.0,0.0,100.0
+Wimsup Referrals&&Items,8,-3.0,0.0,100.0
+Treediff&&diff,7,0.4286,0.0,28.57
+Kiann_Options_Project&&opt_gamma,7,-3.0,0.0,100.0
+Text Similarity&&Text Similarity (post),6,1.8333,33.33,0.0
+Yes No Maybe&&My answer,6,-1.3333,0.0,66.67
+Microserv.io NLP Service&&ColemanLiauReadability,6,-3.0,0.0,100.0
+TextGears&&Delete exception,6,-3.0,0.0,100.0
+TextGears&&Language detection,6,-3.0,0.0,100.0
+Photomath&&maths/solve-problem,5,3.0,100.0,0.0
+Named Entity Extraction&&named_entity_extraction,5,2.6,80.0,0.0
+Named-entity recognition&&ner,5,2.6,80.0,0.0
+Geometric Calculation&&Segment Intersect,5,0.4,20.0,40.0
+Geometric Calculation&&Delaunay Triangulation,5,-0.4,0.0,40.0
+Geometric Calculation&&Minkowski Diff,5,-0.4,0.0,40.0
+Text Analysis&&language-detection,5,-1.2,0.0,60.0
+Book of Answers&&Yes,5,-1.8,0.0,80.0
+Simulately Roll Dice&&default,5,-2.0,0.0,80.0
+Text Readability&&analyze,5,-2.2,0.0,80.0
+Face Comparison&&face comparison,5,-3.0,0.0,100.0
+Kiann_Options_Project&&opt_rho,5,-3.0,0.0,100.0
+Profanity Cleaner (Bad Word Filter)&&Profanity,5,-3.0,0.0,100.0
+SONOTELLER.AI&&Lyrics Analysis,5,-3.0,0.0,100.0
+Wordle Answers Solutions&&All Solutions,5,-3.0,0.0,100.0
+Wordle Answers Solutions&&Today,5,-3.0,0.0,100.0
+rosacrypto&&7.getallmatchedpair(trades),5,-3.0,0.0,100.0
+Time Interpreter&&time interpreter endpoint,4,2.75,75.0,0.0
+Color Detection&&Image Color Analysis,4,2.5,75.0,0.0
+Just Compare&&Char Compare,4,1.5,75.0,25.0
+AIbit translator&&Translate Text,4,1.0,0.0,0.0
+Number Array&&default,4,0.75,25.0,25.0
+sort&&default,4,0.75,25.0,25.0
+AIbit translator&&Translate JSON,4,0.0,0.0,25.0
+Webit Language&&Break Sentence,4,0.0,0.0,25.0
+Geometric Calculation&&Polyline Simplyfication,4,-0.5,25.0,50.0
+Geometric Calculation&&Polygon Outer Offset,4,-1.0,0.0,50.0
+Sentiment & Language Detection (AI)&&Detect Language,4,-1.0,0.0,50.0
+AIbit translator&&Detect language,4,-2.0,0.0,75.0
+Semantic Analysis&&Language_Detection_v1_lang_detect_post,4,-2.0,0.0,75.0
+terrode&&default,4,-2.0,0.0,75.0
+AIbit translator&&Get Supported Languages,4,-3.0,0.0,100.0
+CatchLoc&&Checking the Recent Location Information API,4,-3.0,0.0,100.0
+CatchLoc&&Checking the information of the registered object API,4,-3.0,0.0,100.0
+De Fi Crypto Currency Exchange&&swap,4,-3.0,0.0,100.0
+De Fi Crypto Currency Exchange&&tokens,4,-3.0,0.0,100.0
+Gift Card Rewards - Deprecated - Use Rewards as a Service&&PurchaseCard,4,-3.0,0.0,100.0
+MapboxDirection&&getOptimalWalking,4,-3.0,0.0,100.0
+Microserv.io NLP Service&&SmogReadability,4,-3.0,0.0,100.0
+National Football Players&&Players at Position,4,-3.0,0.0,100.0
+Personal Info Detector&&pii,4,-3.0,0.0,100.0
+Profanity Buster&&/profanities,4,-3.0,0.0,100.0
+Spellcheck + Tokenization + Wordbreak&&GET/v1/tokenize,4,-3.0,0.0,100.0
+Twinword Text Analysis Bundle&&Word (post),4,-3.0,0.0,100.0
+Wimsup Referrals&&Register Item,4,-3.0,0.0,100.0
+rolldice&&default,4,-3.0,0.0,100.0
+rosacrypto&&5.getorderbookbuy,4,-3.0,0.0,100.0
+rosacrypto&&5.getorderbooksell,4,-3.0,0.0,100.0
+rosacrypto&&8.getcandles,4,-3.0,0.0,100.0
+Data.Police.UK&&Outcomes for a specific crime,3,3.0,100.0,0.0
+Date Calculator API&&postCheckDayDiff,3,3.0,100.0,0.0
+Date Calculator&&edate,3,3.0,100.0,0.0
+TextGears&&Grammar check,3,3.0,100.0,0.0
+Data.Police.UK&&Crimes at location,3,2.6667,66.67,0.0
+Date Calculator&&datedif,3,2.3333,33.33,0.0
+Geneea Interpretor NLP&&Named Entity Recognition (NER),3,2.3333,66.67,0.0
+Text Analysis&&named-entity-recognition,3,2.3333,66.67,0.0
+Date Analyzer&&Date From Text,3,2.0,0.0,0.0
+chatOPT&&write,3,1.6667,33.33,0.0
+Criminal Records Search&&/GetArchiveReport,3,1.3333,0.0,0.0
+Criminal Records Search&&/GetReport,3,1.3333,0.0,0.0
+Deepmind&&Think,3,1.0,66.67,33.33
+Microfacts&&Entity detection,3,1.0,66.67,33.33
+Microfacts&&entity,3,0.6667,33.33,33.33
+Sentiment & Language Detection (AI)&&Detect Sentiment,3,0.6667,33.33,33.33
+Geometric Calculation&&Voronoi Diagram,3,0.3333,0.0,33.33
+Report Insight Test&&Analysis,3,-0.3333,0.0,33.33
+Sentiment & Language Detection (AI)&&Detect Tags,3,-0.3333,0.0,33.33
+TextGears&&Spell checker,3,-0.3333,0.0,33.33
+Lingulab&&Get Help,3,-1.3333,0.0,66.67
+Spellcheck + Tokenization + Wordbreak&&GET/v1/spellcheck,3,-1.3333,0.0,66.67
+Gramma Error&&default,3,-1.6667,0.0,66.67
+Lab2&&Incognito Location,3,-1.6667,0.0,66.67
+Numbers&&Get math fact,3,-1.6667,0.0,66.67
+PFun CMA Model API&&/run,3,-1.6667,0.0,66.67
+PFun CMA Model API&&/run-at-time,3,-1.6667,0.0,66.67
+Twinword Text Analysis Bundle&&Extract (post),3,-1.6667,0.0,66.67
+Twinword Text Analysis Bundle&&Text Similarity (post),3,-1.6667,0.0,66.67
+demo&&api,3,-1.6667,0.0,66.67
+detect sentence&&default,3,-1.6667,0.0,66.67
+BAS-IP multiapartment panels&&/access/general/lock/delay/{lockNumber},3,-3.0,0.0,100.0
+BAS-IP multiapartment panels&&/access/general/lock/timeout/{lockNumber},3,-3.0,0.0,100.0
+BAS-IP multiapartment panels&&/access/timeprofile/link/sensor,3,-3.0,0.0,100.0
+BAS-IP multiapartment panels&&/device/call/talk/timeout,3,-3.0,0.0,100.0
+Book Finder&&Find books,3,-3.0,0.0,100.0
+CatchLoc&&[Group Management] API access for Group's device list,3,-3.0,0.0,100.0
+Date Calculator&&year_fractions,3,-3.0,0.0,100.0
+DeepShifter&&Uniswap Quote,3,-3.0,0.0,100.0
+EntreAPI Faker&&Replace Credit Card Symbols,3,-3.0,0.0,100.0
+Gangster Speak Translator API&&Translate,3,-3.0,0.0,100.0
+IMAGE CAPTCHA SOLVER  Daddy&&Solve,3,-3.0,0.0,100.0
+Jibber Analyzer&&Analyze (English),3,-3.0,0.0,100.0
+Jibber Analyzer&&Analyze (French),3,-3.0,0.0,100.0
+Jibber Analyzer&&Analyze (Spanish),3,-3.0,0.0,100.0
+Kiann_Options_Project&&opt_vega,3,-3.0,0.0,100.0
+MapboxDirection&&getOptimalDrivingTraffic,3,-3.0,0.0,100.0
+Neural Painting&&Image,3,-3.0,0.0,100.0
+Neural Painting&&Video,3,-3.0,0.0,100.0
+News Classification&&News Topic Modelling,3,-3.0,0.0,100.0
+PayPal&&simulateWebhookEvent,3,-3.0,0.0,100.0
+Profanity Detector&&check,3,-3.0,0.0,100.0
+Randomath&&Random divison,3,-3.0,0.0,100.0
+Riddlie &&Create New Riddle (Admin Only),3,-3.0,0.0,100.0
+Riddlie &&Riddle by Difficulty Level,3,-3.0,0.0,100.0
+Riddlie &&Riddle by ID,3,-3.0,0.0,100.0
+String in Reversed&&default,3,-3.0,0.0,100.0
+Travelling Salesman&&exampleProblem,3,-3.0,0.0,100.0
+Users&&test,3,-3.0,0.0,100.0
+Video Builder&&video/create,3,-3.0,0.0,100.0
+VisualInfo&&Analyze,3,-3.0,0.0,100.0
+WordOfTheDay&&GET WordOfTheDay,3,-3.0,0.0,100.0
+Yahoo Finance&&options,3,-3.0,0.0,100.0
+plot2txt&&Kernel,3,-3.0,0.0,100.0
+reverse&&default,3,-3.0,0.0,100.0
+teamriverbubbles random utilities&&kd calculator,3,-3.0,0.0,100.0
+word cloud&&search,3,-3.0,0.0,100.0
+CrystalFeel API&&crystal_lace,2,3.0,100.0,0.0
+GrammarBot Neural&&check,2,3.0,100.0,0.0
+GrammarBot&&check,2,3.0,100.0,0.0
+Link Safe API&&Solve Text,2,3.0,100.0,0.0
+MonkeyLearn&&classify,2,3.0,100.0,0.0
+Nomen Loco&&score,2,3.0,100.0,0.0
+Regim&&Dominant colors,2,3.0,100.0,0.0
+Similar Movies&&find similar,2,3.0,100.0,0.0
+Similar Movies&&get Id,2,3.0,100.0,0.0
+Tables OCR&&Tables,2,3.0,100.0,0.0
+Text2Table&&text2table,2,3.0,100.0,0.0
+Webit Language&&Analyze Grammar,2,3.0,100.0,0.0
+WindSchedulingAPI&&scheduling demo,2,3.0,100.0,0.0
+Color Extractor for Apparel 2&&/colors,2,2.5,50.0,0.0
+Geneea Interpretor NLP&&Sentiment,2,2.5,50.0,0.0
+Similarity Compare&&default,2,2.5,50.0,0.0
+Text Classification&&class-2.0,2,2.5,50.0,0.0
+FinancAI&&Named Entities Recognition,2,2.0,50.0,0.0
+Geometric Calculation&&Is Convex Polygon,2,2.0,0.0,0.0
+Semantic Analysis&&Text_Analysis_v1_text_analysis_post,2,2.0,0.0,0.0
+Paraphrase Genius&&Paraphrase,2,1.5,0.0,0.0
+People Also Ask API&&People also ask,2,1.5,0.0,0.0
+Pro Chem&&/academicapi/echo,2,1.5,0.0,0.0
+solswtestapi&&Division,2,1.5,0.0,0.0
+Fast Text Similarity&&Fast Text Similarity,2,1.0,0.0,0.0
+Lingulab&&Get Result,2,1.0,0.0,0.0
+Semantic Analysis&&Text_Categorization_v1_text_categorize_post,2,1.0,0.0,0.0
+data-extractor&&extract-all,2,1.0,0.0,0.0
+AIception&&getDetectObjectTask,2,0.0,50.0,50.0
+General Image Detection&&Analyze Image,2,0.0,50.0,50.0
+Grammar and Spellcheck&&test,2,0.0,50.0,50.0
+Real-Time Lens Data&&Object Detection,2,0.0,50.0,50.0
+Geofencing&&Polygon,2,-0.5,0.0,50.0
+Geofencing&&Polygon Batch,2,-0.5,0.0,50.0
+Geometric Calculation&&Polygon Triangulation,2,-0.5,0.0,50.0
+Humor-Jokes-and-Memes&&analyze-joke,2,-0.5,0.0,50.0
+ID Verify&&/GetArchiveReport,2,-0.5,0.0,50.0
+ID Verify&&/GetReport,2,-0.5,0.0,50.0
+Sentiment Analysis Portuguese BR&&Sentiment,2,-0.5,0.0,50.0
+Simple Math Problems&&Get Multiplication Problems,2,-0.5,0.0,50.0
+Simulately Roll&&default,2,-0.5,0.0,50.0
+Geometric Calculation&&Polygon Overlap,2,-1.0,0.0,50.0
+Geometric Calculation&&Rectangle Packing,2,-1.0,0.0,50.0
+Language Tools&&/rephrase-joke,2,-1.0,0.0,50.0
+Poke&&getPokemonColorByName,2,-1.0,0.0,50.0
+Sharp Odds Maker API&&Calculate Basic Odds - Uses 1 Call,2,-1.0,0.0,50.0
+Spotify Data&&artist-related,2,-1.0,0.0,50.0
+TheClique&&Filmography,2,-1.0,0.0,50.0
+Time Travel&&default,2,-1.0,0.0,50.0
+Treediff&&merge,2,-1.0,0.0,50.0
+Unicode Obfuscator&&sdf,2,-1.0,0.0,50.0
+geojoins&&covers,2,-1.0,0.0,50.0
+retrieve info&&Get random joke,2,-1.0,0.0,50.0
+retrieve info&&Submit a joke for approval,2,-1.0,0.0,50.0
+retrieve info&&Upvote a joke,2,-1.0,0.0,50.0
+timet&&default,2,-1.0,0.0,50.0
+travel velocity and distance&&default,2,-1.0,0.0,50.0
+AI Face Swap&&swap,2,-3.0,0.0,100.0
+AdVerifai-es&&source_check,2,-3.0,0.0,100.0
+Ball&&Football,2,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&Amazon Bestsellers List,2,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&Barnes & Noble Book Blockbusters,2,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&HarperCollins Global Publisher Bestsellers,2,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&Random House Global Publisher Bestsellers,2,-3.0,0.0,100.0
+CatchLoc&&[Group Management] API access for modifying group information,2,-3.0,0.0,100.0
+Dammy-Task&&Updatetask,2,-3.0,0.0,100.0
+Dammy-Task&&deletetask,2,-3.0,0.0,100.0
+Dammy-Task&&deleteuser,2,-3.0,0.0,100.0
+DeepL API&&Translate,2,-3.0,0.0,100.0
+DocTop&&German topics,2,-3.0,0.0,100.0
+Emlalock&&AddMinimumRandom,2,-3.0,0.0,100.0
+Face Compare&&Face Compare,2,-3.0,0.0,100.0
+Face Swap&&swap,2,-3.0,0.0,100.0
+Face Swapper&&swap,2,-3.0,0.0,100.0
+Fast Text Toxicity Detection&&Get Text Toxicity,2,-3.0,0.0,100.0
+Formula 1 - fixed&&Listoffinishingstatusforaspecificroundinaseason,2,-3.0,0.0,100.0
+Formula 1 - fixed&&Listoffinishingstatusforaspecificseason,2,-3.0,0.0,100.0
+GeoAPI&&Get Cities in a Country,2,-3.0,0.0,100.0
+GeoAPI&&Get City Detail,2,-3.0,0.0,100.0
+GeoAPI&&Get Country Details,2,-3.0,0.0,100.0
+Geometric Calculation&&Rectangle Max Empty,2,-3.0,0.0,100.0
+Giphy&&STICKER Translate,2,-3.0,0.0,100.0
+Giphy&&Search,2,-3.0,0.0,100.0
+Greip&&/badWords,2,-3.0,0.0,100.0
+Image Similarity&&ImagePaths,2,-3.0,0.0,100.0
+Image Similarity&&ImageURLs,2,-3.0,0.0,100.0
+India Passport OCR&&India Passport OCR,2,-3.0,0.0,100.0
+Instagram API&&Location by Id,2,-3.0,0.0,100.0
+JIRA&&getDashboardProperty,2,-3.0,0.0,100.0
+JIRA&&getProperty,2,-3.0,0.0,100.0
+JIRA&&updateSelectFieldOptions,2,-3.0,0.0,100.0
+Jibber Analyzer&&Analyze (Dutch),2,-3.0,0.0,100.0
+Jibber Analyzer&&Analyze (Italian),2,-3.0,0.0,100.0
+Kiann_Options_Project&&Sunction-one,2,-3.0,0.0,100.0
+Kiann_Options_Project&&vol_strike,2,-3.0,0.0,100.0
+Linguist&&Counter,2,-3.0,0.0,100.0
+Lowest Common&&default,2,-3.0,0.0,100.0
+MapboxDirection&&getOptimalCycling,2,-3.0,0.0,100.0
+Masehi ke Hijriyah&&tanggal,2,-3.0,0.0,100.0
+Microsoft Content Moderator&&OCR [File],2,-3.0,0.0,100.0
+Microsoft Content Moderator&&OCR [URL],2,-3.0,0.0,100.0
+National Football Players&&Positions,2,-3.0,0.0,100.0
+Numbers&&Get year fact,2,-3.0,0.0,100.0
+Otapi Aliexpress&&Get Item,2,-3.0,0.0,100.0
+Otapi Aliexpress&&Get Vendor,2,-3.0,0.0,100.0
+People Detection&&Analyze Image,2,-3.0,0.0,100.0
+Pocket Cube Solver&&getAllSolutions,2,-3.0,0.0,100.0
+Randomath&&Random addition,2,-3.0,0.0,100.0
+Randomath&&Random multiplication,2,-3.0,0.0,100.0
+Randomath&&Random subtraction,2,-3.0,0.0,100.0
+Rectangle Calculate&&default,2,-3.0,0.0,100.0
+Redactor Detector&&Redact PDF Document,2,-3.0,0.0,100.0
+Riddlie &&Update Riddle (Admin Only),2,-3.0,0.0,100.0
+Riddlie &&Upvote Riddle,2,-3.0,0.0,100.0
+RushTranslate&&List Orders,2,-3.0,0.0,100.0
+SOE&&Mandarin Chinese Word Assessment,2,-3.0,0.0,100.0
+Scramblr&&/detect/text,2,-3.0,0.0,100.0
+ShoppingDeals&&Get deals in descending order of deal price,2,-3.0,0.0,100.0
+ShoppingDeals&&Get deals in descending order of posted time,2,-3.0,0.0,100.0
+"Slider captcha solver (Geetest, Tencent)&&solve",2,-3.0,0.0,100.0
+SofaScores&&Number live events,2,-3.0,0.0,100.0
+SofaSport&&Team rankings,2,-3.0,0.0,100.0
+Spellcheck + Tokenization + Wordbreak&&GET/v1/spellcheck-tokenize,2,-3.0,0.0,100.0
+Stacks Patent Similarity&&post_infringement_v1_infringement_research_predict_post,2,-3.0,0.0,100.0
+TeleSign Score&&Score,2,-3.0,0.0,100.0
+Topics Extraction&&topics-2.0,2,-3.0,0.0,100.0
+Twinword Text Analysis Bundle&&Generate (post),2,-3.0,0.0,100.0
+USPTO Trademark&&v1/ownerSearch,2,-3.0,0.0,100.0
+User Intents Extractor&&/api/analyze_text,2,-3.0,0.0,100.0
+Webit Text Analytics&&Detect Languages,2,-3.0,0.0,100.0
+Word Definition&&default,2,-3.0,0.0,100.0
+Word Finder English&&Unscramble Words Solver,2,-3.0,0.0,100.0
+YC Hacker news official&&user by id,2,-3.0,0.0,100.0
+cw2&&default,2,-3.0,0.0,100.0
+lcm&&default,2,-3.0,0.0,100.0
+nba-all-in-api-jsdw&&Nba standings,2,-3.0,0.0,100.0
+plot2txt&& Pixel sieve,2,-3.0,0.0,100.0
+positionstack&&get,2,-3.0,0.0,100.0
+teamriverbubbles random utilities&&kda calculator,2,-3.0,0.0,100.0
+weatherstack&&get,2,-3.0,0.0,100.0
+wordinfo&&default,2,-3.0,0.0,100.0
+AION&&Chatbot Answer,1,3.0,100.0,0.0
+AION&&Create New Bot,1,3.0,100.0,0.0
+Arithmio&&GET API,1,3.0,100.0,0.0
+Arithmio&&POST API,1,3.0,100.0,0.0
+Dandelion&&classifyText,1,3.0,100.0,0.0
+Dandelion&&identifyTextSentiments,1,3.0,100.0,0.0
+ESA Semantic Relatedness&&Relatedness,1,3.0,100.0,0.0
+EasyTransform API&&Transform units [POST],1,3.0,100.0,0.0
+Forcast Base&&default,1,3.0,100.0,0.0
+General Detection&&Get list of algorithms,1,3.0,100.0,0.0
+Grammar corrector API&&Check text,1,3.0,100.0,0.0
+Grammarify&&deep_check,1,3.0,100.0,0.0
+JIRA&&assignIssueToUser,1,3.0,100.0,0.0
+JIRA&&findBulkAssignableUsers,1,3.0,100.0,0.0
+KIRIN Vision&&Object Detection,1,3.0,100.0,0.0
+LanguageTool&&List of Languages,1,3.0,100.0,0.0
+LokingAI-Text&&classifier_classifier_post,1,3.0,100.0,0.0
+Maths Made Easy&&Arithmatic,1,3.0,100.0,0.0
+MonkeyLearn&&classifyMulti,1,3.0,100.0,0.0
+Open Ai&&Playground,1,3.0,100.0,0.0
+Physitionary&&advanced,1,3.0,100.0,0.0
+Physitionary&&intermediate,1,3.0,100.0,0.0
+Regim&&Object recognition and segmentation,1,3.0,100.0,0.0
+Rephraser Text and Spintax&&text_to_rewrite,1,3.0,100.0,0.0
+Semantic Analysis&&Create_Multilabel_Marks_v1_mark_multilabel_post,1,3.0,100.0,0.0
+Semantic Analysis&&Create_Semantic_Mark_v1_mark_post,1,3.0,100.0,0.0
+Semantic Analysis&&Semantic_Search_v1_text_search_post,1,3.0,100.0,0.0
+Sentiment Analysis by Geneea&&Sentiment Analysis,1,3.0,100.0,0.0
+SentimentAnalyzer&&sentiment,1,3.0,100.0,0.0
+State of the Art Real-Time Object Detection&&Object Detection,1,3.0,100.0,0.0
+Text Entities API&&text-entities,1,3.0,100.0,0.0
+UnitConversion&&/data/:from/:to/:number,1,3.0,100.0,0.0
+WindSchedulingAPI&&scheduling pro,1,3.0,100.0,0.0
+bracketPy&&Named Entities,1,3.0,100.0,0.0
+ezML&&object_detection_api_v1_functions_object_detection_post,1,3.0,100.0,0.0
+teamriverbubbles random utilities&&is prime,1,3.0,100.0,0.0
+units converter&&Convert a quantity from one unit to another,1,3.0,100.0,0.0
+units converter&&Convert to all units,1,3.0,100.0,0.0
+weather forecast 14 days&&Search location by Name or zip code,1,3.0,100.0,0.0
+Book&&getBook,1,2.0,0.0,0.0
+Chimp Rewriter&&GenerateSpin,1,2.0,0.0,0.0
+Color Extractor for Apparel&&Extract Colors,1,2.0,0.0,0.0
+Coordinates&&calc-area,1,2.0,0.0,0.0
+Date Calculator&&now,1,2.0,0.0,0.0
+Dice Roll Simulator&&Regular die,1,2.0,0.0,0.0
+Extract Table - DocumentDev&&ExtractTable,1,2.0,0.0,0.0
+Kitten Placeholder&&Cat,1,2.0,0.0,0.0
+MonkeyLearn&&uploadSamplesToMultiCategory,1,2.0,0.0,0.0
+OS Sports Perform&&Incidents,1,2.0,0.0,0.0
+OS Sports Perform&&Player data,1,2.0,0.0,0.0
+OS Sports Perform&&Player events,1,2.0,0.0,0.0
+Physitionary&&basic,1,2.0,0.0,0.0
+Roll Dice&&rollDice,1,2.0,0.0,0.0
+Sephora&&products/list (Deprecated),1,2.0,0.0,0.0
+Sephora&&products/v2/list,1,2.0,0.0,0.0
+Sephora&&us/products/v2/list,1,2.0,0.0,0.0
+Sephora&&us/products/v2/search,1,2.0,0.0,0.0
+Slope Calculator&&Get Slope Calculation,1,2.0,0.0,0.0
+Text Sentiment Analysis&&Detect Sentiment,1,2.0,0.0,0.0
+Text-Processing&&sentiment,1,2.0,0.0,0.0
+Text2Table&&web2text,1,2.0,0.0,0.0
+Webit Text Analytics&&Match,1,2.0,0.0,0.0
+memes responses&&response,1,2.0,0.0,0.0
+AION&&Authenticate,1,1.0,0.0,0.0
+Airdna&&Suggest region,1,1.0,0.0,0.0
+BigOven&&departmentalizeItemsInGroceryList,1,1.0,0.0,0.0
+Comprehendo&&ml-zero-nli,1,1.0,0.0,0.0
+Daily Knowledge&&/logical-fallacies-en.json,1,1.0,0.0,0.0
+Date Calculator&&rdates,1,1.0,0.0,0.0
+DiceForge&&/statroll,1,1.0,0.0,0.0
+DriftEvent&&Date and time,1,1.0,0.0,0.0
+DriftEvent&&Location,1,1.0,0.0,0.0
+Emotion Detection API&&Emotion Detection,1,1.0,0.0,0.0
+English text simplifier&&/v1/simplify,1,1.0,0.0,0.0
+Finance Text Sentiment&&Positive Sentiment Example,1,1.0,0.0,0.0
+Fruit_API&&Get Fruits,1,1.0,0.0,0.0
+Geneea Interpretor NLP&&Tags Extraction,1,1.0,0.0,0.0
+GeoApi&&/api/Geo/MakeValid,1,1.0,0.0,0.0
+GeoDB Cities&&Places Near Location,1,1.0,0.0,0.0
+Geometric Calculation&&Minkowski Sum,1,1.0,0.0,0.0
+Integrate AI&&paraphrasing_paraphrasing__post,1,1.0,0.0,0.0
+JIRA&&setRoleActors,1,1.0,0.0,0.0
+JIRA&&setTimeTrackingConfiguration,1,1.0,0.0,0.0
+Language Tools&&/rephrase-simple,1,1.0,0.0,0.0
+Languagelayer&&detectSingleTextLanguage,1,1.0,0.0,0.0
+Lingulab&&Get Result Adv,1,1.0,0.0,0.0
+Lingulab&&Process Text For Office,1,1.0,0.0,0.0
+LocationIQ&&fixedSourceDestination,1,1.0,0.0,0.0
+Magic 8 Ball&&Get the answer from Magic 8 Ball,1,1.0,0.0,0.0
+Microserv.io NLP Service&&Sentences,1,1.0,0.0,0.0
+Multi-Market Calculator&&Calculator,1,1.0,0.0,0.0
+Muse J NLP&&/nlp/action/,1,1.0,0.0,0.0
+Muse J NLP&&/nlp/emotion/,1,1.0,0.0,0.0
+NLP Text Processor Categorizer and Analyzer&&Flippy Endpoint,1,1.0,0.0,0.0
+NLP&&People Also Ask,1,1.0,0.0,0.0
+Pitch Testing&&P1.scheduler/all-events,1,1.0,0.0,0.0
+Pitch Testing&&P2.scheduler/all-events,1,1.0,0.0,0.0
+"Quick Geo Location&&Search Distance & Time By Lat, Lan",1,1.0,0.0,0.0
+"Quick Geo Location&&Search Location By Lat, Lng",1,1.0,0.0,0.0
+Quick Geo Location&&Search Location By Name,1,1.0,0.0,0.0
+Realtor&&Search for region,1,1.0,0.0,0.0
+Sephora&&brands/v2/list,1,1.0,0.0,0.0
+Shazam api&&artist,1,1.0,0.0,0.0
+Spotify Data&&artist-appears-on,1,1.0,0.0,0.0
+Text Anonymizer&&Anonymize with indexed entities,1,1.0,0.0,0.0
+Text Semantic Split - into Chunks&&Semantically Segment Text,1,1.0,0.0,0.0
+Twinword Text Analysis Bundle&&Classify (post),1,1.0,0.0,0.0
+Webit Language&&Detect,1,1.0,0.0,0.0
+Webit Language&&Dictionary Examples (TEMPORARILY UNAVAILABLE),1,1.0,0.0,0.0
+ZendeskCore&&updateIntervalsForSchedule,1,1.0,0.0,0.0
+ZendeskCore&&updateSchedule,1,1.0,0.0,0.0
+api timing check&&NewRequest,1,1.0,0.0,0.0
+genius&&artists,1,1.0,0.0,0.0
+lab&&/labs,1,1.0,0.0,0.0
+random choise&&randomChoise,1,1.0,0.0,0.0
+siiau-api&&Get schedule,1,1.0,0.0,0.0
+title generation&&title,1,1.0,0.0,0.0
+Auto Segmentation&&Auto Segmentation German Text,1,-2.0,0.0,100.0
+List Movies&&Order By,1,-2.0,0.0,100.0
+TaoResearch&&Count,1,-2.0,0.0,100.0
+6px&&Create Job,1,-3.0,0.0,100.0
+ADSBexchange.com&&Single Aircraft Position by Hex ID (icao),1,-3.0,0.0,100.0
+AI Quotes&&AI Quote,1,-3.0,0.0,100.0
+AI Stock Prediction&&predict,1,-3.0,0.0,100.0
+AI Textraction&&Textraction,1,-3.0,0.0,100.0
+AIception&&createDetectObjectTask,1,-3.0,0.0,100.0
+AIception&&createFaceAgeTask,1,-3.0,0.0,100.0
+AIception&&getAdultContentTask,1,-3.0,0.0,100.0
+AIception&&getFaceAgeTask,1,-3.0,0.0,100.0
+ALPR API&&Face embedding,1,-3.0,0.0,100.0
+ALPR API&&Face embedding v3,1,-3.0,0.0,100.0
+ALPR API&&Face multiple embedding,1,-3.0,0.0,100.0
+ALPR API&&Face multiple embedding v2,1,-3.0,0.0,100.0
+ALPR API&&Face multiple embedding v3,1,-3.0,0.0,100.0
+ALPR API&&License Plate OCR China,1,-3.0,0.0,100.0
+AdVerifai-es&&fact_check,1,-3.0,0.0,100.0
+AllSportsApi&&BasketballPlayerShotActionsPlayoffs,1,-3.0,0.0,100.0
+AllSportsApi&&BasketballPlayerShotActionsRegularSeason,1,-3.0,0.0,100.0
+AllSportsApi&&PlayerPlaceholderImage,1,-3.0,0.0,100.0
+Animais de Rua&&Partners,1,-3.0,0.0,100.0
+Animals by API-Ninjas&&/v1/animals,1,-3.0,0.0,100.0
+Anthill Engine&&Create Order,1,-3.0,0.0,100.0
+Article Data Extraction and Summarization&&/summary,1,-3.0,0.0,100.0
+Atmosphere nitrous oxide levels&&Nitrous endpoint,1,-3.0,0.0,100.0
+Bad Words Profanity Filter&&Detect Bad Words,1,-3.0,0.0,100.0
+BarPatterns&&Bearish Engulfing,1,-3.0,0.0,100.0
+BarPatterns&&Macd Crossover Down,1,-3.0,0.0,100.0
+BarPatterns&&Macd Crossover Up,1,-3.0,0.0,100.0
+BarPatterns&&Piercing Line,1,-3.0,0.0,100.0
+BigOven&&addSingleItemToGroceryList,1,-3.0,0.0,100.0
+BigOven&&deleteItemFromGroceryList,1,-3.0,0.0,100.0
+BigOven&&deleteItemsFromGroceryList,1,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&Book Search,1,-3.0,0.0,100.0
+Book Discovery by ReadsOmnia&&Science Fiction & Fantasy Bestsellers,1,-3.0,0.0,100.0
+Broken API&&/timeout/{time},1,-3.0,0.0,100.0
+CIS Automotive&&daysToSell,1,-3.0,0.0,100.0
+CIS Automotive&&regionDailySales,1,-3.0,0.0,100.0
+CIS Automotive&&regionSales,1,-3.0,0.0,100.0
+CPTIME&&Chunk,1,-3.0,0.0,100.0
+CarbonFootprint&&AirQualityHealthIndex,1,-3.0,0.0,100.0
+CarbonSutra&&Fuel Consumption Estimate,1,-3.0,0.0,100.0
+CatchLoc&&Checking Section definition Location Data API,1,-3.0,0.0,100.0
+Check Credit Card&&Check,1,-3.0,0.0,100.0
+Check Disposable Email&&emailValidation,1,-3.0,0.0,100.0
+CheckThatPhone&&/checkthatphone,1,-3.0,0.0,100.0
+Chemical Configurations&&predict_predit__post,1,-3.0,0.0,100.0
+Chemistionary&&basic,1,-3.0,0.0,100.0
+CoinLore Cryptocurrency&&Get exchange pairs,1,-3.0,0.0,100.0
+Coinpaprika&&Exchanges for coin,1,-3.0,0.0,100.0
+Colorful&&Get a random color,1,-3.0,0.0,100.0
+Colorful&&Get random named color,1,-3.0,0.0,100.0
+CriptoBot BR&&Get One Pair,1,-3.0,0.0,100.0
+Crypto Exchanges&&Asset History by ID,1,-3.0,0.0,100.0
+Crypto Exchanges&&Asset by ID,1,-3.0,0.0,100.0
+Crypto Exchanges&&Exchange by ID,1,-3.0,0.0,100.0
+Crypto Market Data APIs&&Historical Data by exchange assets pair,1,-3.0,0.0,100.0
+Crypto Volatility Index&&Period,1,-3.0,0.0,100.0
+Crypto address validator&&isAddressValid,1,-3.0,0.0,100.0
+CryptoCator&&ConnorsRSI,1,-3.0,0.0,100.0
+CryptoCator&&On-Balance Volume (OBV),1,-3.0,0.0,100.0
+CryptoCator&&Triple EMA Oscillator (TRIX),1,-3.0,0.0,100.0
+CryptoCator&&Williams Alligator,1,-3.0,0.0,100.0
+CryptoCator&&Williams Fractal,1,-3.0,0.0,100.0
+Dammy-Task&&Login,1,-3.0,0.0,100.0
+Dammy-Task&&LogoutAll,1,-3.0,0.0,100.0
+Dammy-Task&&Read profile,1,-3.0,0.0,100.0
+Dammy-Task&&Readtask,1,-3.0,0.0,100.0
+Dammy-Task&&readtasks,1,-3.0,0.0,100.0
+Detoxify&&Check toxicity score,1,-3.0,0.0,100.0
+DiscordBot&&deleteWebhook,1,-3.0,0.0,100.0
+DiscordBot&&getAccessToken,1,-3.0,0.0,100.0
+Disposable Gmail&&Generate Gmail,1,-3.0,0.0,100.0
+Disposable Gmail&&Inbox,1,-3.0,0.0,100.0
+Disposable Gmail&&Message,1,-3.0,0.0,100.0
+DocTop&&English topics,1,-3.0,0.0,100.0
+Dog Facts&&facts,1,-3.0,0.0,100.0
+DogDummyAPI&&Get all colors,1,-3.0,0.0,100.0
+DogDummyAPI&&Limits dogs result,1,-3.0,0.0,100.0
+Dogs by API-Ninjas&&/v1/dogs,1,-3.0,0.0,100.0
+Dribbble&&getSingleUser,1,-3.0,0.0,100.0
+E-mail Check Invalid or Disposable Domain_v2&&mailcheck,1,-3.0,0.0,100.0
+Email Verify&&Verify Email,1,-3.0,0.0,100.0
+Emlalock&&Add,1,-3.0,0.0,100.0
+Emlalock&&AddMaximum,1,-3.0,0.0,100.0
+Emlalock&&AddMaximumRandom,1,-3.0,0.0,100.0
+Emlalock&&AddMinimum,1,-3.0,0.0,100.0
+Emlalock&&AddRandom,1,-3.0,0.0,100.0
+Emlalock&&SubMaximumRandom,1,-3.0,0.0,100.0
+Emlalock&&SubMinimum,1,-3.0,0.0,100.0
+Emlalock&&SubMinimumRandom,1,-3.0,0.0,100.0
+Emlalock&&SubRandom,1,-3.0,0.0,100.0
+Entity Detection & Linking&&entity_detection,1,-3.0,0.0,100.0
+Fast Object Detection&&Get Coco Predictions,1,-3.0,0.0,100.0
+Fast Object Detection&&Get MobileNet Predictions,1,-3.0,0.0,100.0
+FlashLive Sports&&Player Transfers,1,-3.0,0.0,100.0
+FlashLive Sports&&Team Transfers,1,-3.0,0.0,100.0
+Fleep&&createAccount,1,-3.0,0.0,100.0
+Flickr&&findPlace,1,-3.0,0.0,100.0
+Flickr&&suggestLocation,1,-3.0,0.0,100.0
+Food Calories&&all foods list,1,-3.0,0.0,100.0
+Food Calories&&category by name,1,-3.0,0.0,100.0
+Food Calories&&get food by name,1,-3.0,0.0,100.0
+Football Score API&&get_football_live_scores_today,1,-3.0,0.0,100.0
+Football Score API&&get_scores_for_given_date,1,-3.0,0.0,100.0
+Forex Time&&Forex Time,1,-3.0,0.0,100.0
+FortniteCosmetics&&searchInventory,1,-3.0,0.0,100.0
+French NLU&&Extract NLU,1,-3.0,0.0,100.0
+Freshdesk&&getSingleContact,1,-3.0,0.0,100.0
+GST certificate OCR&&GST Certificate OCR,1,-3.0,0.0,100.0
+Genius - Song Lyrics&&Artist Albums,1,-3.0,0.0,100.0
+GeoApi&&/api/Geo/EndPoint,1,-3.0,0.0,100.0
+GeoApi&&/api/Geo/IsWithinDistance,1,-3.0,0.0,100.0
+GeoApi&&/api/Geo/MinDistance,1,-3.0,0.0,100.0
+GeoPop&&get_buildings,1,-3.0,0.0,100.0
+GeoRanker&&deleteSingleMonitor,1,-3.0,0.0,100.0
+GeoRanker&&getMe,1,-3.0,0.0,100.0
+GeoRanker&&getMonitors,1,-3.0,0.0,100.0
+GeoRanker&&getSingleUser,1,-3.0,0.0,100.0
+GeoSpark&&Users,1,-3.0,0.0,100.0
+Geometric Calculation&&Polygon Combine,1,-3.0,0.0,100.0
+Geometric Calculation&&Polygon Inner Offset,1,-3.0,0.0,100.0
+Giphy&&STICKER Roulette,1,-3.0,0.0,100.0
+Giphy&&Translate,1,-3.0,0.0,100.0
+Giphy&&Trending GIFs,1,-3.0,0.0,100.0
+Google Translate Text&&detectLanguage,1,-3.0,0.0,100.0
+Google Translate Text&&supportedLanguages,1,-3.0,0.0,100.0
+Google Translate Text&&textToSpeech,1,-3.0,0.0,100.0
+Google Translate Text&&translateText,1,-3.0,0.0,100.0
+HelloSign&&Add member,1,-3.0,0.0,100.0
+HelloSign&&Create draft,1,-3.0,0.0,100.0
+HelloSign&&Remove member,1,-3.0,0.0,100.0
+Holtel Rectangle&&default,1,-3.0,0.0,100.0
+Hotel Search&&default,1,-3.0,0.0,100.0
+IDfy Verification Suite&&Face compare (sync),1,-3.0,0.0,100.0
+IDfy Verification Suite&&Indian Pan Card Data Extraction,1,-3.0,0.0,100.0
+IMDb&&title/get-coming-soon-movies,1,-3.0,0.0,100.0
+Image recognition and prediction&&image_prediction_base64image_prediction_post,1,-3.0,0.0,100.0
+Instagram_v2&&Search Locations,1,-3.0,0.0,100.0
+JIRA&&createSelectFieldOption,1,-3.0,0.0,100.0
+JIRA&&findUsersByProperty,1,-3.0,0.0,100.0
+JIRA&&getSelectFieldOptions,1,-3.0,0.0,100.0
+JIRA&&getSingleResolution,1,-3.0,0.0,100.0
+Javascript Vulnerability Scan&&analyzeUrl,1,-3.0,0.0,100.0
+Jikan&&Schedule,1,-3.0,0.0,100.0
+Keyword Extraction&&Keyword Extraction for text,1,-3.0,0.0,100.0
+Keyword in Picture&&Detect keywords within an image,1,-3.0,0.0,100.0
+Kiann_Options_Project&&normal_call,1,-3.0,0.0,100.0
+Languagelayer&&detectLanguages,1,-3.0,0.0,100.0
+Lingulab&&Process Text Adv,1,-3.0,0.0,100.0
+Lingulab&&Validate Authentication,1,-3.0,0.0,100.0
+Location to Timezone&&Convert Coordinates to Timezone String,1,-3.0,0.0,100.0
+MMAAPI&&TeamLastEvents,1,-3.0,0.0,100.0
+MMAAPI&&TeamNextEvents,1,-3.0,0.0,100.0
+MMAAPI&&TournamentLastMainEvents,1,-3.0,0.0,100.0
+MMAAPI&&TournamentRnkingSummary,1,-3.0,0.0,100.0
+Mailjet&&getSingleUser,1,-3.0,0.0,100.0
+MapFanAPI - Route&&calcroute,1,-3.0,0.0,100.0
+MapToolkit&&Routing Enhancement,1,-3.0,0.0,100.0
+MapboxDirection&&getOptimalDriving,1,-3.0,0.0,100.0
+Mapillary&&searchDetections,1,-3.0,0.0,100.0
+Mathionary&&basic,1,-3.0,0.0,100.0
+Microserv.io NLP Service&&LixReadability,1,-3.0,0.0,100.0
+Microsoft Content Moderator&&Screen Text,1,-3.0,0.0,100.0
+MonkeyLearn&&extractEntities,1,-3.0,0.0,100.0
+MonkeyLearn&&extractKeywordsInEnglish,1,-3.0,0.0,100.0
+MonkeyLearn&&extractTextFromHTML,1,-3.0,0.0,100.0
+Morning Star&&market/v2/get-quotes (Deprecated),1,-3.0,0.0,100.0
+Multilingual Text Analysis Bundle by Matnon&&Multilingual Noun Chunk Extractor,1,-3.0,0.0,100.0
+Multilingual Text Analysis Bundle by Matnon&&Multilingual Stop Words Extractor,1,-3.0,0.0,100.0
+MultipleTeamsCallingTest&&addPet,1,-3.0,0.0,100.0
+MultipleTeamsCallingTest&&placeOrder,1,-3.0,0.0,100.0
+My elevenlabs.io&&Delete_history_items_v1_history_delete_post,1,-3.0,0.0,100.0
+My elevenlabs.io&&Download_history_items_v1_history_download_post,1,-3.0,0.0,100.0
+My elevenlabs.io&&Text_to_speech_v1_text_to_speech__voice_id__stream_post,1,-3.0,0.0,100.0
+MyFirstAPI&&Create Order,1,-3.0,0.0,100.0
+MyFirstAPI&&Place Order,1,-3.0,0.0,100.0
+NLP Services&&POS Tagger,1,-3.0,0.0,100.0
+NLP&&Detect Main Phrases In Text,1,-3.0,0.0,100.0
+NLP&&Keyword Ideas,1,-3.0,0.0,100.0
+NSFW Filter API &&/image,1,-3.0,0.0,100.0
+National Football Players&&All Teams,1,-3.0,0.0,100.0
+National Football Players&&Player,1,-3.0,0.0,100.0
+National Football Players&&Team Roster,1,-3.0,0.0,100.0
+Nearby Places&&Nearby - (Google),1,-3.0,0.0,100.0
+Number Sentence&&default,1,-3.0,0.0,100.0
+Number of Words&&default,1,-3.0,0.0,100.0
+Numbers&&Get trivia fact,1,-3.0,0.0,100.0
+Nutri Score&&Convert kilojoules to kilocalories,1,-3.0,0.0,100.0
+Nutri Score&&Converts kilocalories to kilojoules,1,-3.0,0.0,100.0
+OS Sports Perform&&National team statistics,1,-3.0,0.0,100.0
+OS Sports Perform&&Player photo,1,-3.0,0.0,100.0
+OS Sports Perform&&Referee data,1,-3.0,0.0,100.0
+OS Sports Perform&&Referee events,1,-3.0,0.0,100.0
+OS Sports Perform&&Referee statistics,1,-3.0,0.0,100.0
+OS Sports Perform&&Suggest,1,-3.0,0.0,100.0
+OS Sports Perform&&Team logo,1,-3.0,0.0,100.0
+OS Sports Perform&&Team recent form,1,-3.0,0.0,100.0
+OnFleet&&getSingleWorker,1,-3.0,0.0,100.0
+OnFleet&&testAuth,1,-3.0,0.0,100.0
+Option Greeks&&Black Scholes Fair Market Value,1,-3.0,0.0,100.0
+Option Greeks&&Option Rho,1,-3.0,0.0,100.0
+Option Greeks&&Option Theta,1,-3.0,0.0,100.0
+Option Greeks&&Option Third Order greeks,1,-3.0,0.0,100.0
+Option Greeks&&Option Vega,1,-3.0,0.0,100.0
+Ordering&&listLast,1,-3.0,0.0,100.0
+Ordering&&splitLines,1,-3.0,0.0,100.0
+Otapi Aliexpress&&Get Item Review,1,-3.0,0.0,100.0
+Otapi Aliexpress&&Search for items,1,-3.0,0.0,100.0
+PAN Card Verification&&PAN Card Verification,1,-3.0,0.0,100.0
+PDF Color Page Counter&&Count Color and BW Pages,1,-3.0,0.0,100.0
+PageQuotes&&Get book by genre,1,-3.0,0.0,100.0
+PageQuotes&&Update book,1,-3.0,0.0,100.0
+Paperlit&&Create push,1,-3.0,0.0,100.0
+Paraphraser&&Summarize,1,-3.0,0.0,100.0
+Passport Verification&&GET Call,1,-3.0,0.0,100.0
+Passport Verification&&Passport Verification,1,-3.0,0.0,100.0
+Pereless&&postrecruitteamexist,1,-3.0,0.0,100.0
+Pitch Testing&&E6.courses/:id/assessments,1,-3.0,0.0,100.0
+Pitch Testing&&I2.courses/:id/comments,1,-3.0,0.0,100.0
+Plagiarism Detection API&&Create Job,1,-3.0,0.0,100.0
+PointCalculation&&Translate Point,1,-3.0,0.0,100.0
+Polish Personal Identification Numbers&&/passport/check,1,-3.0,0.0,100.0
+Polish Personal Identification Numbers&&/passport/multicheck,1,-3.0,0.0,100.0
+Polish Personal Identification Numbers&&/pesel/multicheck,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/factors/residualization,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/maximum-decorrelation,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/maximum-return/subset-resampling-based,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/maximum-sharpe-ratio,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/maximum-sharpe-ratio/subset-resampling-based,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/maximum-ulcer-performance-index,1,-3.0,0.0,100.0
+Portfolio Optimizer&&/portfolio/optimization/minimum-ulcer-index,1,-3.0,0.0,100.0
+Portfolio Performance and Risk Analytics - Basic&&Calculate the Calmar Ratio of a Portfolio or a basket of investment based on its MV,1,-3.0,0.0,100.0
+Portfolio Performance and Risk Analytics - Basic&&Calculate the periodic investment volatility based on periodic returns and frequencies,1,-3.0,0.0,100.0
+Power Assist&&WordCount,1,-3.0,0.0,100.0
+Price Analytics&&Start search by gtin,1,-3.0,0.0,100.0
+Price Analytics&&Start search by term,1,-3.0,0.0,100.0
+Proo&&postconversation,1,-3.0,0.0,100.0
+Proxycurl&&Reverse Work Email Lookup Endpoint,1,-3.0,0.0,100.0
+Quatity Words&&default,1,-3.0,0.0,100.0
+QuickBooksAccounting&&queryEstimate,1,-3.0,0.0,100.0
+Random Quotes V1&&Quotes,1,-3.0,0.0,100.0
+RaterBayes&&Compare ratings directly,1,-3.0,0.0,100.0
+Ready??2.0&&addPet,1,-3.0,0.0,100.0
+Ready??2.0&&placeOrder,1,-3.0,0.0,100.0
+Redactor Detector&&Blur Faces,1,-3.0,0.0,100.0
+Redactor Detector&&Redact Raw Text,1,-3.0,0.0,100.0
+Redtie&&Create,1,-3.0,0.0,100.0
+ReelTorrent&&Search Movies,1,-3.0,0.0,100.0
+Response WebHook&&myresponsereceiver,1,-3.0,0.0,100.0
+Riddlie &&Update Level,1,-3.0,0.0,100.0
+RushTranslate&&Get Order,1,-3.0,0.0,100.0
+SIMPLE ENCRYPTION  Daddy&&Reverse Numeric,1,-3.0,0.0,100.0
+SMSPortal&&Subscribe to Replies,1,-3.0,0.0,100.0
+SONOTELLER.AI&&Music Analysis,1,-3.0,0.0,100.0
+Scene Classification&&Scene classification from image,1,-3.0,0.0,100.0
+Semantic Analysis&&Concepts_Extraction_v1_concepts_extract_post,1,-3.0,0.0,100.0
+Semantic Analysis&&Text_Paragraphizer_v1_text_paragraphizer_post,1,-3.0,0.0,100.0
+Sentence Case Converter by Capitalize My Title&&Sentence Case,1,-3.0,0.0,100.0
+Sentiment&&/sentiments,1,-3.0,0.0,100.0
+Sentimental Analysis&&Predict,1,-3.0,0.0,100.0
+SerpWow&&Google Search,1,-3.0,0.0,100.0
+SerpWow&&Google Shopping Search,1,-3.0,0.0,100.0
+Sharp Odds Maker API&&Calculate Combo Odds - Uses 2 Calls,1,-3.0,0.0,100.0
+Shopping Data API&&https://shopping-data-api.onrender.com/api/show-all-accessories,1,-3.0,0.0,100.0
+Shopping Data API&&https://shopping-data-api.onrender.com/api/show-all-bags,1,-3.0,0.0,100.0
+Shopping Data API&&https://shopping-data-api.onrender.com/api/show-all-dresses,1,-3.0,0.0,100.0
+Shopping Data API&&https://shopping-data-api.onrender.com/api/show-all-products,1,-3.0,0.0,100.0
+Shopping Data API&&https://shopping-data-api.onrender.com/api/show-all-shoes,1,-3.0,0.0,100.0
+ShoppingDeals&&Get deals in ascending order of deal price,1,-3.0,0.0,100.0
+Simple Math Problems&&Get Addition Problems,1,-3.0,0.0,100.0
+Simple Math Problems&&Get Division Problems,1,-3.0,0.0,100.0
+Simple Math Problems&&Get Subtraction Problems,1,-3.0,0.0,100.0
+Slots Machine Reels Landing&&Get Stops For Reels,1,-3.0,0.0,100.0
+SmartSoils&&predict_composante,1,-3.0,0.0,100.0
+Soccer Livescore&&Finished matches,1,-3.0,0.0,100.0
+SofaScores&&Form,1,-3.0,0.0,100.0
+SofaScores&&Odds winning,1,-3.0,0.0,100.0
+SofaScores&&Predict,1,-3.0,0.0,100.0
+SofaScores&&Rounds (esports),1,-3.0,0.0,100.0
+SofaScores&&Search transfers,1,-3.0,0.0,100.0
+SofaScores&&Shotmap,1,-3.0,0.0,100.0
+SofaSport&&Odds winning,1,-3.0,0.0,100.0
+SpamPatrol&&Analyze,1,-3.0,0.0,100.0
+SpinMeNot&&detect,1,-3.0,0.0,100.0
+Sport Odds&&GetEventExternalInfo,1,-3.0,0.0,100.0
+Spotify Data&&artist-overview,1,-3.0,0.0,100.0
+Spotify Data&&search,1,-3.0,0.0,100.0
+Stacks Patent Similarity&&eligibility_post_v1_101_eligibility_predict_post,1,-3.0,0.0,100.0
+Stacks Patent Similarity&&get_infringement_v1_infringement_research_predict_get,1,-3.0,0.0,100.0
+Stacks Patent Similarity&&post_infringement_clearance_v1_patent_analytics_clearance_post,1,-3.0,0.0,100.0
+String Similarity Comparison&&String Comparison Algorithm (POST),1,-3.0,0.0,100.0
+String of Motivation&&default,1,-3.0,0.0,100.0
+Sudoku Service&&Solve,1,-3.0,0.0,100.0
+Sudoku Solver App&&Sudoku Solver,1,-3.0,0.0,100.0
+Summarize&&Summarize,1,-3.0,0.0,100.0
+Supportnresistance&&Monthly,1,-3.0,0.0,100.0
+Supportnresistance&&Weekly,1,-3.0,0.0,100.0
+TAOBAO TMALL 1688&&Get item detail,1,-3.0,0.0,100.0
+Tabela Fipe Simples&&/tabelafipe,1,-3.0,0.0,100.0
+Taobao Tmall advanced product data&&get item detail by item_id,1,-3.0,0.0,100.0
+Telegram Messaging&&Send Message Multiple Chats,1,-3.0,0.0,100.0
+Telegram Messaging&&Send Message One Chat,1,-3.0,0.0,100.0
+TempProject&&end,1,-3.0,0.0,100.0
+Text Analyzer API&&analyze,1,-3.0,0.0,100.0
+Text Analyzer poweredby GPT&&Erotic quantifier,1,-3.0,0.0,100.0
+TextAPI&&Display Entities,1,-3.0,0.0,100.0
+TextAnalysisAPI&&Similarity,1,-3.0,0.0,100.0
+TextGears&&Create exception,1,-3.0,0.0,100.0
+TextGears&&Readability,1,-3.0,0.0,100.0
+TheClique&&Get Artist Overview,1,-3.0,0.0,100.0
+Ticketmaster&&getOptions,1,-3.0,0.0,100.0
+Ticketmaster&&getPayments,1,-3.0,0.0,100.0
+Toxicity & Profanity Detection AI-Hate Detection on Comments&&Get Toxicity Score,1,-3.0,0.0,100.0
+Tradingview TA API (Technical Analysis)&&Get Intervals,1,-3.0,0.0,100.0
+Truth Dare&&Get Truth,1,-3.0,0.0,100.0
+Truth Dare&&Get Truth NSFW,1,-3.0,0.0,100.0
+Twelve Data&&LINEARREGANGLE,1,-3.0,0.0,100.0
+Twelve Data&&ROCR,1,-3.0,0.0,100.0
+Twelve Data&&TRIMA,1,-3.0,0.0,100.0
+Twinword Text Analysis Bundle&&Text (post),1,-3.0,0.0,100.0
+Twitter&&Tweet Replies,1,-3.0,0.0,100.0
+Unscramble&&Unscramble,1,-3.0,0.0,100.0
+VALUE SERP&&Google Shopping,1,-3.0,0.0,100.0
+Validate VAT Number&&VAT validation API endpoint,1,-3.0,0.0,100.0
+Video Builder&&video/{videoId},1,-3.0,0.0,100.0
+Voter Card OCR&&GET API,1,-3.0,0.0,100.0
+Voter Card OCR&&Voter Card OCR,1,-3.0,0.0,100.0
+Web Scrapper&&go,1,-3.0,0.0,100.0
+Webit Text Analytics&&Key Phrases,1,-3.0,0.0,100.0
+WhatsApp Profile API&&checkNumber,1,-3.0,0.0,100.0
+Woosmap&&getRoute,1,-3.0,0.0,100.0
+Word Count API&&getWordCount,1,-3.0,0.0,100.0
+Word Count API&&postWordCount,1,-3.0,0.0,100.0
+Wordle Breaker&&Get First Letter,1,-3.0,0.0,100.0
+Wordle Breaker&&Today's Answer,1,-3.0,0.0,100.0
+Wordle Game API&&check answer,1,-3.0,0.0,100.0
+Wordle Game API&&today word,1,-3.0,0.0,100.0
+World Country&&Get Regions,1,-3.0,0.0,100.0
+World Country&&Get Sub Regions,1,-3.0,0.0,100.0
+Wyjyt - Geo Calculate&&Convert,1,-3.0,0.0,100.0
+Wyjyt - Geo Calculate&&Distance,1,-3.0,0.0,100.0
+Wyjyt - Geo Calculate&&Fence,1,-3.0,0.0,100.0
+Wyjyt - Geo Calculate&&Sky,1,-3.0,0.0,100.0
+Yahoo Weather&&Search by location,1,-3.0,0.0,100.0
+Yummly&&tags/list,1,-3.0,0.0,100.0
+ZendeskCore&&createTrigger,1,-3.0,0.0,100.0
+ZendeskCore&&deleteSchedule,1,-3.0,0.0,100.0
+ZendeskCore&&updateTrigger,1,-3.0,0.0,100.0
+api.kraken&&AssetPairs,1,-3.0,0.0,100.0
+badword&&default,1,-3.0,0.0,100.0
+calculateemi&&getMyEmi,1,-3.0,0.0,100.0
+calculator&&add,1,-3.0,0.0,100.0
+crossref&&DOI,1,-3.0,0.0,100.0
+crossref&&Search,1,-3.0,0.0,100.0
+data-extractor&&extract-urls,1,-3.0,0.0,100.0
+eventor&&Delete Event,1,-3.0,0.0,100.0
+eventor&&Get Event Data,1,-3.0,0.0,100.0
+faceBlur&&predict,1,-3.0,0.0,100.0
+foo&&task complete post,1,-3.0,0.0,100.0
+geojoins&&intersects,1,-3.0,0.0,100.0
+geojoins&&overlaps,1,-3.0,0.0,100.0
+geojoins&&within,1,-3.0,0.0,100.0
+hotelgeo&&default,1,-3.0,0.0,100.0
+marketstack&&get,1,-3.0,0.0,100.0
+miru&&getAllIntervals,1,-3.0,0.0,100.0
+mymappi&&Direct Geocoding,1,-3.0,0.0,100.0
+mymappi&&Snap to road,1,-3.0,0.0,100.0
+nectr&&ResetPassword,1,-3.0,0.0,100.0
+nectr&&RewindPeople,1,-3.0,0.0,100.0
+nectr&&SuggestedPeople,1,-3.0,0.0,100.0
+paytend&&getPartnerAccountUsingPOST,1,-3.0,0.0,100.0
+paytend&&queryPartnerRechargeListUsingPOST,1,-3.0,0.0,100.0
+plaidhook&&webhook,1,-3.0,0.0,100.0
+plot2txt&&Binarize,1,-3.0,0.0,100.0
+plot2txt&&Bounding box,1,-3.0,0.0,100.0
+plot2txt&&Get circles,1,-3.0,0.0,100.0
+plot2txt&&Group colors,1,-3.0,0.0,100.0
+plot2txt&&Simple scatter plot,1,-3.0,0.0,100.0
+plot2txt&&Thinner,1,-3.0,0.0,100.0
+quotsy&&get_quotes,1,-3.0,0.0,100.0
+rafa&&default,1,-3.0,0.0,100.0
+random mockup person&&getListPerson,1,-3.0,0.0,100.0
+random- fact&&postRandomHumman,1,-3.0,0.0,100.0
+randomness&&fact,1,-3.0,0.0,100.0
+ratelimiter&&invokeRateLimiter,1,-3.0,0.0,100.0
+rawo&&default,1,-3.0,0.0,100.0
+reca&&default,1,-3.0,0.0,100.0
+sharanz-restraunt-api&&get veg data,1,-3.0,0.0,100.0
+smart locations&&get-location,1,-3.0,0.0,100.0
+sportapi&&GetEventExternalInfo,1,-3.0,0.0,100.0
+test&&end,1,-3.0,0.0,100.0
+test-api&&Ai Quote,1,-3.0,0.0,100.0
+testpp&&Time Feth_copy,1,-3.0,0.0,100.0
+ticketpocket&&get_myorder,1,-3.0,0.0,100.0
+ticketpocket&&get_order,1,-3.0,0.0,100.0
+ticketpocket&&get_order_list,1,-3.0,0.0,100.0
+ticketpocket&&operator_list,1,-3.0,0.0,100.0
+uniswap-v2-api&&/uniswapFactory,1,-3.0,0.0,100.0
+unogsNG&&Expiring,1,-3.0,0.0,100.0
+vof&&default,1,-3.0,0.0,100.0

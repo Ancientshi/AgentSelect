@@ -1,0 +1,4 @@
+part,n_queries,word_len_mean,word_len_std,word_len_median,lexdiv_mean,lexdiv_std,lexdiv_median,exact_duplicate_rate,skeleton_template_concentration,prefix_template_concentration
+PartI,23073,55.0264,58.1194,36.0,0.7406,0.1825,0.7541,0.316257,0.103064,0.399818
+PartII,76197,126.7099,310.5892,92.0,0.6841,0.1327,0.686,0.101251,0.00063,0.814153
+PartIII,11909,100.7165,233.7596,71.0,0.7079,0.1554,0.7062,1.0,0.067512,0.74196

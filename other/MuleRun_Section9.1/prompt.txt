@@ -1,0 +1,176 @@
+You are a senior benchmark data curator for narrative-query-to-agent recommendation.
+
+Your task is to generate high-quality user narrative queries that would plausibly be used to request help from a TARGET AGENT, given its capability profile.
+
+You will be provided with:
+1. One TARGET AGENT profile.
+2. Several DISTRACTOR AGENT profiles.
+The distractor agents are NOT the intended target, but they may be partially related and should be used as semantic noise when constructing some ambiguous or weakly specified queries.
+
+Your goal is to generate realistic, diverse, high-quality narrative queries that:
+- are primarily aligned with the TARGET AGENT’s actual capabilities,
+- vary from explicit intent to implicit intent,
+- exhibit a gradual difficulty spectrum,
+- include some realistic noise, ambiguity, redundancy, or colloquial phrasing,
+- remain plausible as real user requests in an agent marketplace or application setting.
+
+The generated queries should NOT read like annotation labels, feature summaries, or capability checklists. They should read like natural user requests.
+
+--------------------------------
+TASK DEFINITION
+--------------------------------
+Generate {N} user narrative queries for the TARGET AGENT.
+
+These queries should simulate realistic user requests and should be suitable for benchmark construction in an agent recommendation setting.
+
+--------------------------------
+INPUT AGENTS
+--------------------------------
+[TARGET AGENT]
+{target_agent_profile}
+
+[DISTRACTOR AGENTS]
+{distractor_agent_profiles}
+
+--------------------------------
+CORE REQUIREMENTS
+--------------------------------
+
+1. TARGET ALIGNMENT
+Each query should be meaningfully solvable by the TARGET AGENT.
+The query should reflect the target agent's capability boundaries faithfully.
+Do not introduce requirements that clearly exceed the target agent’s described abilities.
+
+2. DISTRACTOR AWARENESS
+The distractor agent profiles are provided as semantic noise.
+You may use them to inspire:
+- vague requests,
+- partially underspecified requests,
+- weakly disambiguated requests,
+- mixed-intent formulations,
+- marketplace-style user expressions that could superficially resemble other agents.
+However, the final query should still be more appropriate for the TARGET AGENT than for the distractors.
+
+3. DIVERSITY OF INTENT EXPRESSION
+The query set must cover a spectrum from:
+- highly explicit requests,
+- semi-explicit requests,
+- implicit requests,
+- scenario-driven requests,
+- goal-first requests,
+- constraint-first requests,
+- noisy conversational requests,
+- marketplace search-like requests.
+
+Do NOT make all queries begin with patterns like:
+- “I need an agent that can…”
+- “Help me…”
+- “Can you…”
+Use diverse sentence structures.
+
+4. DIFFICULTY LADDER
+The set should show a gradual increase in difficulty:
+- Level 1: straightforward, explicit, clean requests.
+- Level 2: requests with light context or small constraints.
+- Level 3: requests with implicit goals or scenario framing.
+- Level 4: noisy, underspecified, or partially ambiguous requests.
+- Level 5: harder cases with mixed signals, colloquial language, extra irrelevant details, or soft confusion with distractor capabilities.
+
+Difficulty should increase across the set rather than being random.
+
+5. REALISTIC NOISE
+Some queries should contain realistic user-side noise, such as:
+- casual or colloquial language,
+- incomplete specification,
+- redundant context,
+- self-correction,
+- mild vagueness,
+- platform-specific goals (e.g., social post, profile refresh, event poster, quick share),
+- imprecise terminology,
+- slightly messy wording.
+But do NOT make them nonsensical or impossible to understand.
+
+6. CAPABILITY-FAITHFULNESS
+Do not hallucinate capabilities.
+If the target agent only performs a narrow transformation, the query should stay within that scope.
+Do not implicitly require additional design, editing, planning, or reasoning abilities unless they are clearly supported by the target profile.
+
+7. REAL USER STYLE
+Queries should sound like what a real user would type in a marketplace, app, tool interface, or search box.
+Avoid overly technical, taxonomic, or benchmark-like wording.
+Avoid repetitive jargon such as:
+- “identity-preserving pose variation”
+- “micro-pose drift”
+- “semantic transformation”
+unless such language would genuinely be natural for a user.
+
+8. LEXICAL AND STRUCTURAL DIVERSITY
+Ensure broad diversity in:
+- wording,
+- syntax,
+- narrative framing,
+- intent expression,
+- explicitness level,
+- scene or application context.
+Avoid template repetition and Cartesian-product-like generation.
+
+9. PLAUSIBLE AMBIGUITY
+A subset of queries may be intentionally a bit ambiguous or weakly specified, especially when distractor profiles make that ambiguity realistic.
+However:
+- ambiguity should be natural,
+- the TARGET AGENT should still be the best or one of the best matches,
+- the query should not become equally or more suitable for a distractor.
+
+10. BENCHMARK VALUE
+The final set should be useful for evaluating:
+- semantic understanding,
+- intent matching,
+- robustness to paraphrase,
+- robustness to user noise,
+- implicit intent recognition,
+- boundary-sensitive recommendation.
+
+--------------------------------
+NEGATIVE CONSTRAINTS
+--------------------------------
+
+Do NOT:
+- produce near-duplicate paraphrases,
+- produce rigid template-based rewrites,
+- write capability summaries instead of user requests,
+- overuse “I need an agent that can…”,
+- make every query equally explicit,
+- make every query perfectly clean and polished,
+- include impossible requirements unsupported by the target agent,
+- overfit to exact profile wording,
+- copy phrases from the agent description verbatim unless naturally needed.
+
+Do NOT make the generated data feel synthetic through obvious templating.
+
+--------------------------------
+GENERATION STRATEGY
+--------------------------------
+
+Before writing the final queries, internally reason about:
+- the core capability kernel of the TARGET AGENT,
+- the capability boundaries of the TARGET AGENT,
+- which distractors are closest and could create realistic ambiguity,
+- which user intents are direct vs indirect,
+- which contexts are plausible but still capability-faithful.
+
+Then generate the queries accordingly.
+
+--------------------------------
+OUTPUT FORMAT
+--------------------------------
+
+Return a JSON array.
+Each item must contain:
+- "id": integer index starting from 1
+- "query": the narrative query
+- "difficulty": one of ["L1", "L2", "L3", "L4", "L5"]
+- "intent_type": one of ["explicit", "semi_explicit", "implicit", "scenario_driven", "constraint_first", "noisy", "ambiguous"]
+- "rationale": a brief explanation of why this query fits the TARGET AGENT and what makes it distinct
+- "noise_from_distractors": brief note on whether and how distractor-agent semantics weakly influenced the phrasing
+
+Ensure the final output is valid JSON only.

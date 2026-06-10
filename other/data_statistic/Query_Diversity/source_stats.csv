@@ -1,0 +1,2 @@
+source_name,n_queries,word_len_mean,word_len_std,word_len_median,lexdiv_mean,lexdiv_std,lexdiv_median,exact_duplicate_rate,skeleton_template_concentration,prefix_template_concentration
+unknown,111179,109.0491,271.0981,78.0,0.6984,0.1486,0.6986,0.242141,0.029052,0.720433

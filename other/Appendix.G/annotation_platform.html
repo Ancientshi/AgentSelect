@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent / LLM / Tool 标注工具</title>
+  <style>
+    body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f5f5f5; color: #111; }
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    .top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+    .title h1 { margin: 0; font-size: 30px; }
+    .title p { margin: 8px 0 0; color: #666; }
+    .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    button, .fake-btn { border: 1px solid #d0d0d0; background: white; border-radius: 14px; padding: 10px 14px; cursor: pointer; }
+    button:hover, .fake-btn:hover { background: #fafafa; }
+    .primary { background: #111; color: white; border-color: #111; }
+    .primary:hover { background: #222; }
+    .grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; margin-top: 20px; }
+    .card { background: white; border: 1px solid #e5e5e5; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+    .card .hd { padding: 18px 18px 0; font-weight: 700; }
+    .card .bd { padding: 18px; }
+    .muted { color: #666; }
+    .progress { height: 12px; background: #eee; border-radius: 999px; overflow: hidden; }
+    .bar { height: 100%; background: #111; width: 0; }
+    .left-list { max-height: 560px; overflow: auto; display: flex; flex-direction: column; gap: 8px; }
+    .item { padding: 12px; border: 1px solid #e5e5e5; border-radius: 16px; cursor: pointer; }
+    .item.active { background: #111; color: white; border-color: #111; }
+    .item small { display: block; opacity: .75; margin-bottom: 4px; }
+    .done { float: right; }
+    .pill { display: inline-block; padding: 2px 8px; font-size: 12px; border-radius: 999px; background: #eee; }
+    .section-title { display: flex; justify-content: space-between; align-items: center; margin: 22px 0 10px; }
+    .panel { padding: 14px; border: 1px solid #e5e5e5; border-radius: 18px; background: white; margin-bottom: 14px; }
+    .mono, pre { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    textarea, input[type='text'] { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid #ddd; border-radius: 12px; font: inherit; }
+    textarea { min-height: 80px; resize: vertical; }
+    .score-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+    .score-btn.active { background: #111; color: white; border-color: #111; }
+    .subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .nav { display: flex; gap: 8px; }
+    .box { background: #f2f2f2; border-radius: 14px; padding: 12px; }
+    @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } .subgrid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title">
+        <h1>Agent / LLM / Tool 人工标注工具</h1>
+        <p>加载 jsonl，逐条打分；支持 LLM 检索、Tool 检索、Agent 推荐细粒度评分；自动本地保存；可导出/导入进度。</p>
+      </div>
+      <div class="btns">
+        <button class="primary" id="loadJsonlBtn">加载 JSONL</button>
+        <button id="importBtn">导入评分</button>
+        <button id="exportBtn">导出评分</button>
+        <button id="clearBtn">清空当前条目</button>
+      </div>
+      <input type="file" id="jsonlInput" accept=".jsonl,.txt" hidden />
+      <input type="file" id="importInput" accept=".json" hidden />
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">数据与进度</div>
+        <div class="bd">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <span id="datasetName" class="pill">default</span>
+            <span id="statsText" class="muted">0/0</span>
+          </div>
+          <div class="progress"><div class="bar" id="progressBar"></div></div>
+          <div id="progressText" class="muted" style="font-size:12px;margin-top:8px;">0% 已打分</div>
+          <div style="margin:14px 0;">
+            <input type="text" id="filterInput" placeholder="按 question / key / dirname 搜索" />
+          </div>
+          <div class="left-list" id="recordList"></div>
+        </div>
+      </div>
+
+      <div id="main"></div>
+    </div>
+  </div>
+
+<script>
+const SCORE_OPTIONS = [
+  { value: -3, label: '差-3' },
+  { value: -2, label: '差-2' },
+  { value: -1, label: '差-1' },
+  { value: 1, label: '好+1' },
+  { value: 2, label: '好+2' },
+  { value: 3, label: '好+3' },
+];
+const STORAGE_PREFIX = 'agent-annotation-tool-v1';
+let records = [];
+let annotations = {};
+let currentIndex = 0;
+let datasetName = 'default';
+let filterText = '';
+
+function storageKey() { return `${STORAGE_PREFIX}:${datasetName}`; }
+function safeParse(s, fb=null) { try { return JSON.parse(s); } catch { return fb; } }
+function normalizeText(v) { if (v == null) return ''; return typeof v === 'string' ? v : JSON.stringify(v, null, 2); }
+function getRecordId(record, idx) { return record?.key || `${record?.dirname || 'item'}_${record?.num ?? idx}_${idx}`; }
+function extractToolsFromSuggestion(suggestion) {
+  const text = normalizeText(suggestion);
+  const regex = /<<([^<>]+)>>:\s*\[(.*?)\]/gs;
+  const items = []; let match;
+  while ((match = regex.exec(text)) !== null) {
+    const full = (match[1] || '').trim();
+    const desc = (match[2] || '').trim();
+    const parts = full.split('&&');
+    items.push({ id: full, service: (parts[0] || '').trim(), api: (parts[1] || '').trim(), description: desc.replace(/^'+|'+$/g, '') });
+  }
+  return items;
+}
+function extractLlmsFromSuggestion(suggestion) {
+  const text = normalizeText(suggestion);
+  const regex = /"name":\s*"([^"]+)"/g; const seen = new Set(); const items = []; let match;
+  while ((match = regex.exec(text)) !== null) {
+    const name = match[1]; if (!seen.has(name)) { seen.add(name); items.push({ id: name, name }); }
+  }
+  return items;
+}
+function extractAgents(record) {
+  const arr = Array.isArray(record?.recommendation_agents) ? record.recommendation_agents : [];
+  return arr.map((agent, idx) => ({ id: `agent_${idx+1}`, rank: idx+1, raw: agent, llm: agent?.M?.name || '', tools: Array.isArray(agent?.T?.tools) ? agent.T.tools : [] }));
+}
+function makeEmptyRecordAnnotation(record, idx) {
+  const llms = extractLlmsFromSuggestion(record?.suggestion);
+  const tools = extractToolsFromSuggestion(record?.suggestion);
+  const agents = extractAgents(record);
+  return {
+    recordId: getRecordId(record, idx),
+    meta: { dirname: record?.dirname || '', num: record?.num ?? null, key: record?.key || '', question: record?.question || '', rewritten_tool_query: record?.rewritten_tool_query || '' },
+    llmRetrieval: Object.fromEntries(llms.map(x => [x.id, { score: null, note: '' }])),
+    toolRetrieval: Object.fromEntries(tools.map(x => [x.id, { score: null, note: '' }])),
+    agentRecommendation: Object.fromEntries(agents.map(agent => [agent.id, {
+      score: null, note: '', llmScore: agent.llm ? { [agent.llm]: { score: null, note: '' } } : {}, toolScores: Object.fromEntries((agent.tools || []).map(t => [t, { score: null, note: '' }]))
+    }])),
+    generalNote: '', updatedAt: new Date().toISOString(),
+  };
+}
+function updateSaveStatus(extra = '') {
+  const el = document.getElementById('saveStatus');
+  if (!el) return;
+  const base = `保存位置：浏览器本地存储（localStorage）｜数据集键：${storageKey()}`;
+  el.textContent = extra ? `${base}｜${extra}` : base;
+}
+function saveLocal() {
+  const savedAt = new Date().toISOString();
+  localStorage.setItem(storageKey(), JSON.stringify({ annotations, currentIndex, savedAt }));
+  updateSaveStatus(`最近自动保存：${savedAt}`);
+}
+function loadLocal() {
+  const raw = localStorage.getItem(storageKey());
+  if (!raw) return;
+  const parsed = safeParse(raw, null);
+  if (parsed?.annotations) annotations = parsed.annotations;
+  if (typeof parsed?.currentIndex === 'number') currentIndex = parsed.currentIndex;
+}
+function getVisibleRecords() {
+  const q = filterText.trim().toLowerCase();
+  if (!q) return records;
+  return records.filter(r => [r?.dirname, r?.key, r?.question, r?.rewritten_tool_query].map(normalizeText).join('\n').toLowerCase().includes(q));
+}
+function getCurrentRecord() {
+  const visible = getVisibleRecords();
+  if (currentIndex >= visible.length) currentIndex = Math.max(0, visible.length - 1);
+  return visible[currentIndex] || null;
+}
+function touched(ann) {
+  if (!ann) return false;
+  return Object.values(ann.llmRetrieval || {}).some(x => x.score != null) || Object.values(ann.toolRetrieval || {}).some(x => x.score != null) || Object.values(ann.agentRecommendation || {}).some(x => x.score != null);
+}
+function ensureCurrentAnnotation() {
+  const record = getCurrentRecord(); if (!record) return null;
+  const id = getRecordId(record, currentIndex);
+  if (!annotations[id]) annotations[id] = makeEmptyRecordAnnotation(record, currentIndex);
+  return annotations[id];
+}
+function updateAnnotation(mutator) {
+  const record = getCurrentRecord(); if (!record) return;
+  const id = getRecordId(record, currentIndex);
+  if (!annotations[id]) annotations[id] = makeEmptyRecordAnnotation(record, currentIndex);
+  annotations[id] = mutator(annotations[id]);
+  annotations[id].updatedAt = new Date().toISOString();
+  saveLocal();
+  render();
+}
+function renderScoreButtons(value, onClickFactory) {
+  const row = document.createElement('div'); row.className = 'score-row';
+  SCORE_OPTIONS.forEach(opt => {
+    const b = document.createElement('button'); b.className = 'score-btn' + (value === opt.value ? ' active' : ''); b.textContent = opt.label; b.onclick = () => onClickFactory(opt.value); row.appendChild(b);
+  });
+  const clear = document.createElement('button'); clear.textContent = '清空'; clear.onclick = () => onClickFactory(null); row.appendChild(clear);
+  return row;
+}
+function renderPanel({ title, descHtml, scoreValue, noteValue, onScore, onNote }) {
+  const panel = document.createElement('div'); panel.className = 'panel';
+  const h = document.createElement('div'); h.style.fontWeight = '700'; h.textContent = title; panel.appendChild(h);
+  if (descHtml) { const d = document.createElement('div'); d.className = 'muted'; d.style.marginTop = '8px'; d.innerHTML = descHtml; panel.appendChild(d); }
+  panel.appendChild(renderScoreButtons(scoreValue, onScore));
+  const ta = document.createElement('textarea'); ta.value = noteValue || ''; ta.placeholder = '备注（可选）'; ta.oninput = e => onNote(e.target.value); panel.appendChild(ta);
+  return panel;
+}
+function exportAnnotations() {
+  const payload = { datasetName, exportedAt: new Date().toISOString(), totalRecords: records.length, annotations };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${datasetName || 'annotations'}_scores.json`;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+  updateSaveStatus(`已触发导出：${a.download}`);
+  alert(`已触发下载：${a.download}。
+如果没看到文件，请检查浏览器顶部/底部下载栏，或系统“下载”文件夹。`);
+}
+function computeStats() {
+  const total = records.length; let done = 0;
+  records.forEach((r, idx) => { const ann = annotations[getRecordId(r, idx)]; if (touched(ann)) done += 1; });
+  return { total, done, pct: total ? Math.round(done * 100 / total) : 0 };
+}
+function renderList() {
+  const visible = getVisibleRecords();
+  const list = document.getElementById('recordList'); list.innerHTML = '';
+  visible.forEach((r, idx) => {
+    const id = getRecordId(r, idx); const ann = annotations[id];
+    const div = document.createElement('div'); div.className = 'item' + (idx === currentIndex ? ' active' : '');
+    div.innerHTML = `<small>${normalizeText(r?.dirname)} · #${normalizeText(r?.num)}</small><div>${normalizeText(r?.question || r?.key || id)}</div>${touched(ann) ? '<span class="done">✓</span>' : ''}`;
+    div.onclick = () => { currentIndex = idx; saveLocal(); render(); };
+    list.appendChild(div);
+  });
+}
+function render() {
+  const stats = computeStats();
+  document.getElementById('datasetName').textContent = datasetName;
+  document.getElementById('statsText').textContent = `${stats.done}/${stats.total}`;
+  document.getElementById('progressText').textContent = `${stats.pct}% 已打分`;
+  document.getElementById('progressBar').style.width = `${stats.pct}%`;
+  renderList();
+
+  const main = document.getElementById('main'); main.innerHTML = '';
+  const visible = getVisibleRecords(); const record = getCurrentRecord();
+  if (!record) {
+    main.innerHTML = `<div class="card"><div class="bd" style="padding:60px;text-align:center;color:#666;">请先加载你的 jsonl 文件开始标注。</div></div>`;
+    return;
+  }
+  const ann = ensureCurrentAnnotation();
+  const llms = extractLlmsFromSuggestion(record?.suggestion);
+  const tools = extractToolsFromSuggestion(record?.suggestion);
+  const agents = extractAgents(record);
+
+  const topCard = document.createElement('div'); topCard.className = 'card';
+  topCard.innerHTML = `<div class="hd">样本 ${currentIndex + 1} / ${visible.length}</div>`;
+  const bd = document.createElement('div'); bd.className = 'bd';
+  const topRow = document.createElement('div'); topRow.style.display = 'flex'; topRow.style.justifyContent = 'space-between'; topRow.style.gap = '12px'; topRow.style.flexWrap = 'wrap';
+  topRow.innerHTML = `<div><div class="muted">${normalizeText(record?.dirname)} · num=${normalizeText(record?.num)} · key=${normalizeText(record?.key)}</div></div>`;
+  const nav = document.createElement('div'); nav.className = 'nav';
+  const prev = document.createElement('button'); prev.textContent = '上一条'; prev.disabled = currentIndex <= 0; prev.onclick = () => { currentIndex = Math.max(0, currentIndex - 1); saveLocal(); render(); };
+  const next = document.createElement('button'); next.textContent = '下一条'; next.disabled = currentIndex >= visible.length - 1; next.onclick = () => { currentIndex = Math.min(visible.length - 1, currentIndex + 1); saveLocal(); render(); };
+  nav.appendChild(prev); nav.appendChild(next); topRow.appendChild(nav); bd.appendChild(topRow);
+
+  const q = document.createElement('div'); q.style.marginTop = '14px'; q.innerHTML = `<div class="muted">Question</div><div class="box mono">${normalizeText(record?.question)}</div>`; bd.appendChild(q);
+  const sub = document.createElement('div'); sub.className = 'subgrid'; sub.style.marginTop = '14px';
+  sub.innerHTML = `<div><div class="muted">Rewritten Tool Query</div><div class="box mono">${normalizeText(record?.rewritten_tool_query)}</div></div><div><div class="muted">Tool Rewrite Raw</div><div class="box mono">${normalizeText(record?.tool_rewrite_raw)}</div></div>`;
+  bd.appendChild(sub);
+  const sug = document.createElement('div'); sug.style.marginTop = '14px'; sug.innerHTML = `<div class="muted">Suggestion</div><div class="box mono" style="max-height:320px;overflow:auto;">${normalizeText(record?.suggestion)}</div>`; bd.appendChild(sug);
+  topCard.appendChild(bd); main.appendChild(topCard);
+
+  const llmWrap = document.createElement('div');
+  llmWrap.innerHTML = `<div class="section-title"><h2>LLM 检索质量</h2><div class="muted">已评分 ${llms.filter(x => ann?.llmRetrieval?.[x.id]?.score != null).length}/${llms.length}</div></div>`;
+  llms.forEach(llm => {
+    llmWrap.appendChild(renderPanel({
+      title: llm.name,
+      scoreValue: ann?.llmRetrieval?.[llm.id]?.score ?? null,
+      noteValue: ann?.llmRetrieval?.[llm.id]?.note ?? '',
+      onScore: score => updateAnnotation(base => ({ ...base, llmRetrieval: { ...base.llmRetrieval, [llm.id]: { ...(base.llmRetrieval[llm.id] || {}), score } } })),
+      onNote: note => updateAnnotation(base => ({ ...base, llmRetrieval: { ...base.llmRetrieval, [llm.id]: { ...(base.llmRetrieval[llm.id] || {}), note } } })),
+    }));
+  });
+  main.appendChild(llmWrap);
+
+  const toolWrap = document.createElement('div');
+  toolWrap.innerHTML = `<div class="section-title"><h2>Tool 检索质量</h2><div class="muted">已评分 ${tools.filter(x => ann?.toolRetrieval?.[x.id]?.score != null).length}/${tools.length}</div></div>`;
+  tools.forEach(tool => {
+    toolWrap.appendChild(renderPanel({
+      title: `${tool.service} && ${tool.api}`,
+      descHtml: tool.description ? `<div class="mono">${tool.description}</div>` : '无描述',
+      scoreValue: ann?.toolRetrieval?.[tool.id]?.score ?? null,
+      noteValue: ann?.toolRetrieval?.[tool.id]?.note ?? '',
+      onScore: score => updateAnnotation(base => ({ ...base, toolRetrieval: { ...base.toolRetrieval, [tool.id]: { ...(base.toolRetrieval[tool.id] || {}), score } } })),
+      onNote: note => updateAnnotation(base => ({ ...base, toolRetrieval: { ...base.toolRetrieval, [tool.id]: { ...(base.toolRetrieval[tool.id] || {}), note } } })),
+    }));
+  });
+  main.appendChild(toolWrap);
+
+  const agentWrap = document.createElement('div');
+  agentWrap.innerHTML = `<div class="section-title"><h2>Agent 推荐质量</h2><div class="muted">已评分 ${agents.filter(x => ann?.agentRecommendation?.[x.id]?.score != null).length}/${agents.length}</div></div>`;
+  agents.forEach(agent => {
+    const panel = document.createElement('div'); panel.className = 'card';
+    panel.innerHTML = `<div class="hd">Rank #${agent.rank} · ${agent.id}</div>`;
+    const body = document.createElement('div'); body.className = 'bd';
+    body.innerHTML = `<div class="box mono"><div><b>LLM:</b> ${agent.llm || '(空)'}</div><div><b>Tools:</b> ${(agent.tools || []).length ? agent.tools.join(', ') : '(空)'}</div><pre>${JSON.stringify(agent.raw, null, 2)}</pre></div>`;
+    body.appendChild(renderPanel({
+      title: '整体 Agent 评分',
+      scoreValue: ann?.agentRecommendation?.[agent.id]?.score ?? null,
+      noteValue: ann?.agentRecommendation?.[agent.id]?.note ?? '',
+      onScore: score => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), score } } })),
+      onNote: note => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), note } } })),
+    }));
+    if (agent.llm) {
+      body.appendChild(renderPanel({
+        title: `Agent 内部 LLM 评分：${agent.llm}`,
+        scoreValue: ann?.agentRecommendation?.[agent.id]?.llmScore?.[agent.llm]?.score ?? null,
+        noteValue: ann?.agentRecommendation?.[agent.id]?.llmScore?.[agent.llm]?.note ?? '',
+        onScore: score => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), llmScore: { ...(base.agentRecommendation?.[agent.id]?.llmScore || {}), [agent.llm]: { ...(base.agentRecommendation?.[agent.id]?.llmScore?.[agent.llm] || {}), score } } } } })),
+        onNote: note => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), llmScore: { ...(base.agentRecommendation?.[agent.id]?.llmScore || {}), [agent.llm]: { ...(base.agentRecommendation?.[agent.id]?.llmScore?.[agent.llm] || {}), note } } } } })),
+      }));
+    }
+    (agent.tools || []).forEach(toolName => {
+      body.appendChild(renderPanel({
+        title: `Agent 内部 Tool 评分：${toolName}`,
+        scoreValue: ann?.agentRecommendation?.[agent.id]?.toolScores?.[toolName]?.score ?? null,
+        noteValue: ann?.agentRecommendation?.[agent.id]?.toolScores?.[toolName]?.note ?? '',
+        onScore: score => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), toolScores: { ...(base.agentRecommendation?.[agent.id]?.toolScores || {}), [toolName]: { ...(base.agentRecommendation?.[agent.id]?.toolScores?.[toolName] || {}), score } } } } })),
+        onNote: note => updateAnnotation(base => ({ ...base, agentRecommendation: { ...base.agentRecommendation, [agent.id]: { ...(base.agentRecommendation[agent.id] || {}), toolScores: { ...(base.agentRecommendation?.[agent.id]?.toolScores || {}), [toolName]: { ...(base.agentRecommendation?.[agent.id]?.toolScores?.[toolName] || {}), note } } } } })),
+      }));
+    });
+    panel.appendChild(body); agentWrap.appendChild(panel);
+  });
+  main.appendChild(agentWrap);
+
+  const finalCard = document.createElement('div'); finalCard.className = 'card';
+  finalCard.innerHTML = `<div class="hd">总备注</div>`;
+  const finalBody = document.createElement('div'); finalBody.className = 'bd';
+  const ta = document.createElement('textarea'); ta.value = ann?.generalNote || ''; ta.placeholder = '这一条样本的整体备注'; ta.oninput = e => updateAnnotation(base => ({ ...base, generalNote: e.target.value })); finalBody.appendChild(ta);
+  const tip = document.createElement('div'); tip.className = 'muted'; tip.style.fontSize = '12px'; tip.style.marginTop = '8px'; tip.textContent = '当前条目的评分会自动保存到浏览器 localStorage；也可以导出为 JSON。'; finalBody.appendChild(tip);
+  finalCard.appendChild(finalBody); main.appendChild(finalCard);
+}
+
+updateSaveStatus('当前还没有本地保存');
+document.getElementById('loadJsonlBtn').onclick = () => document.getElementById('jsonlInput').click();
+document.getElementById('importBtn').onclick = () => document.getElementById('importInput').click();
+document.getElementById('exportBtn').onclick = exportAnnotations;
+document.getElementById('clearBtn').onclick = () => {
+  const record = getCurrentRecord(); if (!record) return; const id = getRecordId(record, currentIndex); annotations[id] = makeEmptyRecordAnnotation(record, currentIndex); saveLocal(); render();
+};
+document.getElementById('filterInput').oninput = (e) => { filterText = e.target.value || ''; currentIndex = 0; render(); };
+document.getElementById('jsonlInput').onchange = (e) => {
+  const file = e.target.files?.[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const text = String(reader.result || '');
+    const lines = text.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+    records = lines.map(line => safeParse(line, null)).filter(Boolean);
+    datasetName = (file.name || 'default').replace(/\.[^.]+$/, '') || 'default';
+    annotations = {}; currentIndex = 0; loadLocal(); render();
+  };
+  reader.readAsText(file, 'utf-8');
+};
+document.getElementById('importInput').onchange = (e) => {
+  const file = e.target.files?.[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const parsed = safeParse(String(reader.result || ''), null);
+    if (parsed?.annotations) annotations = parsed.annotations;
+    if (parsed?.datasetName) datasetName = parsed.datasetName;
+    saveLocal(); render();
+  };
+  reader.readAsText(file, 'utf-8');
+};
+render();
+</script>
+</body>
+</html>

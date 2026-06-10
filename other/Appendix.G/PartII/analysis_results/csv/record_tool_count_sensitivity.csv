@@ -1,0 +1,5 @@
+tool_count_bucket,n_records,top1_tool_mean,top3_tool_mean,best_tool_mean,tool_mean,record_has_score3_tool_rate,record_has_negative_tool_rate
+1-5,7,2.7143,2.3333,2.7143,2.2857,85.71,14.29
+6-10,24,1.0417,0.6528,3.0,1.0359,100.0,66.67
+11-20,104,1.6538,1.1122,3.0,1.2244,100.0,79.81
+21+,15,1.6667,1.5778,3.0,1.8842,100.0,80.0

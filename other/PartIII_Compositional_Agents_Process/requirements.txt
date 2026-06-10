@@ -1,0 +1,10 @@
+chromadb
+langchain
+langchain-community
+langchain-core
+openai
+FlagEmbedding
+sentence-transformers
+torch
+numpy
+tqdm

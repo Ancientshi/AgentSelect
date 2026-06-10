@@ -1,0 +1,134 @@
+recordId,dirname,rank,tool_name,score,question,rewritten_tool_query
+leaderboard_bbh_date_understanding_question_111,bbh_date_understanding,1,Date Calculator API&&postCheckDayDiff,3,"Today is the second day of the third month of 1966. What is the date one week from today in MM/DD/YYYY?
+Options:
+(A) 12/09/1965
+(B) 03/02/1966
+(C) 03/28/1966
+(D) 03/26/1966
+(E) 03/09/1966
+(F) 02/22/1966",date calculation; add 7 days; format date MM/DD/YYYY
+leaderboard_bbh_date_understanding_question_189,bbh_date_understanding,1,Date Calculator API&&postCheckDayDiff,3,"Tomorrow is 11/12/2019. What is the date one week from today in MM/DD/YYYY?
+Options:
+(A) 08/21/2019
+(B) 11/18/2019
+(C) 11/18/2025
+(D) 11/18/2011
+(E) 02/18/2020
+(F) 11/04/2019",date calculation; add 1 week; format date MM/DD/YYYY
+leaderboard_bbh_date_understanding_question_200,bbh_date_understanding,1,Date Calculator API&&postCheckDayDiff,3,"In the US, Thanksgiving is on the fourth Thursday of November. Today is the US Thanksgiving of 2001. What is the date tomorrow in MM/DD/YYYY?
+Options:
+(A) 11/09/2002
+(B) 12/07/2002
+(C) 11/23/2002
+(D) 06/23/2002
+(E) 10/15/2002
+(F) 08/29/2002",date calculation; convert relative date to MM/DD/YYYY; US Thanksgiving 2001 tomorrow
+leaderboard_bbh_hyperbaton_question_232,bbh_hyperbaton,1,TextGears&&Grammar check,3,"Which sentence has the correct adjective order:
+Options:
+(A) lovely archaic cardboard cat
+(B) cardboard archaic lovely cat",grammar checker; adjective order sentence evaluation; multiple choice answer
+leaderboard_bbh_logical_deduction_five_objects_question_86,bbh_logical_deduction_five_objects,1,sort&&default,3,"The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are five vehicles: a minivan, a hatchback, a bus, a convertible, and a motorcyle. The hatchback is newer than the convertible. The bus is newer than the hatchback. The bus is older than the motorcyle. The minivan is the newest.
+Options:
+(A) The minivan is the second-newest
+(B) The hatchback is the second-newest
+(C) The bus is the second-newest
+(D) The convertible is the second-newest
+(E) The motorcyle is the second-newest",logic puzzle ordering; rank objects by age; determine second-newest item
+leaderboard_bbh_movie_recommendation_question_108,bbh_movie_recommendation,1,Similar Movies&&find similar,3,"Find a movie similar to The Shawshank Redemption, The Fugitive, Forrest Gump, Pulp Fiction:
+Options:
+(A) I Know Who Killed Me
+(B) Oceans
+(C) Dances with Wolves
+(D) It Can't Be!",movie recommendation similar to Shawshank Redemption Fugitive Forrest Gump Pulp Fiction; compare movie options
+leaderboard_bbh_movie_recommendation_question_160,bbh_movie_recommendation,1,Similar Movies&&find similar,3,"Find a movie similar to The Shawshank Redemption, Pulp Fiction, Schindler's List, Braveheart:
+Options:
+(A) The Bank Job
+(B) Robot Carnival
+(C) Dances with Wolves
+(D) The Family Stone",movie recommendation; similar movies to Shawshank Redemption Pulp Fiction Schindler's List Braveheart; choose from options A B C D
+leaderboard_bbh_penguins_in_a_table_question_83,bbh_penguins_in_a_table,1,Tables OCR&&Tables,3,"Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many penguins are less than 8 years old and weight less than 12 kg?
+Options:
+(A) 1
+(B) 2
+(C) 3
+(D) 4
+(E) 5",table data extraction; count rows with age < 8 and weight < 12
+leaderboard_bbh_penguins_in_a_table_question_105,bbh_penguins_in_a_table,1,Tables OCR&&Tables,3,"Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  Which penguin is older than the other ones?
+Options:
+(A) Louis
+(B) Bernard
+(C) Vincent
+(D) Gwen
+(E) James",table data extract; compare ages; find maximum age
+leaderboard_bbh_ruin_names_question_143,bbh_ruin_names,1,Just Compare&&Char Compare,3,"Which of the following is a humorous edit of this artist or movie name: 'the beatles'?
+Options:
+(A) the beatlis
+(B) the beagles
+(C) the ubeatles
+(D) the beatlies",name similarity compare; humorous edit detection; artist or movie name
+leaderboard_bbh_ruin_names_question_144,bbh_ruin_names,1,Semantic Analysis&&Texts_Comparison_v1_text_compare_post,3,"Which of the following is a humorous edit of this artist or movie name: 'my fair lady'?
+Options:
+(A) my fair laddy
+(B) my fmair lady
+(C) my faird lady
+(D) my fair laady",text similarity classification; identify humorous edit; compare name variants
+leaderboard_bbh_ruin_names_question_168,bbh_ruin_names,1,Semantic Analysis&&Texts_Comparison_v1_text_compare_post,3,"Which of the following is a humorous edit of this artist or movie name: 'the sisters of mercy'?
+Options:
+(A) the sister of mercy
+(B) the svsters of mercy
+(C) the sisters of msrcy
+(D) the sisters of percy",text similarity classification; identify humorous edited artist or movie name; compare options
+leaderboard_bbh_temporal_sequences_question_135,bbh_temporal_sequences,1,Time Interpreter&&time interpreter endpoint,3,"Today, Thomas went to the football field. Between what times could they have gone?
+We know that:
+Thomas woke up at 8am.
+David saw Thomas fixing their computer at the electronic store from 8am to 10am.
+Jennifer saw Thomas buying lunch at the deli from 10am to 12pm.
+Lisa saw Thomas walking towards the Statue of Liberty from 12pm to 2pm.
+Sarah saw Thomas buying a phone at the electronics store from 2pm to 5pm.
+Kimberly saw Thomas buying a bike at the bike shop from 6pm to 9pm.
+The football field was closed after 9pm.
+Between what times could Thomas have gone to the football field?
+Options:
+(A) 12pm to 2pm
+(B) 8am to 10am
+(C) 2pm to 5pm
+(D) 5pm to 6pm",temporal reasoning; interval overlap; event time constraints
+leaderboard_bbh_temporal_sequences_question_211,bbh_temporal_sequences,1,Time Interpreter&&time interpreter endpoint,3,"Today, Michael went to the football field. Between what times could they have gone?
+We know that:
+Michael woke up at 5am.
+Kimberly saw Michael stretching at a yoga studio from 5am to 7am.
+William saw Michael walking in the garden from 7am to 8am.
+Sarah saw Michael fixing their computer at the electronic store from 8am to 10am.
+Nancy saw Michael waiting at the airport from 10am to 12pm.
+Samantha saw Michael working out at the gym from 1pm to 9pm.
+The football field was closed after 9pm.
+Between what times could Michael have gone to the football field?
+Options:
+(A) 12pm to 1pm
+(B) 10am to 12pm
+(C) 7am to 8am
+(D) 5am to 7am",temporal reasoning; interval overlap; deductive schedule analysis
+leaderboard_bbh_temporal_sequences_question_221,bbh_temporal_sequences,1,Time Interpreter&&time interpreter endpoint,3,"Today, William went to the art studio. Between what times could they have gone?
+We know that:
+William woke up at 6am.
+William saw William working out at the gym from 6am to 7am.
+Sean saw William taking photos near the Eiffel Tower from 9am to 12pm.
+Susan saw William working at the office from 12pm to 8pm.
+Nancy saw William buying a bike at the bike shop from 8pm to 10pm.
+The art studio was closed after 10pm.
+Between what times could William have gone to the art studio?
+Options:
+(A) 8pm to 10pm
+(B) 9am to 12pm
+(C) 6am to 7am
+(D) 7am to 9am",time interval reasoning; schedule overlap; constraint satisfaction
+leaderboard_bbh_tracking_shuffled_objects_three_objects_question_171,bbh_tracking_shuffled_objects_three_objects,1,Link Safe API&&Solve Text,3,"Alice, Bob, and Claire are on the same team in a soccer match. At the start of the match, they are each assigned to a position: Alice is playing goalkeeper, Bob is playing left midfielder, and Claire is playing striker.
+As the game progresses, pairs of players occasionally swap positions. First, Bob and Claire trade positions. Then, Bob and Alice trade positions. Finally, Claire and Alice trade positions. At the end of the match, Bob is playing
+Options:
+(A) goalkeeper
+(B) left midfielder
+(C) striker",solve word problem; track swaps; determine final soccer positions
+leaderboard_ifeval_question_67,ifeval,1,Photomath&&maths/solve-problem,3,"If a + b + c = 30 and b = 10 and c = 5. Is a = 20? Answer ”My answer is yes."" or ""My answer is no."" or ""My answer is maybe.""",math equation solve; algebra verify expression
+leaderboard_ifeval_question_72,ifeval,1,weather forecast 14 days&&Search location by Name or zip code,3,"Write a template for a chat bot that takes a user's location and gives them the weather forecast. Use the letter o as a keyword in the syntax of the template. The letter o should appear at least 6 times.. Your response should contain fewer than 6 sentences. Highlight at least 2 text sections, i.e. *highlighted section*.",weather forecast by location; chatbot template generation; syntax keyword constraint
+leaderboard_math_algebra_hard_question_75,math_algebra_hard,1,Photomath&&maths/solve-problem,3,How many distinct rectangles are there with integer side lengths such that the numerical value of area of the rectangle in square units is equal to $5$ times the numerical value of the perimeter in units? (Two rectangles are considered to be distinct if they are not congruent.),math problem solving; count integer-sided rectangles; area equals 5 times perimeter
+leaderboard_math_algebra_hard_question_129,math_algebra_hard,1,Photomath&&maths/solve-problem,3,"Define the function $g(x)=3x+2$. If $g(x)=2f^{-1}(x)$ and $f^{-1}(x)$ is the inverse of the function $f(x)=ax+b$, find $\dfrac{a+b}{2}$.",math equation solving; inverse function calculation; linear function parameter solve

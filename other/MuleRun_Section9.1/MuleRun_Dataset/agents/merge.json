@@ -1,0 +1,771 @@
+{
+  "PartIV_agent_13": {
+    "M": {},
+    "T": {
+      "tools": [
+        "FormatForSocialMedia",
+        "GeneratePoseGrid",
+        "MaintainStyleConsistency",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_14": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateCartoonCover",
+        "GeneratePixelLogo"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_15": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AdaptSuspectBehavior",
+        "AnalyzeClues",
+        "CollectEvidence",
+        "ExploreEnvironment",
+        "InterrogateSuspect",
+        "RevealCulprit",
+        "TrackInvestigationProgress",
+        "UnlockHiddenAreas"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_16": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GoogleAccountLogin",
+        "VideoContentGeneration",
+        "VideoDownloadAutomation"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_17": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ExplainCulturalContext",
+        "PersonalizeLearningExperience",
+        "ProvideCookingTutorials",
+        "TeachPinyinAndKeywords"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_18": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AggregateMultiSourceProfiles",
+        "AutomateResearchInvestigation",
+        "BuildRelationshipGraph",
+        "ConsolidateFragmentedData",
+        "DiscoverHiddenConnectors",
+        "ExpandDetailCards",
+        "FilterCoreNodes",
+        "HighlightDataTrustworthiness"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_19": {
+    "M": {},
+    "T": {
+      "tools": [
+        "BusinessIdeaInputHandler",
+        "MultiSubredditScanner",
+        "OpportunityReportGenerator",
+        "PostPainPointAnalyzer",
+        "StrategicSynthesisAI"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_20": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CreateUniqueAvatars",
+        "GenerateExpressionGrid",
+        "MaintainConsistentStyle",
+        "UploadPortrait"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_21": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CommentClassification",
+        "CommentFiltering",
+        "HotTopicTracking",
+        "MultilingualCommentGeneration",
+        "PersonalizedReplies",
+        "RealTimeTrendTracking",
+        "VideoFiltering"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_22": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CreateShareableDigitalMasterpiece",
+        "DesignCustomPetGift",
+        "GenerateRegalPortrait",
+        "TransformPetPhotoToOilPainting"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_23": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateCompositeImage",
+        "MatchPoseAndExpression",
+        "OutputHighResolutionImage",
+        "UploadCurrentPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_24": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyArtisticStyle",
+        "PreserveBackground",
+        "RecognizeArchitecture",
+        "TransformBuildingPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_25": {
+    "M": {},
+    "T": {
+      "tools": [
+        "EEATContentGeneration",
+        "GoogleTrendsTopicDiscovery",
+        "SERPScrapeAndAnalyze"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_26": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplySmartLayout",
+        "GenerateHighResolutionOutput",
+        "SupportMultiPersonPhotos",
+        "TransformPhotoToCover",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_27": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AnalyzeArchitecturalIntegrity",
+        "ApplyDesignConcept",
+        "GenerateDesignMockups",
+        "InstantVirtualStaging"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_28": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AutomaticImageCleanup",
+        "ConsistentAestheticConversion",
+        "InstantStylisticConversion",
+        "ProfessionalStyleAccess"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_29": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CreateCosplayScene",
+        "GenerateCosplayPhoto",
+        "GenerateSocialMediaContent",
+        "ReplicateCharacterPose",
+        "TransformAppearance",
+        "VisualizeCosplayIdea"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_30": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CheckOutAgent",
+        "ManageMemory",
+        "PerformCalculations",
+        "RunAgent",
+        "SearchInformation",
+        "ShareAgent"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_31": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ExtractTranscript",
+        "FormatOutputMarkdown",
+        "GeneratePlatformCopy",
+        "RetrieveVideoDetails",
+        "YouTubeLinkVerification"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_32": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyClassicLightingTexture",
+        "GenerateBWPortrait",
+        "RemoveExtraneousElements",
+        "RenderSmoothGradientBackground"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_33": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AnalyzeTextForCards",
+        "AssembleLearningCards",
+        "BatchGenerateCards",
+        "GenerateCardImages",
+        "TransformTopicToCards"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_34": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CharacterBuilding",
+        "DialogueSceneOptimization",
+        "PlotConflictDesign",
+        "ScriptFormatting",
+        "ScriptOutlineGeneration"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_35": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateCaricature",
+        "PreserveIdentityStyle",
+        "RenderHighQualityImage",
+        "ShareCaricature",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_36": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyThemeOptions",
+        "ExportHighResolutionPhoto",
+        "GenerateRedCarpetPhoto",
+        "OneClickPhotoGeneration"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_37": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateHairstyle",
+        "GetCreatorInfo",
+        "ShareHairstyle",
+        "TryHairstyle",
+        "ViewPlayback"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_38": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyCorporateStudioAesthetics",
+        "ApplyProfessionalAttire",
+        "EnhanceImageClarityAndSkinTone",
+        "EnhanceLightingAndBackground",
+        "GenerateConfidentExpression",
+        "MaintainTrueIdentity",
+        "PrepareForProfessionalUse",
+        "TransformPortraitToHeadshot"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_39": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AddDynamicEffects",
+        "ApplyMechaAesthetics",
+        "GenerateMechaAvatar",
+        "GenerateSocialMediaContent",
+        "PhotoUpload",
+        "PreservePetIdentity"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_40": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CustomizePackaging",
+        "GenerateDesktopDisplay",
+        "PhotoTo3DModel"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_41": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AddArtworkToText",
+        "GenerateHTMLPost",
+        "GenerateMarketingContent",
+        "IllustrateSocialPost",
+        "IncludeReferences",
+        "SearchAndSummarizeWeb",
+        "SummarizeResearchWithFigures"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_42": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AnalyzeAppearanceAndAge",
+        "ApplyEraAccurateStyling",
+        "GeneratePhotorealisticImage",
+        "MatchProfessionToEraAndPlace",
+        "SelectTimePeriodAndPlace",
+        "SupportFlexibleThemes",
+        "UploadPortrait"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_43": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateOptimizedPost",
+        "IncorporateTrackingLinks",
+        "PublishToLinkedIn",
+        "PublishToX",
+        "SchedulePostPublishing",
+        "UploadImageForLinkedIn"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_44": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyOpticalRefractionEffects",
+        "CenterProductOnWhiteBackground",
+        "GenerateTransparentMechanicalModel",
+        "RenderFullRealWorldForm"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_45": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CreateShareableContent",
+        "GeneratePetInUniform",
+        "SelectNFLTeam",
+        "UploadPetPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_46": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CropAndAdjustImage",
+        "FacialRecognition",
+        "GenerateIDPhoto",
+        "RemoveBackground",
+        "ValidatePhotoStandards"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_47": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyCharacterPreset",
+        "GenerateHolidayCostume",
+        "PreserveFacialFeatures",
+        "ProduceHighResolutionOutput",
+        "SelectHolidayTheme",
+        "UploadPortrait"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_48": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ErrorHandlingWorkflow",
+        "GenerateHighFidelityVisualization",
+        "IntelligentRetryMechanism",
+        "PreserveSubjectAttributes",
+        "ProcessImageInputs",
+        "VirtualTryOn"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_49": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplySmartAIAlignment",
+        "GenerateNineGridCollage",
+        "SelectCustomTemplate",
+        "UploadPetPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_50": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateGhibliStyleIllustration",
+        "PreserveTrueFeatures",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_51": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateSummary",
+        "GenerateTranscript",
+        "JoinMeetingAsListener",
+        "LeaveMeeting"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_52": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyMoodExpression",
+        "GeneratePortraitGrid",
+        "RenderPhotorealisticPortrait",
+        "SimulateFilmStockStyle"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_53": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ExtractVideoMetadata",
+        "ExtractVideoTranscript",
+        "FormatSummaryOutput",
+        "GenerateVideoSummary",
+        "ReviewAndCorrectSummary"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_54": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CheckLegoFigBox",
+        "GetCreatorInfo",
+        "RunLegoFigBox",
+        "ShareLegoFigBox",
+        "ViewPlaybacks"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_55": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AnalyzePhoto",
+        "EnhanceImageQuality",
+        "GeneratePortrait",
+        "OneClickPortraitGeneration",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_56": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyAIEnhancements",
+        "DownloadHighResolution",
+        "GenerateHeadshot",
+        "GenerateVariations",
+        "SubmitCustomizationPrompt",
+        "UploadSelfie"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_57": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ExploreHairstyleCategories",
+        "GenerateHairstyleGrid",
+        "RenderHighQualityHairstyles",
+        "UploadPortrait"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_58": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AdjustPhotoBlend",
+        "CreateZodiacPortrait",
+        "GenerateRandomZodiacAnimal",
+        "ProvideInstantResult",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_59": {
+    "M": {},
+    "T": {
+      "tools": [
+        "CreateShareReadyImage",
+        "GeneratePortraitWithLightingAndTones",
+        "TransformSelfieToPortrait",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_60": {
+    "M": {},
+    "T": {
+      "tools": [
+        "GenerateHyperRealisticPortrait",
+        "PreserveFacialFeatures",
+        "ProduceProfessionalQualityImage",
+        "SelectMarvelHero",
+        "UploadPhoto"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_61": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyColorPalette",
+        "CurveAdaptation",
+        "GenerateVectorOutput",
+        "SilhouetteSelection",
+        "TextToSilhouetteArt"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_62": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyAppleStyleEventBackground",
+        "GenerateHyperRealisticPhoto",
+        "PreserveFacialFeatures",
+        "ProduceShareReadyImage",
+        "UploadSelfie"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_63": {
+    "M": {},
+    "T": {
+      "tools": [
+        "BackgroundColorCustomization",
+        "BackgroundRemoval",
+        "CasualPhotoEnhancement",
+        "FaceDetection",
+        "HeadProportionCalibration",
+        "MultiStandardCompliance",
+        "PhotoCroppingAndResizing"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_64": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AddArtworkToText",
+        "CreateMarketingContent",
+        "GenerateHTMLPage",
+        "GenerateIllustratedPost",
+        "SearchAndSummarizeWeb",
+        "ShareOnSocialPlatforms",
+        "SummarizeResearchWithFigures"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_65": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ProcessLocationPhoto",
+        "ReliveMemory",
+        "ReuniteWithLovedOnes",
+        "TeleportToLocation"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_66": {
+    "M": {},
+    "T": {
+      "tools": [
+        "EarlyStageTokenDetection",
+        "RealTimeNewsAlerts",
+        "RiskRadar",
+        "TokenMarketAnalysisReport"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_67": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyLabubuStyle",
+        "AutoAdjustImage",
+        "DownloadPortrait",
+        "GenerateLabubuPortrait",
+        "UploadSelfie"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_68": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AddPlayfulPuzzlePieceDetail",
+        "ApplySignatureCostumeColors",
+        "CreateCollectiblePortrait",
+        "GeneratePuzzlePieceTexture",
+        "PrepareForSocialSharing",
+        "TransformCharacterToPuzzleToy"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_69": {
+    "M": {},
+    "T": {
+      "tools": [
+        "AnalyzeVisualAndTextContent",
+        "BatchTitleGeneration",
+        "CustomizeTitleStyle",
+        "GenerateTitles",
+        "OptimizeForSEO",
+        "PlatformComplianceCheck"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_70": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ApplyChalkboardBackground",
+        "CreateMixedRealismCartoonStyle",
+        "GenerateExaggeratedPoses",
+        "PrepareImageForSharing",
+        "RetainPhotorealisticHead",
+        "TransformPhotoToStickFigure"
+      ]
+    },
+    "C": {}
+  },
+  "PartIV_agent_71": {
+    "M": {},
+    "T": {
+      "tools": [
+        "ControlBrandVoice",
+        "ExportCopyReadyText",
+        "GenerateLogoConcept",
+        "GenerateShareableHtmlPreview",
+        "GenerateVariantsAndABTests",
+        "GenerateWorkflowDescription",
+        "GenerateWorkflowName",
+        "SupportMultipleLanguages"
+      ]
+    },
+    "C": {}
+  }
+}

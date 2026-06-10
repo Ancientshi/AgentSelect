@@ -1,0 +1,29 @@
+metric,value
+#Records,150.0
+#LLM retrieval items,716.0
+#Tool retrieval items,2099.0
+#Agent recommendation items,750.0
+#Agent internal tool items,1460.0
+Records with non-empty rewritten_tool_query (%),0.0
+Tools per record (mean),13.9933
+Agents per record (mean),5.0
+Top-1 tool score (record mean),1.6067
+Top-3 tool mean (record mean),1.1422
+Best-tool score (record mean),2.9867
+Records with >=1 score-3 tool (%),99.33
+Records with >=1 negative tool (%),74.67
+LLM score mean,0.7933
+LLM score std,0.6093
+LLM score==3 rate (%),0.0
+Tool score mean,1.3545
+Tool score std,2.3043
+Tool score>=2 rate (%),61.41
+Tool score==3 rate (%),54.12
+Tool score<0 rate (%),20.1
+Tool score==-3 rate (%),19.87
+Agent score mean,2.12
+Agent score std,1.0317
+Agent score==3 rate (%),43.47
+Agent tool_count==0 rate (%),8.13
+Agent has_any_negative_tool rate (%),2.0
+Agent all_tools_score3 rate (%),89.47

@@ -1,0 +1,1840 @@
+tool_name,n,mean_score,score3_rate,ge2_rate,negative_rate
+requests,7,2.1429,57.14,57.14,0.0
+<<Chuck Norris&&/jokes/random>>,6,3.0,100.0,100.0,0.0
+Numbers&&Get year fact,6,1.8333,66.67,83.33,16.67
+Numbers&&Get math fact,6,1.6667,66.67,66.67,16.67
+<<Numbers&&Get random fact>>,5,3.0,100.0,100.0,0.0
+<<Numbers&&Get trivia fact>>,5,3.0,100.0,100.0,0.0
+Chuck Norris Jokes&&Get Random Joke,5,3.0,100.0,100.0,0.0
+Chuck Norris by API-Ninjas&&/v1/chucknorris,5,3.0,100.0,100.0,0.0
+Chuck Norris&&/jokes/random,5,3.0,100.0,100.0,0.0
+Numbers&&Get random fact,5,3.0,100.0,100.0,0.0
+Numbers&&Get trivia fact,5,2.6,80.0,80.0,0.0
+calculator,5,1.4,60.0,60.0,20.0
+open-weather-map,5,1.4,60.0,60.0,20.0
+check_meeting_room_availability,5,0.2,40.0,40.0,40.0
+file-search,5,-1.8,20.0,20.0,80.0
+<<Numbers&&Get date fact>>,4,3.0,100.0,100.0,0.0
+<<Numbers&&Get math fact>>,4,3.0,100.0,100.0,0.0
+<<Numbers&&Get year fact>>,4,3.0,100.0,100.0,0.0
+asknews,4,3.0,100.0,100.0,0.0
+Numbers&&Get date fact,4,2.5,75.0,75.0,0.0
+get_popular_songs_by_artist,4,2.5,75.0,75.0,0.0
+Skip Auth&&Status,4,1.0,0.0,0.0,0.0
+Humor-Jokes-and-Memes&&random-meme,4,-0.5,25.0,25.0,50.0
+<<Chuck Norris by API-Ninjas&&/v1/chucknorris>>,3,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_dm>>,3,3.0,100.0,100.0,0.0
+Jibber Jabber&&/word,3,3.0,100.0,100.0,0.0
+Random Word by API-Ninjas&&/v1/randomword,3,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_dm,3,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_bbc,3,2.6667,66.67,100.0,0.0
+news-world-api&&this request search for news_nyp,3,2.6667,66.67,100.0,0.0
+CheckThatPhone&&/checkthatphone,3,2.3333,66.67,66.67,0.0
+Cryptocurrency APIs&&GetERC20Balance,3,2.3333,66.67,66.67,0.0
+Long Translator&&languages,3,2.3333,66.67,66.67,0.0
+get_artist_from_song,3,2.3333,66.67,66.67,0.0
+current_time_service,3,1.3333,0.0,33.33,0.0
+Phone Validate&&Phone Validate,3,1.0,66.67,66.67,33.33
+brave-search,3,0.6667,33.33,66.67,33.33
+check_room_booking_status,3,0.3333,33.33,33.33,33.33
+search_and_select_meeting_room,3,0.3333,33.33,33.33,33.33
+search_available_rooms,3,0.3333,33.33,33.33,33.33
+wikipedia,3,0.3333,33.33,33.33,33.33
+yahoo-finance-news,3,0.3333,33.33,33.33,33.33
+create_reminder,3,-1.6667,0.0,0.0,66.67
+<<DNS Lookup&&/whoisserver/DNSService>>,2,3.0,100.0,100.0,0.0
+<<Deezer&&Artist>>,2,3.0,100.0,100.0,0.0
+<<Ethereum API&&getAddressBalance>>,2,3.0,100.0,100.0,0.0
+<<Google Translate Text&&detectLanguage>>,2,3.0,100.0,100.0,0.0
+<<Google Translate Text&&translateText>>,2,3.0,100.0,100.0,0.0
+<<Long Translator&&translate>>,2,3.0,100.0,100.0,0.0
+<<Random Word by API-Ninjas&&/v1/randomword>>,2,3.0,100.0,100.0,0.0
+<<Random Word&&/run.cgi>>,2,3.0,100.0,100.0,0.0
+<<Simple Surf Forecast Api&&GetSurfbreaksByCountry>>,2,3.0,100.0,100.0,0.0
+<<SongMeanings&&artists.search>>,2,3.0,100.0,100.0,0.0
+<<Soundcloud&&/song/info>>,2,3.0,100.0,100.0,0.0
+<<Tourist Attraction&&Photos>>,2,3.0,100.0,100.0,0.0
+<<Tourist Attraction&&Search>>,2,3.0,100.0,100.0,0.0
+<<World Bank | GDP&&List of countries with income level>>,2,3.0,100.0,100.0,0.0
+<<Worldwide Restaurants&&Detail>>,2,3.0,100.0,100.0,0.0
+<<Worldwide Restaurants&&Reviews>>,2,3.0,100.0,100.0,0.0
+<<YH Finance_v2&&stock/get_stock_price>>,2,3.0,100.0,100.0,0.0
+<<manatee jokes&&find all>>,2,3.0,100.0,100.0,0.0
+<<manatee jokes&&random>>,2,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_bbc>>,2,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_nyp>>,2,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_smh>>,2,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/continent={continent}[,{continent}[,...]]>>",2,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/map/{ne_lat},{ne_lng},{sw_lat},{sw_lng},{zoom}>>",2,3.0,100.0,100.0,0.0
+AI Translation APIs&&Supported Languages List,2,3.0,100.0,100.0,0.0
+DNS Lookup&&/whoisserver/DNSService,2,3.0,100.0,100.0,0.0
+Ethereum API&&getAddressBalance,2,3.0,100.0,100.0,0.0
+Google Translate Text&&detectLanguage,2,3.0,100.0,100.0,0.0
+Google Translate Text&&translateText,2,3.0,100.0,100.0,0.0
+Long Translator&&translate,2,3.0,100.0,100.0,0.0
+Nasdaq Stock Pricing&&Get Price,2,3.0,100.0,100.0,0.0
+Places&&Place properties,2,3.0,100.0,100.0,0.0
+Random Word&&/run.cgi,2,3.0,100.0,100.0,0.0
+SongMeanings&&artists.search,2,3.0,100.0,100.0,0.0
+Text translation - Multilingual/bilingual&&translatetexttotext,2,3.0,100.0,100.0,0.0
+Tourist Attraction&&Photos,2,3.0,100.0,100.0,0.0
+Tourist Attraction&&Search,2,3.0,100.0,100.0,0.0
+World Bank | GDP&&List of countries with income level,2,3.0,100.0,100.0,0.0
+Worldwide Restaurants&&Detail,2,3.0,100.0,100.0,0.0
+Worldwide Restaurants&&Reviews,2,3.0,100.0,100.0,0.0
+YH Finance_v2&&stock/get_stock_price,2,3.0,100.0,100.0,0.0
+balance_query,2,3.0,100.0,100.0,0.0
+check_balance,2,3.0,100.0,100.0,0.0
+check_weather,2,3.0,100.0,100.0,0.0
+google-serper,2,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_smh,2,3.0,100.0,100.0,0.0
+weather_query,2,3.0,100.0,100.0,0.0
+"webcams.travel&&/webcams/map/{ne_lat},{ne_lng},{sw_lat},{sw_lng},{zoom}",2,3.0,100.0,100.0,0.0
+Schedule,2,2.5,50.0,100.0,0.0
+Tourist Attraction&&Reviews,2,2.5,50.0,100.0,0.0
+news-world-api&&this request search for all this  news,2,2.5,50.0,100.0,0.0
+<<Cryptocurrency balance&&Get Ether Balance>>,2,2.0,50.0,50.0,0.0
+<<Ethereum API&&getTokenBalance>>,2,2.0,50.0,50.0,0.0
+<<Google Translate Text&&supportedLanguages>>,2,2.0,50.0,50.0,0.0
+<<Random Famous Quotes&&POST endpoint>>,2,2.0,50.0,50.0,0.0
+<<Worldwide Restaurants&&Photos>>,2,2.0,50.0,50.0,0.0
+Car API&&Makes,2,2.0,50.0,50.0,0.0
+Car API&&Models,2,2.0,50.0,50.0,0.0
+Cryptocurrency balance&&Get Ether Balance,2,2.0,50.0,50.0,0.0
+D7 Verify&&Check Balance,2,2.0,50.0,50.0,0.0
+Ethereum API&&getTokenBalance,2,2.0,50.0,50.0,0.0
+Google Translate Text&&supportedLanguages,2,2.0,50.0,50.0,0.0
+Humor-Jokes-and-Memes&&random-joke,2,2.0,50.0,50.0,0.0
+Location and Time&&Get Supported Timezones,2,2.0,50.0,50.0,0.0
+MOTD&&MOTD Docs,2,2.0,50.0,50.0,0.0
+NLP&&Find Keywords For Site,2,2.0,50.0,50.0,0.0
+Open Library&&Search Title,2,2.0,50.0,50.0,0.0
+Random Famous Quotes&&POST endpoint,2,2.0,50.0,50.0,0.0
+SongMeanings&&lyrics.get,2,2.0,50.0,50.0,0.0
+US Geo Data&&Lookup Zip Codes,2,2.0,50.0,50.0,0.0
+Worldwide Restaurants&&Photos,2,2.0,50.0,50.0,0.0
+assign_staff_to_meeting_room,2,2.0,50.0,50.0,0.0
+mortgage_calculator_tool,2,2.0,50.0,50.0,0.0
+server_login,2,2.0,50.0,50.0,0.0
+table_booking_api,2,2.0,50.0,50.0,0.0
+"webcams.travel&&/webcams/list/continent={continent}[,{continent}[,...]]",2,2.0,50.0,50.0,0.0
+Coinbase&&getAddressTransactions,2,1.5,0.0,50.0,0.0
+Jibber Jabber&&/words,2,1.5,0.0,50.0,0.0
+Location and Time&&Search City by Location,2,1.5,0.0,50.0,0.0
+Priceline com Provider&&Download amenities,2,1.5,0.0,50.0,0.0
+SongMeanings&&users.favorites.put,2,1.5,0.0,50.0,0.0
+World Bank | GDP&&List all countries,2,1.5,0.0,50.0,0.0
+ClothingRecommendation,2,1.0,0.0,0.0,0.0
+Google Translate Text&&textToSpeech,2,1.0,0.0,0.0,0.0
+SoccersAPI&&Events,2,1.0,0.0,0.0,0.0
+souvenir_recommender,2,1.0,0.0,0.0,0.0
+sql,2,1.0,0.0,0.0,0.0
+"webcams.travel&&/webcams/list/limit={limit},{offset}",2,1.0,0.0,0.0,0.0
+get_contact_information,2,0.5,50.0,50.0,50.0
+AddMeeting,2,0.0,50.0,50.0,50.0
+Anime Jokes&&Search jokes,2,0.0,50.0,50.0,50.0
+Billboard API_v2&&Billboard Hot 100,2,0.0,50.0,50.0,50.0
+Coinpaprika&&Exchanges,2,0.0,50.0,50.0,50.0
+Cryptocurrency APIs&&GetAddressBalance,2,0.0,50.0,50.0,50.0
+Giphy&&Search,2,0.0,50.0,50.0,50.0
+Lonely&&lyrics,2,0.0,50.0,50.0,50.0
+Lonely&&recognize_music,2,0.0,50.0,50.0,50.0
+Stock & Crypto Universe&&Earnings History,2,0.0,50.0,50.0,50.0
+TextFlow SMS API&&Send SMS,2,0.0,50.0,50.0,50.0
+custom-functions,2,0.0,50.0,50.0,50.0
+exa-search,2,0.0,50.0,50.0,50.0
+search_conference_rooms,2,0.0,50.0,50.0,50.0
+tasks,2,0.0,50.0,50.0,50.0
+OpenCritic API&&/game/hall-of-fame,2,-0.5,0.0,50.0,50.0
+Videogames NEWS&&videogames_news_recent_get,2,-0.5,0.0,50.0,50.0
+check_account_functionality,2,-0.5,0.0,50.0,50.0
+API-BASKETBALL&&stages,2,-1.0,0.0,0.0,50.0
+Billboard API_v2&&Bolivia Songs,2,-1.0,0.0,0.0,50.0
+Billboard API_v2&&Slovakia Songs,2,-1.0,0.0,0.0,50.0
+Car API&&Engines,2,-1.0,0.0,0.0,50.0
+DocTop&&English topics,2,-1.0,0.0,0.0,50.0
+Giphy&&STICKER Roulette,2,-1.0,0.0,0.0,50.0
+Giphy&&STICKER Translate,2,-1.0,0.0,0.0,50.0
+Novels - Manga manhwa novels&&SEARCH novel,2,-1.0,0.0,0.0,50.0
+Qvantana&&Moving Average Convergence Divergence (MACD),2,-1.0,0.0,0.0,50.0
+SteamGames Special offers&&GamesData,2,-1.0,0.0,0.0,50.0
+SteamGames Special offers&&GamesList,2,-1.0,0.0,0.0,50.0
+book_train_ticket,2,-1.0,0.0,0.0,50.0
+check_table_availability,2,-1.0,0.0,0.0,50.0
+news_headlines_generator,2,-1.0,0.0,0.0,50.0
+Coinpaprika&&Events for coin,2,-3.0,0.0,0.0,100.0
+Free games this month&&Get recent gift games,2,-3.0,0.0,0.0,100.0
+Gangster Speak Translator API&&Translate,2,-3.0,0.0,0.0,100.0
+Horse Racing USA&&Horses win rate,2,-3.0,0.0,0.0,100.0
+Lonely&&timezone,2,-3.0,0.0,0.0,100.0
+Password Generator by API-Ninjas&&/v1/passwordgenerator,2,-3.0,0.0,0.0,100.0
+Qvantana&&Abandoned Baby,2,-3.0,0.0,0.0,100.0
+chaincerts&&ChangeDetails,2,-3.0,0.0,0.0,100.0
+get_service_center_working_hours,2,-3.0,0.0,0.0,100.0
+product_catalog_create,2,-3.0,0.0,0.0,100.0
+update_account_info,2,-3.0,0.0,0.0,100.0
+<< All-In-One Crypto Swiss Knife &&Protocol>>,1,3.0,100.0,100.0,0.0
+<< All-In-One Crypto Swiss Knife &&Protocols>>,1,3.0,100.0,100.0,0.0
+<< Demo Project_v3&&Get Product>>,1,3.0,100.0,100.0,0.0
+<< Demo Project_v3&&Get Products>>,1,3.0,100.0,100.0,0.0
+<<360 Business Tool&&GetCompaniesSince>>,1,3.0,100.0,100.0,0.0
+<<360 Business Tool&&GetDocumentTypesSince>>,1,3.0,100.0,100.0,0.0
+<<AI Translation APIs&&Supported Languages List>>,1,3.0,100.0,100.0,0.0
+<<AIbit translator&&Get Supported Languages>>,1,3.0,100.0,100.0,0.0
+<<API-BASKETBALL (NBA) &&NBA Shedules>>,1,3.0,100.0,100.0,0.0
+<<API-BASKETBALL&&teams statistics>>,1,3.0,100.0,100.0,0.0
+<<API-NBA&&Games per date>>,1,3.0,100.0,100.0,0.0
+<<APIStocks&&daily>>,1,3.0,100.0,100.0,0.0
+<<Address Correction and Geocoding&&/address>>,1,3.0,100.0,100.0,0.0
+<<Air Quality API&&Air Quality Measurements>>,1,3.0,100.0,100.0,0.0
+<<Air Quality API&&Current Air Quality>>,1,3.0,100.0,100.0,0.0
+<<Airbnb_v2&&Get Amenities Filters>>,1,3.0,100.0,100.0,0.0
+<<Airbnb_v2&&Get Property Type Filters>>,1,3.0,100.0,100.0,0.0
+<<Airbnb_v2&&Search Property>>,1,3.0,100.0,100.0,0.0
+<<Airports by API-Ninjas&&/v1/airports>>,1,3.0,100.0,100.0,0.0
+<<Airports&&Closest>>,1,3.0,100.0,100.0,0.0
+<<Aliexpress DataHub&&Aliexpress - Item Detail Simple>>,1,3.0,100.0,100.0,0.0
+<<Aliexpress DataHub&&Aliexpress - Item Search 2>>,1,3.0,100.0,100.0,0.0
+<<All Random&&Random Fact>>,1,3.0,100.0,100.0,0.0
+<<Alpha Vantage&&Busca por simbolo>>,1,3.0,100.0,100.0,0.0
+<<Alpha Vantage&&TIME_SERIES_DAILY>>,1,3.0,100.0,100.0,0.0
+<<Alpha Vantage&&TIME_SERIES_DAILY_ADJUSTED>>,1,3.0,100.0,100.0,0.0
+<<Amazon Products&&Get Product Items By ASIN>>,1,3.0,100.0,100.0,0.0
+<<Amazon Products&&Get Product>>,1,3.0,100.0,100.0,0.0
+<<Amazon merchant data&&Search offers by ASIN>>,1,3.0,100.0,100.0,0.0
+<<Amazon merchant data&&Search product by ASIN>>,1,3.0,100.0,100.0,0.0
+<<Anime DB&&Get All>>,1,3.0,100.0,100.0,0.0
+<<Anime Jokes&&Search jokes>>,1,3.0,100.0,100.0,0.0
+"<<Anime, manga and Novels Api&&Anime>>",1,3.0,100.0,100.0,0.0
+"<<Anime, manga and Novels Api&&Get Anime By Id>>",1,3.0,100.0,100.0,0.0
+"<<Anime, manga and Novels Api&&Novels>>",1,3.0,100.0,100.0,0.0
+<<Art openings Italy&&Events Detail>>,1,3.0,100.0,100.0,0.0
+<<Article Extractor and Summarizer&&/summarize>>,1,3.0,100.0,100.0,0.0
+<<Astro Matcher API&&Score>>,1,3.0,100.0,100.0,0.0
+<<Australian Suburbs&&Neighbours>>,1,3.0,100.0,100.0,0.0
+<<Australian Suburbs&&Suburbs>>,1,3.0,100.0,100.0,0.0
+<<BIN/IIN Lookup&&BIN/IIN Lookup>>,1,3.0,100.0,100.0,0.0
+<<Baseball - DataFeeds by Rolling Insights&&Weekly Schedule>>,1,3.0,100.0,100.0,0.0
+<<Baseball&&schedule/{date}>>,1,3.0,100.0,100.0,0.0
+<<Baseball&&schedule>>,1,3.0,100.0,100.0,0.0
+<<Basic Amazon Scraper&&GET Product Offers>>,1,3.0,100.0,100.0,0.0
+<<Basic Amazon Scraper&&Get Amazon Product Details>>,1,3.0,100.0,100.0,0.0
+<<Basketball - DataFeeds by Rolling Insights&&Daily Schedule>>,1,3.0,100.0,100.0,0.0
+<<Basketball Data&&Seasonal Statistics: Quarter Analysis>>,1,3.0,100.0,100.0,0.0
+<<BetsAPI Basketball&&1 - InPlay Events>>,1,3.0,100.0,100.0,0.0
+<<BetsAPI Basketball&&4 - Event View>>,1,3.0,100.0,100.0,0.0
+<<BetsAPI&&Bet365 InPlay Event>>,1,3.0,100.0,100.0,0.0
+<<Bidirectional Text Language Translation&&Detect Language>>,1,3.0,100.0,100.0,0.0
+<<Bidirectional Text Language Translation&&Get Supported Languages>>,1,3.0,100.0,100.0,0.0
+<<Bidirectional Text Language Translation&&Translate>>,1,3.0,100.0,100.0,0.0
+<<Billboard-API&&Adult Alternative Songs>>,1,3.0,100.0,100.0,0.0
+<<Billboard-API&&France Songs>>,1,3.0,100.0,100.0,0.0
+<<Blockchain HTTP RPC&&Ethereum mainnet>>,1,3.0,100.0,100.0,0.0
+<<Book Finder&&Find books>>,1,3.0,100.0,100.0,0.0
+<<Book Suggest&&default>>,1,3.0,100.0,100.0,0.0
+<<BraveNewCoin&&AssetById>>,1,3.0,100.0,100.0,0.0
+<<BraveNewCoin&&AssetTicker>>,1,3.0,100.0,100.0,0.0
+<<Breweries&&random>>,1,3.0,100.0,100.0,0.0
+<<Breweries&&search>>,1,3.0,100.0,100.0,0.0
+<<BroadNet SMS&&Send SMS>>,1,3.0,100.0,100.0,0.0
+<<Car API&&Makes>>,1,3.0,100.0,100.0,0.0
+<<Car API&&Models>>,1,3.0,100.0,100.0,0.0
+<<CatBreedDB&&Search>>,1,3.0,100.0,100.0,0.0
+<<CatBreedDB&&Single Cat Breed>>,1,3.0,100.0,100.0,0.0
+<<Chaingateway.io&&exportAddress>>,1,3.0,100.0,100.0,0.0
+<<Chaingateway.io&&listSubscribedAddresses>>,1,3.0,100.0,100.0,0.0
+<<Chart Lyrics&&/apiv1.asmx/SearchLyricDirect?artist=michael%20jackson&song=bad>>,1,3.0,100.0,100.0,0.0
+<<CheapShark - Game Deals&&Edit Alert>>,1,3.0,100.0,100.0,0.0
+<<CheapShark - Game Deals&&Manage Alerts>>,1,3.0,100.0,100.0,0.0
+<<Chem Oblib&&main__get>>,1,3.0,100.0,100.0,0.0
+<<Chemical Configurations&&main__get>>,1,3.0,100.0,100.0,0.0
+<<Chemical Elements&&Get All Chemical Elements>>,1,3.0,100.0,100.0,0.0
+<<Chuck Norris Facts&&facts>>,1,3.0,100.0,100.0,0.0
+<<Chuck Norris Jokes&&Get Random Joke>>,1,3.0,100.0,100.0,0.0
+<<Coin Flip API&&Coin Flip>>,1,3.0,100.0,100.0,0.0
+<<Coin Flip&&Heads / Tails>>,1,3.0,100.0,100.0,0.0
+<<Coinbase&&List bitcoin addresses>>,1,3.0,100.0,100.0,0.0
+<<Coinbase&&List recent buys and sells>>,1,3.0,100.0,100.0,0.0
+<<Coinbase&&Show transaction details>>,1,3.0,100.0,100.0,0.0
+<<Coinbase&&getAddresses>>,1,3.0,100.0,100.0,0.0
+<<Coinpaprika&&Exchanges>>,1,3.0,100.0,100.0,0.0
+<<Contact Scraper&&Scrape Contact Details from a html or text>>,1,3.0,100.0,100.0,0.0
+<<Contact Scraper&&Scrape Contact Details from a website>>,1,3.0,100.0,100.0,0.0
+<<Cooking Recipe&&GetAllRecipes>>,1,3.0,100.0,100.0,0.0
+<<Cooking Recipe&&GetRecipeByCat>>,1,3.0,100.0,100.0,0.0
+<<Corporate Supply Chain&&Supply Chain>>,1,3.0,100.0,100.0,0.0
+<<Countries Cities&&City Details>>,1,3.0,100.0,100.0,0.0
+<<Cricbuzz Cricket&&series/get-venues>>,1,3.0,100.0,100.0,0.0
+<<Cricket Analytics&&Series>>,1,3.0,100.0,100.0,0.0
+<<Cricket Analytics&&match from Id>>,1,3.0,100.0,100.0,0.0
+<<Crypto Compass&&New Listings>>,1,3.0,100.0,100.0,0.0
+<<Crypto Events Calendar &&Events>>,1,3.0,100.0,100.0,0.0
+<<Crypto Markets&&24hr Ticker Price Change Statistics>>,1,3.0,100.0,100.0,0.0
+<<Crypto News API&&Get Last Cryptocurrency News>>,1,3.0,100.0,100.0,0.0
+<<Crypto News Live&&Get All Cryptocurrency News>>,1,3.0,100.0,100.0,0.0
+<<Crypto News_v11&&Get all Crypto news>>,1,3.0,100.0,100.0,0.0
+<<Crypto Whale Transactions&&Specific transactions>>,1,3.0,100.0,100.0,0.0
+<<Crypto Whale Transactions&&Transactions feed>>,1,3.0,100.0,100.0,0.0
+<<Cryptocurrency APIs&&GetERC20Balance>>,1,3.0,100.0,100.0,0.0
+<<Cryptocurrency Data&&metadata>>,1,3.0,100.0,100.0,0.0
+<<Cryptocurrency balance&&Get BNB Balance From Specific Network>>,1,3.0,100.0,100.0,0.0
+<<Cryptocurrency balance&&Get Holo Balance From Specific Network>>,1,3.0,100.0,100.0,0.0
+<<CurrenciesExchangeRateAPI&&2-Convert Endpoint:>>,1,3.0,100.0,100.0,0.0
+<<CurrenciesExchangeRateAPI&&5-Latest Endpoint:>>,1,3.0,100.0,100.0,0.0
+<<Currency Converter Pro&&Convert Currency>>,1,3.0,100.0,100.0,0.0
+<<Currency Converter Pro&&Latest Rates>>,1,3.0,100.0,100.0,0.0
+<<Currency Converter by API-Ninjas&&/v1/convertcurrency>>,1,3.0,100.0,100.0,0.0
+<<Currency Exchange Fx&&Converter>>,1,3.0,100.0,100.0,0.0
+<<Currents News&&Latest news>>,1,3.0,100.0,100.0,0.0
+<<Currents News&&Search>>,1,3.0,100.0,100.0,0.0
+<<D7SMS&&D7API - Check Balance>>,1,3.0,100.0,100.0,0.0
+<<D7SMS&&Get OTP Status>>,1,3.0,100.0,100.0,0.0
+<<DNS Lookup&&/Api/mx/{domain}>>,1,3.0,100.0,100.0,0.0
+<<DNS Lookup&&/Api/ns/{domain}>>,1,3.0,100.0,100.0,0.0
+<<DNS Lookup&&/Api/txt/{domain}>>,1,3.0,100.0,100.0,0.0
+<<Daily Knowledge&&/chemical-elements-en.json>>,1,3.0,100.0,100.0,0.0
+<<Daily Quote&&Random Quote>>,1,3.0,100.0,100.0,0.0
+<<Deezer&&* Search>>,1,3.0,100.0,100.0,0.0
+<<Deezer&&Comment>>,1,3.0,100.0,100.0,0.0
+<<Deezer&&Genre>>,1,3.0,100.0,100.0,0.0
+<<Deezer&&Track>>,1,3.0,100.0,100.0,0.0
+<<Dicolink&&Get Expressions>>,1,3.0,100.0,100.0,0.0
+<<Dicolink&&Get synonyms>>,1,3.0,100.0,100.0,0.0
+<<EarningsData&&GetByDate>>,1,3.0,100.0,100.0,0.0
+<<Edamam Nutrition Analysis&&/api/nutrition-data>>,1,3.0,100.0,100.0,0.0
+<<Email Scraper&&email-extractor>>,1,3.0,100.0,100.0,0.0
+<<Email and internal links scraper&&GET request>>,1,3.0,100.0,100.0,0.0
+<<English synonyms&&Get Synonyms>>,1,3.0,100.0,100.0,0.0
+<<Estrelabet Aviator API&&estrelabet-aviator-latest>>,1,3.0,100.0,100.0,0.0
+<<Eventful&&createVenue>>,1,3.0,100.0,100.0,0.0
+<<Exchange Rate API&&Get current exchange rate>>,1,3.0,100.0,100.0,0.0
+<<Felina API&&Faucets>>,1,3.0,100.0,100.0,0.0
+<<Felina API&&Transactions>>,1,3.0,100.0,100.0,0.0
+<<Financial Modeling Prep&&Stock Quote Price>>,1,3.0,100.0,100.0,0.0
+<<Find Places to Live&&/placesToLive (Get data about city or neighborhood)>>,1,3.0,100.0,100.0,0.0
+<<FlashLive Sports&&Event Odds>>,1,3.0,100.0,100.0,0.0
+<<Flickr&&findPlace>>,1,3.0,100.0,100.0,0.0
+<<Flickr&&getInfoByPlaceId>>,1,3.0,100.0,100.0,0.0
+<<Flight Integration&&Flight>>,1,3.0,100.0,100.0,0.0
+<<Flowers&&Get by id>>,1,3.0,100.0,100.0,0.0
+<<Food Nutrional Data&&Search a food/recipe item (100g serving)>>,1,3.0,100.0,100.0,0.0
+<<Football Prediction&&Get list of fixture IDs>>,1,3.0,100.0,100.0,0.0
+<<FortniteCosmetics&&searchInventory>>,1,3.0,100.0,100.0,0.0
+<<Free NBA&&Get a Specific Team>>,1,3.0,100.0,100.0,0.0
+<<FreeCurrencyAPI - free currency data&&/rates>>,1,3.0,100.0,100.0,0.0
+<<Gearbest&&/get_product>>,1,3.0,100.0,100.0,0.0
+<<Gearbest&&/get_shipping>>,1,3.0,100.0,100.0,0.0
+<<GetGuidelines&&vac>>,1,3.0,100.0,100.0,0.0
+<<Giphy&&Get GIFs by ID>>,1,3.0,100.0,100.0,0.0
+<<Giphy&&STICKER Roulette>>,1,3.0,100.0,100.0,0.0
+<<Giphy&&Search>>,1,3.0,100.0,100.0,0.0
+<<Giphy&&Sticker Search>>,1,3.0,100.0,100.0,0.0
+<<Google's BERT Sentiment Analysis&&Sentiment Analysis>>,1,3.0,100.0,100.0,0.0
+<<Green Gold&&specific publication articles>>,1,3.0,100.0,100.0,0.0
+<<H Crypto News&&Latest News on Crypto>>,1,3.0,100.0,100.0,0.0
+<<HQSMS&&Send SMS>>,1,3.0,100.0,100.0,0.0
+<<History Trivia&&Random Historical Trivia>>,1,3.0,100.0,100.0,0.0
+<<Humor-Jokes-and-Memes&&random-joke>>,1,3.0,100.0,100.0,0.0
+<<Humor-Jokes-and-Memes&&random-meme>>,1,3.0,100.0,100.0,0.0
+<<Humor-Jokes-and-Memes&&search-gifs>>,1,3.0,100.0,100.0,0.0
+<<IATACodes&&NearBy Airports API>>,1,3.0,100.0,100.0,0.0
+<<IMDb Top 100 Movies&&Movie Data By Id>>,1,3.0,100.0,100.0,0.0
+<<IMDb Top 100 Movies&&Top 100 movies list>>,1,3.0,100.0,100.0,0.0
+<<IP Lookup by API-Ninjas&&v1/iplookup>>,1,3.0,100.0,100.0,0.0
+<<Ice Hockey Data&&Tournament Fixture>>,1,3.0,100.0,100.0,0.0
+<<Ind Nutrient API&&View All Food Items>>,1,3.0,100.0,100.0,0.0
+<<Investment Calculator&&Mortgage Calculator>>,1,3.0,100.0,100.0,0.0
+<<Isummar&&Article summarizer using site url>>,1,3.0,100.0,100.0,0.0
+<<JD.COM Data Service&&ProductSearchByCategory>>,1,3.0,100.0,100.0,0.0
+<<JSearch&&Estimated Salary>>,1,3.0,100.0,100.0,0.0
+<<JailBase&&Recent>>,1,3.0,100.0,100.0,0.0
+<<JailBase&&Search>>,1,3.0,100.0,100.0,0.0
+<<Jibber Jabber&&/paragraph>>,1,3.0,100.0,100.0,0.0
+<<Jibber Jabber&&/sentences>>,1,3.0,100.0,100.0,0.0
+<<Jibber Jabber&&/word>>,1,3.0,100.0,100.0,0.0
+<<JoJ Finance&&Market Trends>>,1,3.0,100.0,100.0,0.0
+<<JoJ Finance&&Ticker>>,1,3.0,100.0,100.0,0.0
+<<Joke Generator 3000&&Jokes>>,1,3.0,100.0,100.0,0.0
+<<Keyword Density&&Keyword Density>>,1,3.0,100.0,100.0,0.0
+<<Keyword Density&&Keyword Occurences>>,1,3.0,100.0,100.0,0.0
+<<LINE Messaging&&Get number of sent reply messages>>,1,3.0,100.0,100.0,0.0
+<<Languagelayer&&detectLanguages>>,1,3.0,100.0,100.0,0.0
+<<Latest Crypto News&&Get latest crypto news>>,1,3.0,100.0,100.0,0.0
+<<Latest Stock Price&&price_all>>,1,3.0,100.0,100.0,0.0
+<<Latest Stock Price&&prices>>,1,3.0,100.0,100.0,0.0
+<<League Of Legends Esports&&Get Leagues>>,1,3.0,100.0,100.0,0.0
+<<League Of Legends Esports&&Get Standings>>,1,3.0,100.0,100.0,0.0
+<<Lecto Translation&&List Languages>>,1,3.0,100.0,100.0,0.0
+<<License Plate Lookup&&License Plate Lookup>>,1,3.0,100.0,100.0,0.0
+<<LiveScore_v2&&matches/list-by-date (Deprecated)>>,1,3.0,100.0,100.0,0.0
+<<LiveScore_v2&&matches/v2/get-pregame-form>>,1,3.0,100.0,100.0,0.0
+<<LiveScore_v2&&matches/v2/get-statistics>>,1,3.0,100.0,100.0,0.0
+<<Local Businesses by Outscraper&&Get Places Reviews>>,1,3.0,100.0,100.0,0.0
+<<Local Businesses by Outscraper&&Search Places>>,1,3.0,100.0,100.0,0.0
+<<Location and Time&&Get Date and Time by Timezone>>,1,3.0,100.0,100.0,0.0
+<<Location and Time&&Get Supported Timezones>>,1,3.0,100.0,100.0,0.0
+<<Long Translator&&languages>>,1,3.0,100.0,100.0,0.0
+<<LookupAPlate USA&&License Plate Lookup>>,1,3.0,100.0,100.0,0.0
+<<Lost Ark&&Get a specific item by id>>,1,3.0,100.0,100.0,0.0
+<<Lost Ark&&Get all island with dropped items>>,1,3.0,100.0,100.0,0.0
+<<Love Calculator&&Get Match>>,1,3.0,100.0,100.0,0.0
+<<Luhn algorithm&&Service status>>,1,3.0,100.0,100.0,0.0
+<<Luhn algorithm&&Validate card number>>,1,3.0,100.0,100.0,0.0
+<<MapTiles&&getMapTilewithFrenchLabels>>,1,3.0,100.0,100.0,0.0
+<<MapToolkit&&Search>>,1,3.0,100.0,100.0,0.0
+<<Maytapi WhatsApp&&getStatus>>,1,3.0,100.0,100.0,0.0
+<<MidJourney AI&&upscale>>,1,3.0,100.0,100.0,0.0
+<<MidJourney API&&upscale>>,1,3.0,100.0,100.0,0.0
+<<MidJourney Experience&&upscale>>,1,3.0,100.0,100.0,0.0
+<<Midjourney : AI Image Generation&&upscale>>,1,3.0,100.0,100.0,0.0
+<<Midjourney Vision&&upscale>>,1,3.0,100.0,100.0,0.0
+<<Mortgage Monthly Payment Calculator&&Monthly Payment>>,1,3.0,100.0,100.0,0.0
+<<Movies details&&Find by title>>,1,3.0,100.0,100.0,0.0
+<<My Amazon Data Parser&&Get Amazon Product Offers>>,1,3.0,100.0,100.0,0.0
+<<MyMemory - Translation Memory&&search translations>>,1,3.0,100.0,100.0,0.0
+<<NAVITIME Maps&&map_image(GET)>>,1,3.0,100.0,100.0,0.0
+<<NAVITIME Maps&&map_script>>,1,3.0,100.0,100.0,0.0
+<<NBA Games based on date&&NBA games based on date>>,1,3.0,100.0,100.0,0.0
+<<NCAA Champions&&Get NCAA Men 2000-2021>>,1,3.0,100.0,100.0,0.0
+<<NLP&&Find Keywords For Site>>,1,3.0,100.0,100.0,0.0
+<<NPS-Net Promoter Score&&Details all organization surveys>>,1,3.0,100.0,100.0,0.0
+<<NPS-Net Promoter Score&&NPS Organization>>,1,3.0,100.0,100.0,0.0
+<<Nasdaq Stock Pricing&&Get Price>>,1,3.0,100.0,100.0,0.0
+<<New Cryptocurrencies Listings&&New Listings>>,1,3.0,100.0,100.0,0.0
+<<New Cryptocurrencies Listings&&New Pairs>>,1,3.0,100.0,100.0,0.0
+<<NewsNow&&Headlines -Query (Powered By Google )>>,1,3.0,100.0,100.0,0.0
+<<NewsNow&&News (Powered By Duck Duck Go)>>,1,3.0,100.0,100.0,0.0
+<<NewsNow&&News API V2 (Powered By Google)>>,1,3.0,100.0,100.0,0.0
+<<NewsNow&&Top News (Powered By Duck Duck Go)>>,1,3.0,100.0,100.0,0.0
+<<NewsNow&&Top World Headline (Powered By Google )>>,1,3.0,100.0,100.0,0.0
+<<OSRS Live prices&&historical prices>>,1,3.0,100.0,100.0,0.0
+<<OSRS Live prices&&latest price>>,1,3.0,100.0,100.0,0.0
+<<Official World Cup&&Matches>>,1,3.0,100.0,100.0,0.0
+<<Open Library&&Search Title>>,1,3.0,100.0,100.0,0.0
+<<OpenCritic API&&/game/hall-of-fame>>,1,3.0,100.0,100.0,0.0
+<<OpenCritic API&&/game/recently-released>>,1,3.0,100.0,100.0,0.0
+<<OpenCritic API&&/game/reviewed-this-week>>,1,3.0,100.0,100.0,0.0
+<<OpenCritic API&&/game/reviewed-today>>,1,3.0,100.0,100.0,0.0
+<<Otapi Aliexpress&&Get Item>>,1,3.0,100.0,100.0,0.0
+<<Otapi Aliexpress&&Search for items>>,1,3.0,100.0,100.0,0.0
+<<Partenaires Mobilis&&Get ALL partenaires>>,1,3.0,100.0,100.0,0.0
+<<Peak Conditions&&get daily report by mountain id>>,1,3.0,100.0,100.0,0.0
+<<Peak Conditions&&get extended report by mountain id>>,1,3.0,100.0,100.0,0.0
+<<Peak Conditions&&search mountain peak by name>>,1,3.0,100.0,100.0,0.0
+<<PedidosYa&&Get Restaurants by Address>>,1,3.0,100.0,100.0,0.0
+<<PetStoreAPI2.0&&getOrderById>>,1,3.0,100.0,100.0,0.0
+<<PetStoreAPI2.0&&getPetById>>,1,3.0,100.0,100.0,0.0
+<<Phone verification&&Download Verification Results>>,1,3.0,100.0,100.0,0.0
+<<Phone verification&&Get Processing Status of File>>,1,3.0,100.0,100.0,0.0
+<<Pictionary Charades Word Generator&&Get Pictionary Word>>,1,3.0,100.0,100.0,0.0
+<<PinDuoDuo Data Service&&GoodsSearchByCategory>>,1,3.0,100.0,100.0,0.0
+<<Pizza and Desserts&&Get specific pizza>>,1,3.0,100.0,100.0,0.0
+<<Places&&Place properties>>,1,3.0,100.0,100.0,0.0
+<<Poetry DB&&/author/{author}>>,1,3.0,100.0,100.0,0.0
+<<Poetry DB&&/title/{title}>>,1,3.0,100.0,100.0,0.0
+<<Proxy Checker&&Queue Proxy For Checking>>,1,3.0,100.0,100.0,0.0
+<<Proxy Checker&&Retrieve Proxy Information>>,1,3.0,100.0,100.0,0.0
+<<Proxy Detection&&Proxy Detection API>>,1,3.0,100.0,100.0,0.0
+<<ProxyPage&&Tier1>>,1,3.0,100.0,100.0,0.0
+<<Punto 61&&getarchive>>,1,3.0,100.0,100.0,0.0
+<<Quotel - Quotes&&GetTopic>>,1,3.0,100.0,100.0,0.0
+<<Quotel - Quotes&&SearchAuthorsByString>>,1,3.0,100.0,100.0,0.0
+<<Quotel - Quotes&&SearchQuotesByString>>,1,3.0,100.0,100.0,0.0
+<<Quotes by API-Ninjas&&/v1/quotes>>,1,3.0,100.0,100.0,0.0
+<<Quotes&&quote>>,1,3.0,100.0,100.0,0.0
+<<Quotes_v2&&Get Available Authors>>,1,3.0,100.0,100.0,0.0
+<<Quotes_v2&&Get Random Quote>>,1,3.0,100.0,100.0,0.0
+<<Quotes_v2&&Quotes By Authors>>,1,3.0,100.0,100.0,0.0
+<<Quotes_v2&&Quotes by Keywords>>,1,3.0,100.0,100.0,0.0
+<<Random Chunk API&&getRandomWord>>,1,3.0,100.0,100.0,0.0
+<<Random Strings&&Random Words>>,1,3.0,100.0,100.0,0.0
+<<Random Word Generator&&Generate a random word>>,1,3.0,100.0,100.0,0.0
+<<Real Love Calculator&&POST />>,1,3.0,100.0,100.0,0.0
+<<Real-Time News Data&&Search>>,1,3.0,100.0,100.0,0.0
+<<Real-Time News Data&&Top Headlines>>,1,3.0,100.0,100.0,0.0
+<<Real-Time Quotes&&Stock quotes>>,1,3.0,100.0,100.0,0.0
+<<Realtor API for Real Estate Data&&RealtorAgentList>>,1,3.0,100.0,100.0,0.0
+<<Realtor API for Real Estate Data&&RealtorPropertyList>>,1,3.0,100.0,100.0,0.0
+<<Realtor&&Property Details>>,1,3.0,100.0,100.0,0.0
+<<Realtor&&Search properties for sale>>,1,3.0,100.0,100.0,0.0
+<<Referential DB&&States>>,1,3.0,100.0,100.0,0.0
+<<Regionalkonzept Strom Herkunft&&Strommix>>,1,3.0,100.0,100.0,0.0
+<<Regionalkonzept Strom Herkunft&&entnahme>>,1,3.0,100.0,100.0,0.0
+<<Regionalkonzept Strom Herkunft&&erzeugung>>,1,3.0,100.0,100.0,0.0
+<<Reqres&&Unknown>>,1,3.0,100.0,100.0,0.0
+<<Reqres&&Users>>,1,3.0,100.0,100.0,0.0
+<<Return Fact&&default>>,1,3.0,100.0,100.0,0.0
+<<Review Generator (AI)&&Languages>>,1,3.0,100.0,100.0,0.0
+<<Review Generator (AI)&&Locales>>,1,3.0,100.0,100.0,0.0
+<<SEO Automations&&Extract Sitemap XML as JSON>>,1,3.0,100.0,100.0,0.0
+"<<SEO Automations&&Extract top Keywords, Phrases by density + all headers>>",1,3.0,100.0,100.0,0.0
+<<SMSAPI.com&&/profile/regional_settings/available_languages>>,1,3.0,100.0,100.0,0.0
+<<SMSAPI.com&&/short_url/links/{id}>>,1,3.0,100.0,100.0,0.0
+<<SSH Honeypot&&Commands Run>>,1,3.0,100.0,100.0,0.0
+<<SSH Honeypot&&Login Data>>,1,3.0,100.0,100.0,0.0
+<<SSH Honeypot&&Proxy Requests>>,1,3.0,100.0,100.0,0.0
+<<Sagenda v3&&Get bookings information>>,1,3.0,100.0,100.0,0.0
+<<Schwab&&market/get-movers>>,1,3.0,100.0,100.0,0.0
+<<Schwab&&news/list-latest>>,1,3.0,100.0,100.0,0.0
+<<Scout&&Advanced Phone Number Lookup>>,1,3.0,100.0,100.0,0.0
+<<Semantic Quotes&&Search Quotes>>,1,3.0,100.0,100.0,0.0
+<<Shazam&&artists/get-latest-release>>,1,3.0,100.0,100.0,0.0
+<<Shazam&&auto-complete>>,1,3.0,100.0,100.0,0.0
+<<Shazam&&charts/track>>,1,3.0,100.0,100.0,0.0
+<<Simple Surf Forecast Api&&GetForecastById>>,1,3.0,100.0,100.0,0.0
+<<Simple Surf Forecast Api&&GetTodaysForecast>>,1,3.0,100.0,100.0,0.0
+<<SofaSport&&Unique tournament data>>,1,3.0,100.0,100.0,0.0
+<<SofaSport&&Unique tournament logo>>,1,3.0,100.0,100.0,0.0
+<<SofaSport&&Unique tournaments list>>,1,3.0,100.0,100.0,0.0
+<<SongMeanings&&comments.get>>,1,3.0,100.0,100.0,0.0
+<<SongMeanings&&lyrics.get>>,1,3.0,100.0,100.0,0.0
+<<SongMeanings&&songs.search>>,1,3.0,100.0,100.0,0.0
+<<SongMeanings&&users.favorite.get>>,1,3.0,100.0,100.0,0.0
+<<Soundcloud&&/search>>,1,3.0,100.0,100.0,0.0
+<<Soundcloud&&/user/info>>,1,3.0,100.0,100.0,0.0
+<<Soundcloud&&getComments>>,1,3.0,100.0,100.0,0.0
+<<Soundcloud&&getTrackComments>>,1,3.0,100.0,100.0,0.0
+<<Soundcloud&&getUserComments>>,1,3.0,100.0,100.0,0.0
+<<Spotify&&Concerts>>,1,3.0,100.0,100.0,0.0
+<<Spotify&&Get artists>>,1,3.0,100.0,100.0,0.0
+<<Spott&&Autocomplete places>>,1,3.0,100.0,100.0,0.0
+<<Spott&&Get place by ID>>,1,3.0,100.0,100.0,0.0
+<<Startup Ideas&&ideas>>,1,3.0,100.0,100.0,0.0
+<<Startup Ideas&&{category_slug}>>,1,3.0,100.0,100.0,0.0
+<<Steam Community&&Group Profile>>,1,3.0,100.0,100.0,0.0
+<<Steam Community&&User Aliases>>,1,3.0,100.0,100.0,0.0
+<<Stock & Crypto Universe&&Historical Prices>>,1,3.0,100.0,100.0,0.0
+<<Stock Sentiment API&&Market Data>>,1,3.0,100.0,100.0,0.0
+<<Stock Sentiment API&&News Sentiment Data>>,1,3.0,100.0,100.0,0.0
+<<Stock&&Stock Latest Price>>,1,3.0,100.0,100.0,0.0
+<<Suggest the Book&&default>>,1,3.0,100.0,100.0,0.0
+<<SuperHero Search&&Heroes>>,1,3.0,100.0,100.0,0.0
+<<SuperHero Search&&Search>>,1,3.0,100.0,100.0,0.0
+<<TEXTKING Translation&&List target languages>>,1,3.0,100.0,100.0,0.0
+<<TLDRThis&&Human-like Article Summarization>>,1,3.0,100.0,100.0,0.0
+<<Tesla VIN Identifier&&Manufacturing Location Detection>>,1,3.0,100.0,100.0,0.0
+<<Tesla VIN Identifier&&Manufacturing Year Detection>>,1,3.0,100.0,100.0,0.0
+<<Tesla VIN Identifier&&Model Detection>>,1,3.0,100.0,100.0,0.0
+<<Tesla VIN Identifier&&VIN Detection>>,1,3.0,100.0,100.0,0.0
+<<Text Summarization&&Text Summarization for URL>>,1,3.0,100.0,100.0,0.0
+<<Text translation - Multilingual/bilingual&&translatetexttotext>>,1,3.0,100.0,100.0,0.0
+<<The Love Calculator&&Get Match>>,1,3.0,100.0,100.0,0.0
+<<The Mexican Food DB&&Detailed Food Recipe by ID>>,1,3.0,100.0,100.0,0.0
+<<The Mexican Food DB&&List of Foods>>,1,3.0,100.0,100.0,0.0
+<<The Sandbox - SAND&&Medium>>,1,3.0,100.0,100.0,0.0
+<<The Sandbox - SAND&&Past 3 Years>>,1,3.0,100.0,100.0,0.0
+<<They Said So - Say it with style&&Search Authors>>,1,3.0,100.0,100.0,0.0
+<<They Said So - Say it with style&&Search Quote>>,1,3.0,100.0,100.0,0.0
+<<ThisisaPublicAPI_v2&&getInventory>>,1,3.0,100.0,100.0,0.0
+<<ThisisaPublicAPI_v2&&getPetById>>,1,3.0,100.0,100.0,0.0
+<<ThisisaPublicAPI_v2&&loginUser>>,1,3.0,100.0,100.0,0.0
+<<TikTok_Solutions&&General Trending>>,1,3.0,100.0,100.0,0.0
+<<TikTok_Solutions&&Hashtag Feed by Name>>,1,3.0,100.0,100.0,0.0
+<<TikTok_Solutions&&Music Data by ID>>,1,3.0,100.0,100.0,0.0
+<<TikTok_v3&&Music Info>>,1,3.0,100.0,100.0,0.0
+<<TikTok_v3&&Videos By Music>>,1,3.0,100.0,100.0,0.0
+<<Tiktok_v2&&Hashtag>>,1,3.0,100.0,100.0,0.0
+<<Today Football Prediction&&Daily Predictions>>,1,3.0,100.0,100.0,0.0
+<<Today Football Prediction&&VIP Featured Predictions>>,1,3.0,100.0,100.0,0.0
+<<Today Football Prediction&&VIP Prediction Scores>>,1,3.0,100.0,100.0,0.0
+<<Tokenizer&&tokenize>>,1,3.0,100.0,100.0,0.0
+<<Tomorrow.io&&retrieveTimelinesAdvanced>>,1,3.0,100.0,100.0,0.0
+<<Tourist Attraction&&Detail>>,1,3.0,100.0,100.0,0.0
+<<Tourist Attraction&&Reviews>>,1,3.0,100.0,100.0,0.0
+<<Translate_v3&&Accurate Language Detection>>,1,3.0,100.0,100.0,0.0
+<<Translate_v3&&Translate>>,1,3.0,100.0,100.0,0.0
+<<Translation Cloud&&Language Detection>>,1,3.0,100.0,100.0,0.0
+<<Travel Advisor&&photos/v2/list>>,1,3.0,100.0,100.0,0.0
+<<Travel Places&&Get Travel Places>>,1,3.0,100.0,100.0,0.0
+<<Trivia Facts&&Trivia Facts>>,1,3.0,100.0,100.0,0.0
+<<Trivia by API-Ninjas&&/v1/trivia>>,1,3.0,100.0,100.0,0.0
+<<TrueWay Places&&FindPlacesNearby>>,1,3.0,100.0,100.0,0.0
+<<Twelve Data&&EPS Trend>>,1,3.0,100.0,100.0,0.0
+<<Twelve Data&&Statistics>>,1,3.0,100.0,100.0,0.0
+<<U.S. Economic Indicators&&Mortgage Rate 30-Year Fixed>>,1,3.0,100.0,100.0,0.0
+<<US Geo Data&&Lookup Zip Codes>>,1,3.0,100.0,100.0,0.0
+<<US Real Estate&&/agents/agent-listings>>,1,3.0,100.0,100.0,0.0
+<<Uncovered Treasure&&/search/{searchterm}>>,1,3.0,100.0,100.0,0.0
+<<Uncovered Treasure&&/topics>>,1,3.0,100.0,100.0,0.0
+<<VIN Lookup by API-Ninjas&&/v1/vinlookup>>,1,3.0,100.0,100.0,0.0
+<<Valorant Weapons&&Weapon Classes>>,1,3.0,100.0,100.0,0.0
+<<Valorant Weapons&&Weapon>>,1,3.0,100.0,100.0,0.0
+<<Vehicle RC Information_v2&&Vehicle Information>>,1,3.0,100.0,100.0,0.0
+<<Vessel Data&&Get All Vessels>>,1,3.0,100.0,100.0,0.0
+<<Vessel Data&&Get Vessel Info>>,1,3.0,100.0,100.0,0.0
+<<Videogames NEWS&&videogames_news_recent_get>>,1,3.0,100.0,100.0,0.0
+<<Walk Score&&Walk Score>>,1,3.0,100.0,100.0,0.0
+<<WallStreetBets Sentiment&&Daily Stock Sentiment>>,1,3.0,100.0,100.0,0.0
+<<Website Contacts Scraper&&Scrape Contacts from Website>>,1,3.0,100.0,100.0,0.0
+<<Whois Lookup_v3&&Check Similarity>>,1,3.0,100.0,100.0,0.0
+<<Whois Lookup_v3&&NS Lookup>>,1,3.0,100.0,100.0,0.0
+<<Whois Lookup_v5&&NsLookup>>,1,3.0,100.0,100.0,0.0
+<<WonderboyAPI&&All Belgian Races>>,1,3.0,100.0,100.0,0.0
+<<WonderboyAPI&&Date and Time of last update>>,1,3.0,100.0,100.0,0.0
+<<Word Scramble&&scramble/{word}>>,1,3.0,100.0,100.0,0.0
+<<Words of Wisdom - The Famous Quotes API&&/authors>>,1,3.0,100.0,100.0,0.0
+<<Words of Wisdom - The Famous Quotes API&&/quotes>>,1,3.0,100.0,100.0,0.0
+<<Workout Planner&&Get Customized Plan>>,1,3.0,100.0,100.0,0.0
+<<World Population&&getPopulationByCountryCode>>,1,3.0,100.0,100.0,0.0
+<<World of Jokes&&Get Jokes>>,1,3.0,100.0,100.0,0.0
+<<World of Quotes&&Get Quote of the Day>>,1,3.0,100.0,100.0,0.0
+<<Worldwide Recipes&&Explore>>,1,3.0,100.0,100.0,0.0
+<<Worldwide Recipes&&Related>>,1,3.0,100.0,100.0,0.0
+<<Worldwide Restaurants&&Search>>,1,3.0,100.0,100.0,0.0
+<<Wyre Data&&Get all data on an establishment by restaurant>>,1,3.0,100.0,100.0,0.0
+<<Wyre Data&&Get ratings by restaurant>>,1,3.0,100.0,100.0,0.0
+<<Wyre Data&&Search restaurants by town>>,1,3.0,100.0,100.0,0.0
+<<Zigatext - Global Bulk SMS & OTP&&Fetch Message>>,1,3.0,100.0,100.0,0.0
+"<<Zillow&&Walk, Transit and Bike Scores>>",1,3.0,100.0,100.0,0.0
+<<Zillow_v2&&Agent details by username>>,1,3.0,100.0,100.0,0.0
+<<Zillow_v2&&Agent's active listings>>,1,3.0,100.0,100.0,0.0
+<<Zillow_v2&&Search for agents>>,1,3.0,100.0,100.0,0.0
+"<<Zillow_v2&&Walk, Transit and Bike Score>>",1,3.0,100.0,100.0,0.0
+<<Zip Code Master&&Get ZIP code detail>>,1,3.0,100.0,100.0,0.0
+<<aqls-b2c-system&&get_wagon_data_mrt_wagons_id__id__get>>,1,3.0,100.0,100.0,0.0
+<<beyblade-api&&/api/v1/beyblades>>,1,3.0,100.0,100.0,0.0
+<<compare&&get products>>,1,3.0,100.0,100.0,0.0
+<<cs-skin API&&Random Skin from Class>>,1,3.0,100.0,100.0,0.0
+<<cs-skin API&&Random Skin>>,1,3.0,100.0,100.0,0.0
+<<cs-skin API&&Specific Skin>>,1,3.0,100.0,100.0,0.0
+<<jokes &&Get jokes>>,1,3.0,100.0,100.0,0.0
+<<jokes &&Search for joke>>,1,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for all this  news>>,1,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_es>>,1,3.0,100.0,100.0,0.0
+<<news-world-api&&this request search for news_guardian>>,1,3.0,100.0,100.0,0.0
+<<platformbil&&getInventory>>,1,3.0,100.0,100.0,0.0
+<<platformbil&&getOrderById>>,1,3.0,100.0,100.0,0.0
+<<pollution-news-api&&Get All News on Pollution>>,1,3.0,100.0,100.0,0.0
+<<public-url-share&&Top 50 startups news from the last month>>,1,3.0,100.0,100.0,0.0
+<<test apideno&&article index>>,1,3.0,100.0,100.0,0.0
+<<text-url-pdf-summarization&&simple text>>,1,3.0,100.0,100.0,0.0
+<<weather forecast 14 days&&getforecastdata>>,1,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/category={category}[,{category}[,...]]>>",1,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/country={country}[,{country}[,...]]>>",1,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/nearby={lat},{lng},{radius}>>",1,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/orderby={order},{sort}>>",1,3.0,100.0,100.0,0.0
+"<<webcams.travel&&/webcams/list/region={region}[,{region}[,...]]>>",1,3.0,100.0,100.0,0.0
+AI Trip Planner&&Get Trip Plan,1,3.0,100.0,100.0,0.0
+API-BASKETBALL (NBA) &&NBA Shedules,1,3.0,100.0,100.0,0.0
+API-BASKETBALL&&teams statistics,1,3.0,100.0,100.0,0.0
+API-NBA&&Games per date,1,3.0,100.0,100.0,0.0
+API2Cart&&getSingleOrder,1,3.0,100.0,100.0,0.0
+APIStocks&&daily,1,3.0,100.0,100.0,0.0
+AcroSuite Locator&&Adjacent Locations,1,3.0,100.0,100.0,0.0
+Air Quality API&&Air Quality Measurements,1,3.0,100.0,100.0,0.0
+Air Quality API&&Current Air Quality,1,3.0,100.0,100.0,0.0
+Air Quality by API-Ninjas&&/v1/airquality,1,3.0,100.0,100.0,0.0
+Airbnb_v2&&Get Amenities Filters,1,3.0,100.0,100.0,0.0
+Airbnb_v2&&Get Property Type Filters,1,3.0,100.0,100.0,0.0
+Airbnb_v2&&Search Property,1,3.0,100.0,100.0,0.0
+Airports&&Closest,1,3.0,100.0,100.0,0.0
+All Random&&Random Fact,1,3.0,100.0,100.0,0.0
+Alpha Vantage&&TIME_SERIES_DAILY,1,3.0,100.0,100.0,0.0
+Alpha Vantage&&TIME_SERIES_DAILY_ADJUSTED,1,3.0,100.0,100.0,0.0
+Amazon Products&&Get Product,1,3.0,100.0,100.0,0.0
+Amazon Products&&Get Product Items By ASIN,1,3.0,100.0,100.0,0.0
+Amazon merchant data&&Search offers by ASIN,1,3.0,100.0,100.0,0.0
+Amazon merchant data&&Search product by ASIN,1,3.0,100.0,100.0,0.0
+AndroidAPI&&getOrderById,1,3.0,100.0,100.0,0.0
+Anime DB&&Get All,1,3.0,100.0,100.0,0.0
+Appibase&&getOrder,1,3.0,100.0,100.0,0.0
+Astro Matcher API&&Match,1,3.0,100.0,100.0,0.0
+Astro Matcher API&&Score,1,3.0,100.0,100.0,0.0
+BIG Numbers Calculation&&/api/do,1,3.0,100.0,100.0,0.0
+BIN Lookup&&BIN Lookup,1,3.0,100.0,100.0,0.0
+BIN/IIN Lookup&&BIN/IIN Lookup,1,3.0,100.0,100.0,0.0
+Bad Word Filter&&Bad Word Filter,1,3.0,100.0,100.0,0.0
+Bank Card Bin Num Check&&Check,1,3.0,100.0,100.0,0.0
+Baseball - DataFeeds by Rolling Insights&&Weekly Schedule,1,3.0,100.0,100.0,0.0
+Baseball&&schedule,1,3.0,100.0,100.0,0.0
+Baseball&&schedule/{date},1,3.0,100.0,100.0,0.0
+Basketball - DataFeeds by Rolling Insights&&Daily Schedule,1,3.0,100.0,100.0,0.0
+BetsAPI Basketball&&1 - InPlay Events,1,3.0,100.0,100.0,0.0
+BetsAPI Basketball&&4 - Event View,1,3.0,100.0,100.0,0.0
+BetsAPI&&Bet365 InPlay,1,3.0,100.0,100.0,0.0
+BetsAPI&&Bet365 InPlay Event,1,3.0,100.0,100.0,0.0
+Bitext&&Language identification,1,3.0,100.0,100.0,0.0
+Blockchain HTTP RPC&&Ethereum mainnet,1,3.0,100.0,100.0,0.0
+Book Finder&&Find books,1,3.0,100.0,100.0,0.0
+Book Suggest&&default,1,3.0,100.0,100.0,0.0
+Booking com&&Nearby cities,1,3.0,100.0,100.0,0.0
+BraveNewCoin&&AssetTicker,1,3.0,100.0,100.0,0.0
+Breweries&&random,1,3.0,100.0,100.0,0.0
+Breweries&&search,1,3.0,100.0,100.0,0.0
+Calculator,1,3.0,100.0,100.0,0.0
+Car API&&VIN Decoder,1,3.0,100.0,100.0,0.0
+Card BIN Cheker&&Check BIN,1,3.0,100.0,100.0,0.0
+Chaingateway.io&&getAccountBalanceCopy,1,3.0,100.0,100.0,0.0
+Chaingateway.io&&getBlockBalanceCopy,1,3.0,100.0,100.0,0.0
+Chainshub&&Check Balance,1,3.0,100.0,100.0,0.0
+CheapShark - Game Deals&&Deal Lookup,1,3.0,100.0,100.0,0.0
+CheapShark - Game Deals&&Edit Alert,1,3.0,100.0,100.0,0.0
+CheapShark - Game Deals&&Manage Alerts,1,3.0,100.0,100.0,0.0
+Chem Oblib&&main__get,1,3.0,100.0,100.0,0.0
+Chemical Configurations&&main__get,1,3.0,100.0,100.0,0.0
+Chuck Norris Facts&&facts,1,3.0,100.0,100.0,0.0
+Coin Flip API&&Coin Flip,1,3.0,100.0,100.0,0.0
+Coin Flip&&Heads / Tails,1,3.0,100.0,100.0,0.0
+Coinbase&&List bitcoin addresses,1,3.0,100.0,100.0,0.0
+Coinbase&&getAddresses,1,3.0,100.0,100.0,0.0
+Contact Scraper&&Scrape Contact Details from a website,1,3.0,100.0,100.0,0.0
+Cooking Recipe&&GetAllRecipes,1,3.0,100.0,100.0,0.0
+Cooking Recipe&&GetRecipeByCat,1,3.0,100.0,100.0,0.0
+Countries - Cities&&Getallcountriesandrespectivepopulation,1,3.0,100.0,100.0,0.0
+Countries - Cities&&Getallcountriesandtheirstates,1,3.0,100.0,100.0,0.0
+Countries Cities&&City Details,1,3.0,100.0,100.0,0.0
+Countries Population&&Country Details Level 1,1,3.0,100.0,100.0,0.0
+Country Location API,1,3.0,100.0,100.0,0.0
+Credit Card BIN Checker/Validator&&Bin,1,3.0,100.0,100.0,0.0
+Cricket Analytics&&Series,1,3.0,100.0,100.0,0.0
+Cricket Analytics&&match from Id,1,3.0,100.0,100.0,0.0
+Crypto Compass&&New Listings,1,3.0,100.0,100.0,0.0
+Crypto Markets&&24hr Ticker Price Change Statistics,1,3.0,100.0,100.0,0.0
+Crypto News Live&&Get All Cryptocurrency News,1,3.0,100.0,100.0,0.0
+Crypto News Live&&Get Individual Crypto News Source,1,3.0,100.0,100.0,0.0
+Crypto News_v11&&Get all Crypto news,1,3.0,100.0,100.0,0.0
+Crypto Symbols by API-Ninjas&&/v1/cryptosymbols,1,3.0,100.0,100.0,0.0
+Crypto Whale Transactions&&Specific transactions,1,3.0,100.0,100.0,0.0
+Crypto Whale Transactions&&Transactions feed,1,3.0,100.0,100.0,0.0
+Crypto&&Coin Profile Details,1,3.0,100.0,100.0,0.0
+Cryptocurrency Data&&metadata,1,3.0,100.0,100.0,0.0
+Cryptocurrency balance&&Get BNB Balance From Specific Network,1,3.0,100.0,100.0,0.0
+Cryptocurrency balance&&Get Holo Balance From Specific Network,1,3.0,100.0,100.0,0.0
+CurrenciesExchangeRateAPI&&2-Convert Endpoint:,1,3.0,100.0,100.0,0.0
+CurrenciesExchangeRateAPI&&5-Latest Endpoint:,1,3.0,100.0,100.0,0.0
+Currency Conversion and Exchange Rates&&Convert,1,3.0,100.0,100.0,0.0
+Currency Converter by API-Ninjas&&/v1/convertcurrency,1,3.0,100.0,100.0,0.0
+Currency Exchange Fx&&Converter,1,3.0,100.0,100.0,0.0
+Currency_v2&&Exchange Rates,1,3.0,100.0,100.0,0.0
+D7 Number Validator&&Validate Number,1,3.0,100.0,100.0,0.0
+D7 Verify&&Get OTP Status,1,3.0,100.0,100.0,0.0
+D7 Viber&&Check Balance,1,3.0,100.0,100.0,0.0
+D7SMS&&D7API - Check Balance,1,3.0,100.0,100.0,0.0
+D7SMS&&Get OTP Status,1,3.0,100.0,100.0,0.0
+DNS Lookup&&/Api/mx/{domain},1,3.0,100.0,100.0,0.0
+DNS Lookup&&/Api/ns/{domain},1,3.0,100.0,100.0,0.0
+DNS Lookup&&/Api/txt/{domain},1,3.0,100.0,100.0,0.0
+Daily Knowledge&&/chemical-elements-en.json,1,3.0,100.0,100.0,0.0
+Daily Quote&&Random Quote,1,3.0,100.0,100.0,0.0
+Deep Translate&&languages,1,3.0,100.0,100.0,0.0
+Deezer&&Artist,1,3.0,100.0,100.0,0.0
+Deezer&&Comment,1,3.0,100.0,100.0,0.0
+DeleteMeeting,1,3.0,100.0,100.0,0.0
+Dicolink&&Get synonyms,1,3.0,100.0,100.0,0.0
+EarningsData&&GetByDate,1,3.0,100.0,100.0,0.0
+Efficient translate&&languages,1,3.0,100.0,100.0,0.0
+Email Phone Social Extractor&&Extractor,1,3.0,100.0,100.0,0.0
+Email Scraper&&email-extractor,1,3.0,100.0,100.0,0.0
+Enode API&&getInverter,1,3.0,100.0,100.0,0.0
+Enode API&&listInverters,1,3.0,100.0,100.0,0.0
+Ephemeral Proxies&&Obtain a new residential proxy,1,3.0,100.0,100.0,0.0
+Evaluate expression&&Evaluate expression,1,3.0,100.0,100.0,0.0
+Eventful&&createVenue,1,3.0,100.0,100.0,0.0
+Everything Crypto&&getCryptoSymbols,1,3.0,100.0,100.0,0.0
+Exchange Rate API&&Get current exchange rate,1,3.0,100.0,100.0,0.0
+ExchangeRate-API&&Latest Rates,1,3.0,100.0,100.0,0.0
+Exchanger Currency Rates Provider&&Convert,1,3.0,100.0,100.0,0.0
+Fidelity Investments&&market/get-movers,1,3.0,100.0,100.0,0.0
+Financial Modeling Prep&&Stock Quote Price,1,3.0,100.0,100.0,0.0
+Find Places to Live&&/placesToLive (Get data about city or neighborhood),1,3.0,100.0,100.0,0.0
+Flickr&&findPlace,1,3.0,100.0,100.0,0.0
+Flickr&&getInfoByPlaceId,1,3.0,100.0,100.0,0.0
+Food Nutrional Data&&Search a food/recipe item (100g serving),1,3.0,100.0,100.0,0.0
+Football Aggregated Data&&Get Matches By League,1,3.0,100.0,100.0,0.0
+Football Prediction&&Get list of fixture IDs,1,3.0,100.0,100.0,0.0
+Forecastica&&Get Historical Stock Prices API,1,3.0,100.0,100.0,0.0
+Foxit eSign&&createfolderfromtemplate,1,3.0,100.0,100.0,0.0
+Free Random Word Generator API,1,3.0,100.0,100.0,0.0
+Free Random Word Generator API&&Random Word Getter,1,3.0,100.0,100.0,0.0
+FreeCurrencyAPI - free currency data&&/rates,1,3.0,100.0,100.0,0.0
+FreePlanwithHardLimit&&getOrderById,1,3.0,100.0,100.0,0.0
+French Vehicle License Plate API&&search,1,3.0,100.0,100.0,0.0
+G Translate&&Get Supported Languages,1,3.0,100.0,100.0,0.0
+Gearbest&&/get_product,1,3.0,100.0,100.0,0.0
+Get Population&&Get Country Population,1,3.0,100.0,100.0,0.0
+GetToday,1,3.0,100.0,100.0,0.0
+Google Translate_v3&&Supported languages,1,3.0,100.0,100.0,0.0
+Green Gold&&specific publication articles,1,3.0,100.0,100.0,0.0
+H Crypto News&&Latest News on Crypto,1,3.0,100.0,100.0,0.0
+History Trivia&&Random Historical Trivia,1,3.0,100.0,100.0,0.0
+IATACodes&&NearBy Airports API,1,3.0,100.0,100.0,0.0
+IMDb Top 100 Movies&&Movie Data By Id,1,3.0,100.0,100.0,0.0
+IMDb Top 100 Movies&&Top 100 movies list,1,3.0,100.0,100.0,0.0
+IMDb top 100 movies&&Get Top 100 Movies according to IMDb,1,3.0,100.0,100.0,0.0
+IP Lookup by API-Ninjas&&v1/iplookup,1,3.0,100.0,100.0,0.0
+IP2Proxy&&IP2Proxy API,1,3.0,100.0,100.0,0.0
+Ice Hockey Data&&Tournament Fixture,1,3.0,100.0,100.0,0.0
+Investment Calculator&&Mortgage Calculator,1,3.0,100.0,100.0,0.0
+Isummar&&Article summarizer using site url,1,3.0,100.0,100.0,0.0
+JD.COM Data Service&&ProductSearchByCategory,1,3.0,100.0,100.0,0.0
+Jibber Jabber,1,3.0,100.0,100.0,0.0
+Jibber Jabber&&/paragraph,1,3.0,100.0,100.0,0.0
+Jibber Jabber&&/sentences,1,3.0,100.0,100.0,0.0
+Joke Generator 3000&&Jokes,1,3.0,100.0,100.0,0.0
+Keyword Density&&Keyword Density,1,3.0,100.0,100.0,0.0
+Keyword Density&&Keyword Occurences,1,3.0,100.0,100.0,0.0
+Koios Cardano's Decentralized API&&/address_assets,1,3.0,100.0,100.0,0.0
+LINE Messaging&&Get number of sent reply messages,1,3.0,100.0,100.0,0.0
+Languagelayer&&detectLanguages,1,3.0,100.0,100.0,0.0
+Latest Crypto News&&Get latest crypto news,1,3.0,100.0,100.0,0.0
+Latest Stock Price&&price_all,1,3.0,100.0,100.0,0.0
+Latest Stock Price&&prices,1,3.0,100.0,100.0,0.0
+League Of Legends Esports&&Get Leagues,1,3.0,100.0,100.0,0.0
+Lecto Translation&&List Languages,1,3.0,100.0,100.0,0.0
+License Plate Lookup&&License Plate Lookup,1,3.0,100.0,100.0,0.0
+LimouCloud&&Login,1,3.0,100.0,100.0,0.0
+Live Sports Odds&&/v4/sports/{sport}/odds,1,3.0,100.0,100.0,0.0
+LiveScore Football&&/soccer/matches-by-date,1,3.0,100.0,100.0,0.0
+Location and Time&&Get Date and Time by Timezone,1,3.0,100.0,100.0,0.0
+LookupAPlate USA&&License Plate Lookup,1,3.0,100.0,100.0,0.0
+Lost Ark&&Get all island with dropped items,1,3.0,100.0,100.0,0.0
+Lottery Results&&List states by country,1,3.0,100.0,100.0,0.0
+Luhn algorithm&&Service status,1,3.0,100.0,100.0,0.0
+Luhn algorithm&&Validate card number,1,3.0,100.0,100.0,0.0
+MOTD&&MOTD,1,3.0,100.0,100.0,0.0
+MessageAPI&&/v1/messages,1,3.0,100.0,100.0,0.0
+MidJourney AI&&upscale,1,3.0,100.0,100.0,0.0
+MidJourney API&&upscale,1,3.0,100.0,100.0,0.0
+MidJourney Experience&&upscale,1,3.0,100.0,100.0,0.0
+Midjourney : AI Image Generation&&upscale,1,3.0,100.0,100.0,0.0
+Midjourney Vision&&upscale,1,3.0,100.0,100.0,0.0
+Mortgage Monthly Payment Calculator&&Monthly Payment,1,3.0,100.0,100.0,0.0
+My Amazon Data Parser&&Get Amazon Product Offers,1,3.0,100.0,100.0,0.0
+NBA Games based on date&&NBA games based on date,1,3.0,100.0,100.0,0.0
+New Cryptocurrencies Listings&&New Listings,1,3.0,100.0,100.0,0.0
+New Cryptocurrencies Listings&&New Pairs,1,3.0,100.0,100.0,0.0
+NewsNow&&Headlines -Query (Powered By Google ),1,3.0,100.0,100.0,0.0
+NewsNow&&News (Powered By Duck Duck Go),1,3.0,100.0,100.0,0.0
+NewsNow&&News API V2 (Powered By Google),1,3.0,100.0,100.0,0.0
+NewsNow&&Top News (Powered By Duck Duck Go),1,3.0,100.0,100.0,0.0
+NewsNow&&Top World Headline (Powered By Google ),1,3.0,100.0,100.0,0.0
+OS Sports Perform&&Unique tournament data,1,3.0,100.0,100.0,0.0
+OSRS Live prices&&historical prices,1,3.0,100.0,100.0,0.0
+OSRS Live prices&&latest price,1,3.0,100.0,100.0,0.0
+Official World Cup&&Matches,1,3.0,100.0,100.0,0.0
+OpenCritic API&&/game/recently-released,1,3.0,100.0,100.0,0.0
+OrganizationMembers,1,3.0,100.0,100.0,0.0
+Otapi Aliexpress&&Get Catalog,1,3.0,100.0,100.0,0.0
+Otapi Aliexpress&&Get Item,1,3.0,100.0,100.0,0.0
+Otapi Aliexpress&&Search for items,1,3.0,100.0,100.0,0.0
+Peak Conditions&&get daily report by mountain id,1,3.0,100.0,100.0,0.0
+Peak Conditions&&get extended report by mountain id,1,3.0,100.0,100.0,0.0
+Peak Conditions&&search mountain peak by name,1,3.0,100.0,100.0,0.0
+PedidosYa&&Get Restaurants by Address,1,3.0,100.0,100.0,0.0
+Pet Store&&getInventory,1,3.0,100.0,100.0,0.0
+PetstoreRateLimit&&getInventory,1,3.0,100.0,100.0,0.0
+Phone Number Validation&&Phone Number Validation,1,3.0,100.0,100.0,0.0
+Phone Number Validator&&Validate For Region,1,3.0,100.0,100.0,0.0
+Phone Validator API&&Is fixed?,1,3.0,100.0,100.0,0.0
+Phone Validator API&&Is mobile?,1,3.0,100.0,100.0,0.0
+Phone Validator API&&Is possible?,1,3.0,100.0,100.0,0.0
+Phone Validator API&&Is valid?,1,3.0,100.0,100.0,0.0
+Phone Validator API&&Type,1,3.0,100.0,100.0,0.0
+Phone and Email Validator_v2&&Phone Number,1,3.0,100.0,100.0,0.0
+Phone verification&&Download Verification Results,1,3.0,100.0,100.0,0.0
+Phone verification&&Get Processing Status of File,1,3.0,100.0,100.0,0.0
+PinDuoDuo Data Service&&GoodsSearchByCategory,1,3.0,100.0,100.0,0.0
+Places Nearby a Coordinates&&Categories,1,3.0,100.0,100.0,0.0
+Poetry DB&&/author,1,3.0,100.0,100.0,0.0
+"Poetry DB&&/author,title/{author};{title}",1,3.0,100.0,100.0,0.0
+Poetry DB&&/author/{author},1,3.0,100.0,100.0,0.0
+Poetry DB&&/author/{author}:abs,1,3.0,100.0,100.0,0.0
+Poetry DB&&/title,1,3.0,100.0,100.0,0.0
+Priceline com Provider&&Download areas,1,3.0,100.0,100.0,0.0
+Profanity Buster&&/profanities,1,3.0,100.0,100.0,0.0
+Proxy Checker&&Queue Proxy For Checking,1,3.0,100.0,100.0,0.0
+Proxy Checker&&Retrieve Proxy Information,1,3.0,100.0,100.0,0.0
+QueryWeather,1,3.0,100.0,100.0,0.0
+Quotel - Quotes&&GetTopic,1,3.0,100.0,100.0,0.0
+Quotel - Quotes&&SearchAuthorsByString,1,3.0,100.0,100.0,0.0
+Quotel - Quotes&&SearchByString,1,3.0,100.0,100.0,0.0
+Quotel - Quotes&&SearchQuotesByString,1,3.0,100.0,100.0,0.0
+Quotes by API-Ninjas&&/v1/quotes,1,3.0,100.0,100.0,0.0
+Quotes_v2&&Get Available Authors,1,3.0,100.0,100.0,0.0
+Quotes_v2&&Get Random Quote,1,3.0,100.0,100.0,0.0
+Quotes_v2&&Quotes By Authors,1,3.0,100.0,100.0,0.0
+Quotes_v2&&Quotes by Keywords,1,3.0,100.0,100.0,0.0
+Random Chunk API&&getRandomWord,1,3.0,100.0,100.0,0.0
+Random Fake Credit Card Details And Validator&&validator,1,3.0,100.0,100.0,0.0
+Random Strings&&Random Words,1,3.0,100.0,100.0,0.0
+Random Word by API-Ninjas,1,3.0,100.0,100.0,0.0
+Random Words,1,3.0,100.0,100.0,0.0
+Random Words&&Get a random word,1,3.0,100.0,100.0,0.0
+Real Love Calculator&&POST /,1,3.0,100.0,100.0,0.0
+Real-Time Quotes&&Stock quotes,1,3.0,100.0,100.0,0.0
+Regionalkonzept Strom Herkunft&&Strommix,1,3.0,100.0,100.0,0.0
+Regionalkonzept Strom Herkunft&&entnahme,1,3.0,100.0,100.0,0.0
+Regionalkonzept Strom Herkunft&&erzeugung,1,3.0,100.0,100.0,0.0
+Repustate Sentiment and Text Analytics&&Sentiment (bulk),1,3.0,100.0,100.0,0.0
+Return Fact&&default,1,3.0,100.0,100.0,0.0
+Review Generator (AI)&&Languages,1,3.0,100.0,100.0,0.0
+Review Generator (AI)&&Locales,1,3.0,100.0,100.0,0.0
+Saagar Test&&/users/{id},1,3.0,100.0,100.0,0.0
+Schwab&&market/get-movers,1,3.0,100.0,100.0,0.0
+Schwab&&news/list-latest,1,3.0,100.0,100.0,0.0
+Scout&&Advanced Phone Number Lookup,1,3.0,100.0,100.0,0.0
+Scout&&Basic Phone Number Validation,1,3.0,100.0,100.0,0.0
+Shazam&&Artist Top Tracks,1,3.0,100.0,100.0,0.0
+Shazam&&artists/get-latest-release,1,3.0,100.0,100.0,0.0
+Shazam&&artists/get-top-songs,1,3.0,100.0,100.0,0.0
+ShortUrl&&ShortenUrl,1,3.0,100.0,100.0,0.0
+ShoutOUT SMS&&Send an SMS,1,3.0,100.0,100.0,0.0
+SignNow&&Get role ids,1,3.0,100.0,100.0,0.0
+SignNow&&Make document from template,1,3.0,100.0,100.0,0.0
+SignNow&&Make template from document,1,3.0,100.0,100.0,0.0
+Simple & Elegant Translation Service&&To get a list all the supported languages by this API Endpoint,1,3.0,100.0,100.0,0.0
+SofaScores&&Unique tournament data,1,3.0,100.0,100.0,0.0
+SofaSport&&Unique tournament data,1,3.0,100.0,100.0,0.0
+SofaSport&&Unique tournament logo,1,3.0,100.0,100.0,0.0
+SofaSport&&Unique tournaments list,1,3.0,100.0,100.0,0.0
+SongMeanings&&comments.get,1,3.0,100.0,100.0,0.0
+Soundcloud&&getComments,1,3.0,100.0,100.0,0.0
+Soundcloud&&getTrackComments,1,3.0,100.0,100.0,0.0
+Soundcloud&&getUserComments,1,3.0,100.0,100.0,0.0
+Sport Odds&&GetUpcoming,1,3.0,100.0,100.0,0.0
+Sports Betting Predictions&&GetMarkets,1,3.0,100.0,100.0,0.0
+Spotify Data&&artist-albums,1,3.0,100.0,100.0,0.0
+Spotify Data&&artist-singles,1,3.0,100.0,100.0,0.0
+States&&state,1,3.0,100.0,100.0,0.0
+Steam Community&&User Aliases,1,3.0,100.0,100.0,0.0
+Stock & Crypto Universe&&Earnings,1,3.0,100.0,100.0,0.0
+Stock & Crypto Universe&&Historical Prices,1,3.0,100.0,100.0,0.0
+Stock Sentiment API&&Market Data,1,3.0,100.0,100.0,0.0
+Stock Sentiment API&&News Sentiment Data,1,3.0,100.0,100.0,0.0
+Stock&&Stock Latest Price,1,3.0,100.0,100.0,0.0
+StopModReposts Blocklist,1,3.0,100.0,100.0,0.0
+Suggest the Book&&default,1,3.0,100.0,100.0,0.0
+SuperHero Search&&Heroes,1,3.0,100.0,100.0,0.0
+TAOBAO TMALL 1688&&Get item detail,1,3.0,100.0,100.0,0.0
+TEXTKING Translation&&List target languages,1,3.0,100.0,100.0,0.0
+TLDRThis&&Extractive Article Summarization,1,3.0,100.0,100.0,0.0
+TLDRThis&&Human-like Article Summarization,1,3.0,100.0,100.0,0.0
+Taobao Tmall 1688&&Item detail,1,3.0,100.0,100.0,0.0
+Taobao Tmall 1688&&v2 Item detail,1,3.0,100.0,100.0,0.0
+Taobao Tmall Product Detail&&Get 1688 product detail,1,3.0,100.0,100.0,0.0
+Tesla VIN Identifier&&Manufacturing Location Detection,1,3.0,100.0,100.0,0.0
+Tesla VIN Identifier&&Manufacturing Year Detection,1,3.0,100.0,100.0,0.0
+Tesla VIN Identifier&&Model Detection,1,3.0,100.0,100.0,0.0
+Tesla VIN Identifier&&VIN Detection,1,3.0,100.0,100.0,0.0
+Text Summarization&&Text Summarization for URL,1,3.0,100.0,100.0,0.0
+Text Translator_v2&&getLanguages,1,3.0,100.0,100.0,0.0
+The Best Keyword Density Analyzer -100 percent accuracy approved&&Keyword Density Analyzer,1,3.0,100.0,100.0,0.0
+The Love Calculator&&Get Match,1,3.0,100.0,100.0,0.0
+The Sandbox - SAND&&Medium,1,3.0,100.0,100.0,0.0
+TheClique&&Shazam Artist,1,3.0,100.0,100.0,0.0
+They Said So - Say it with style&&Search Authors,1,3.0,100.0,100.0,0.0
+They Said So - Say it with style&&Search Quote,1,3.0,100.0,100.0,0.0
+ThisisaPublicAPI_v2&&getOrderById,1,3.0,100.0,100.0,0.0
+ThisshouldbeFREE&&getPetById,1,3.0,100.0,100.0,0.0
+TikTok_Solutions&&Hashtag Feed by Name,1,3.0,100.0,100.0,0.0
+TikTok_Solutions&&Music Data by ID,1,3.0,100.0,100.0,0.0
+TikTok_v3&&Music Info,1,3.0,100.0,100.0,0.0
+TikTok_v3&&Videos By Music,1,3.0,100.0,100.0,0.0
+Tiktok_v2&&Hashtag,1,3.0,100.0,100.0,0.0
+Today Football Prediction&&VIP Featured Predictions,1,3.0,100.0,100.0,0.0
+Today Football Prediction&&VIP Prediction Scores,1,3.0,100.0,100.0,0.0
+Tomorrow.io&&retrieveTimelinesAdvanced,1,3.0,100.0,100.0,0.0
+Top Keywords of a website&&Get Keywords,1,3.0,100.0,100.0,0.0
+Tourist Attraction&&Detail,1,3.0,100.0,100.0,0.0
+Translate,1,3.0,100.0,100.0,0.0
+Translation Cloud&&Language Detection,1,3.0,100.0,100.0,0.0
+Travel Advisor&&attractions/list-by-latlng (Deprecated),1,3.0,100.0,100.0,0.0
+Travel Advisor&&attractions/v2/list,1,3.0,100.0,100.0,0.0
+Travel Advisor&&locations/v2/list-nearby,1,3.0,100.0,100.0,0.0
+Travel Advisor&&photos/v2/list,1,3.0,100.0,100.0,0.0
+Travel Places&&Get Travel Places,1,3.0,100.0,100.0,0.0
+TravelStatus,1,3.0,100.0,100.0,0.0
+Trivia Facts&&Trivia Facts,1,3.0,100.0,100.0,0.0
+Trivia by API-Ninjas&&/v1/trivia,1,3.0,100.0,100.0,0.0
+TrueWay Places&&FindPlacesNearby,1,3.0,100.0,100.0,0.0
+Truecaller&&Phone Lookup,1,3.0,100.0,100.0,0.0
+Twelve Data&&EPS Trend,1,3.0,100.0,100.0,0.0
+Twelve Data&&Market Movers - Stocks,1,3.0,100.0,100.0,0.0
+Twelve Data&&Statistics,1,3.0,100.0,100.0,0.0
+U.S. Economic Indicators&&Mortgage Rate 30-Year Fixed,1,3.0,100.0,100.0,0.0
+URLShortener&&/api/urlShort/shorten,1,3.0,100.0,100.0,0.0
+US Real Estate&&/agents/agent-listings,1,3.0,100.0,100.0,0.0
+Unite States City Weather&&/api/weather,1,3.0,100.0,100.0,0.0
+Unity AssetStore&&Get Assets Details By ID.,1,3.0,100.0,100.0,0.0
+Unity AssetStore&&Get TOP 100 Free Assets.,1,3.0,100.0,100.0,0.0
+Unity AssetStore&&Get TOP 100 New Assets.,1,3.0,100.0,100.0,0.0
+Universal Sentiment Analysis API&&/sentiment_analysis,1,3.0,100.0,100.0,0.0
+Url-Shortner&&CREATE SHORT URL,1,3.0,100.0,100.0,0.0
+Vehicle RC Information&&Vehicle Information v2 [Advance],1,3.0,100.0,100.0,0.0
+Vehicle RC Information_v2&&Vehicle Information,1,3.0,100.0,100.0,0.0
+Walk Score&&Walk Score,1,3.0,100.0,100.0,0.0
+WallStreetBets Sentiment&&Daily Stock Sentiment,1,3.0,100.0,100.0,0.0
+Weather_v6&&Current Weather Data of a location.,1,3.0,100.0,100.0,0.0
+Website Contacts Scraper&&Scrape Contacts from Website,1,3.0,100.0,100.0,0.0
+Whois Lookup_v3&&Check Similarity,1,3.0,100.0,100.0,0.0
+Whois Lookup_v3&&NS Lookup,1,3.0,100.0,100.0,0.0
+Whois Lookup_v5&&NsLookup,1,3.0,100.0,100.0,0.0
+WonderboyAPI&&All Belgian Races,1,3.0,100.0,100.0,0.0
+World Population&&getPopulationByCountryCode,1,3.0,100.0,100.0,0.0
+World of Jokes&&Get Jokes,1,3.0,100.0,100.0,0.0
+Worldwide Recipes&&Explore,1,3.0,100.0,100.0,0.0
+Worldwide Recipes&&Related,1,3.0,100.0,100.0,0.0
+Worldwide Restaurants&&Search,1,3.0,100.0,100.0,0.0
+Wyre Data&&Get all data on an establishment by restaurant,1,3.0,100.0,100.0,0.0
+Wyre Data&&Get ratings by restaurant,1,3.0,100.0,100.0,0.0
+Wyre Data&&Search restaurants by town,1,3.0,100.0,100.0,0.0
+Zigatext - Global Bulk SMS & OTP&&Fetch Message,1,3.0,100.0,100.0,0.0
+Zillow Working API&&/clientc/byurl,1,3.0,100.0,100.0,0.0
+"Zillow&&Walk, Transit and Bike Scores",1,3.0,100.0,100.0,0.0
+Zillow_v2&&Agent details by username,1,3.0,100.0,100.0,0.0
+Zillow_v2&&Agent's active listings,1,3.0,100.0,100.0,0.0
+Zillow_v2&&Search for agents,1,3.0,100.0,100.0,0.0
+"Zillow_v2&&Walk, Transit and Bike Score",1,3.0,100.0,100.0,0.0
+account_balance_query,1,3.0,100.0,100.0,0.0
+account_login,1,3.0,100.0,100.0,0.0
+apfd&&getPetById,1,3.0,100.0,100.0,0.0
+api-telecom&&/products,1,3.0,100.0,100.0,0.0
+arxiv,1,3.0,100.0,100.0,0.0
+asd&&user endpoint,1,3.0,100.0,100.0,0.0
+biographical_relationship_finder,1,3.0,100.0,100.0,0.0
+book_table,1,3.0,100.0,100.0,0.0
+boshe&&default,1,3.0,100.0,100.0,0.0
+calculate_exchange_amount,1,3.0,100.0,100.0,0.0
+calculate_total_interest,1,3.0,100.0,100.0,0.0
+compare&&get products,1,3.0,100.0,100.0,0.0
+conference_room_cancelling,1,3.0,100.0,100.0,0.0
+credit_card_info_retrieval,1,3.0,100.0,100.0,0.0
+cs-skin API&&Random Skin,1,3.0,100.0,100.0,0.0
+cs-skin API&&Random Skin from Class,1,3.0,100.0,100.0,0.0
+cs-skin API&&Specific Skin,1,3.0,100.0,100.0,0.0
+currency_exchange_rate,1,3.0,100.0,100.0,0.0
+delete_schedule,1,3.0,100.0,100.0,0.0
+erictestpet&&getInventory,1,3.0,100.0,100.0,0.0
+erictestpet&&getOrderById,1,3.0,100.0,100.0,0.0
+erictestpet&&getPetById,1,3.0,100.0,100.0,0.0
+exchange_rate_query,1,3.0,100.0,100.0,0.0
+extract_first_name,1,3.0,100.0,100.0,0.0
+find_recommended_dishes,1,3.0,100.0,100.0,0.0
+flight_info_query,1,3.0,100.0,100.0,0.0
+flight_schedule_lookup,1,3.0,100.0,100.0,0.0
+get_exchange_rate,1,3.0,100.0,100.0,0.0
+get_last_login_info,1,3.0,100.0,100.0,0.0
+hotel_availability_check,1,3.0,100.0,100.0,0.0
+longest_alphabetical_substring,1,3.0,100.0,100.0,0.0
+manatee jokes&&find all,1,3.0,100.0,100.0,0.0
+manatee jokes&&random,1,3.0,100.0,100.0,0.0
+monarch_reign_analyzer,1,3.0,100.0,100.0,0.0
+mtscore&&prediction,1,3.0,100.0,100.0,0.0
+music_discovery,1,3.0,100.0,100.0,0.0
+mymappi&&Search places,1,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_es,1,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_guardian,1,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_sun,1,3.0,100.0,100.0,0.0
+news-world-api&&this request search for news_telegraph,1,3.0,100.0,100.0,0.0
+online_meeting_booking,1,3.0,100.0,100.0,0.0
+parenting_advice_tool,1,3.0,100.0,100.0,0.0
+petstore blitz&&getOrderById,1,3.0,100.0,100.0,0.0
+petstore blitz&&getPetById,1,3.0,100.0,100.0,0.0
+platformbil&&getOrderById,1,3.0,100.0,100.0,0.0
+platformbil&&getPetById,1,3.0,100.0,100.0,0.0
+public-url-share&&Top 50 startups news from the last month,1,3.0,100.0,100.0,0.0
+purchase_product,1,3.0,100.0,100.0,0.0
+quota-test-1&&endpoint_1,1,3.0,100.0,100.0,0.0
+rate-limit-test-2&&/users/{id},1,3.0,100.0,100.0,0.0
+rate-limit-test-3&&/users/{id},1,3.0,100.0,100.0,0.0
+request_menu,1,3.0,100.0,100.0,0.0
+search_and_select_hotel,1,3.0,100.0,100.0,0.0
+send_meeting_notification,1,3.0,100.0,100.0,0.0
+set_schedule_date_range,1,3.0,100.0,100.0,0.0
+sms-exchange&&send-sms,1,3.0,100.0,100.0,0.0
+ssh_connect,1,3.0,100.0,100.0,0.0
+tavily-search,1,3.0,100.0,100.0,0.0
+test pg prod&&endpoint 3,1,3.0,100.0,100.0,0.0
+teste&&getPetById,1,3.0,100.0,100.0,0.0
+text-url-pdf-summarization&&simple text,1,3.0,100.0,100.0,0.0
+weather forecast 14 days&&getforecastdata,1,3.0,100.0,100.0,0.0
+"webcams.travel&&/webcams/list/country={country}[,{country}[,...]]",1,3.0,100.0,100.0,0.0
+"webcams.travel&&/webcams/list/orderby={order},{sort}",1,3.0,100.0,100.0,0.0
+"webcams.travel&&/webcams/list/region={region}[,{region}[,...]]",1,3.0,100.0,100.0,0.0
+<<AI Translation APIs&&Translates HTML>>,1,2.0,0.0,100.0,0.0
+<<Australian Suburb Information&&Filter by Postcode>>,1,2.0,0.0,100.0,0.0
+<<Basketball - DataFeeds by Rolling Insights&&Weekly Schedule>>,1,2.0,0.0,100.0,0.0
+<<Beers List&&getAllBeersList>>,1,2.0,0.0,100.0,0.0
+<<Cooking Recipe&&GetCategory>>,1,2.0,0.0,100.0,0.0
+<<Countries&&list all countries>>,1,2.0,0.0,100.0,0.0
+<<Eventful&&addVenueTags>>,1,2.0,0.0,100.0,0.0
+<<Eventful&&createEvent>>,1,2.0,0.0,100.0,0.0
+<<Flickr&&suggestLocation>>,1,2.0,0.0,100.0,0.0
+<<Ice Hockey Data&&Tournament List>>,1,2.0,0.0,100.0,0.0
+<<Ice Hockey Data&&Tournament Teams>>,1,2.0,0.0,100.0,0.0
+<<Investing - Cryptocurrency Markets&&get-ico-calendar>>,1,2.0,0.0,100.0,0.0
+<<Location and Time&&Get Date and Time by City>>,1,2.0,0.0,100.0,0.0
+<<Location and Time&&Search City by Name>>,1,2.0,0.0,100.0,0.0
+<<New Cryptocurrencies Listings&&News>>,1,2.0,0.0,100.0,0.0
+<<Palmy Investing API&&quote_list>>,1,2.0,0.0,100.0,0.0
+<<Priceline com Provider&&Auto Suggest>>,1,2.0,0.0,100.0,0.0
+<<Priceline com Provider&&Downalods hotels>>,1,2.0,0.0,100.0,0.0
+<<Priceline com Provider&&Download amenities>>,1,2.0,0.0,100.0,0.0
+<<Priceline com Provider&&Download cities clusters>>,1,2.0,0.0,100.0,0.0
+<<Priceline com Provider&&Download locations>>,1,2.0,0.0,100.0,0.0
+<<ProxyPage&&Random proxy>>,1,2.0,0.0,100.0,0.0
+<<TheMealDB&&List all meals by first letter>>,1,2.0,0.0,100.0,0.0
+<<TimeTable Lookup &&airports - Nearest airports for a given latitude and longitude>>,1,2.0,0.0,100.0,0.0
+<<WallStreetBets Sentiment&&Intraday Stock Sentiment>>,1,2.0,0.0,100.0,0.0
+<<World Bank | GDP&&List all countries>>,1,2.0,0.0,100.0,0.0
+<<Worldwide Recipes&&Suggestions>>,1,2.0,0.0,100.0,0.0
+<<Wyre Data&&Search restaurants by local authority>>,1,2.0,0.0,100.0,0.0
+<<cs-skin API&&Random Skin from Weapon>>,1,2.0,0.0,100.0,0.0
+<<de-boundaries-io&&Query for Postal Code Boundary By location>>,1,2.0,0.0,100.0,0.0
+<<de-boundaries-io&&Query for Postal Code Boundary by postal code.>>,1,2.0,0.0,100.0,0.0
+AI Translation APIs&&AI Translate (auto correct spelling mistakes),1,2.0,0.0,100.0,0.0
+AI Translation APIs&&Translates HTML,1,2.0,0.0,100.0,0.0
+AI Translation APIs&&Translates Large Files,1,2.0,0.0,100.0,0.0
+AI Translation APIs&&Translates Paragraph,1,2.0,0.0,100.0,0.0
+AIOM DB - All In One Movie Database&&TOP 250 MOVIES ALL THE TIME,1,2.0,0.0,100.0,0.0
+AcroSuite Locator&&Location Clustering,1,2.0,0.0,100.0,0.0
+Afilnet SMS&&Send SMS,1,2.0,0.0,100.0,0.0
+All-In-One Crypto Swiss Knife &&Whale Activities,1,2.0,0.0,100.0,0.0
+Australian Suburb Information&&Filter by Postcode,1,2.0,0.0,100.0,0.0
+Basketball - DataFeeds by Rolling Insights&&Weekly Schedule,1,2.0,0.0,100.0,0.0
+Beers List&&getAllBeersList,1,2.0,0.0,100.0,0.0
+Binance Socket&&GET a SYMBOL,1,2.0,0.0,100.0,0.0
+Binance Socket&&Symbols All,1,2.0,0.0,100.0,0.0
+Coinbase&&getTransactions,1,2.0,0.0,100.0,0.0
+Cooking Recipe&&GetCategory,1,2.0,0.0,100.0,0.0
+Countries&&list all countries,1,2.0,0.0,100.0,0.0
+CountryStat&&stat-by-country-iso-code,1,2.0,0.0,100.0,0.0
+Currency Conveter&&Exchange Currency,1,2.0,0.0,100.0,0.0
+Deezer&&getAlbumComments,1,2.0,0.0,100.0,0.0
+Deezer&&getArtistComments,1,2.0,0.0,100.0,0.0
+Detect Proxy VPN&&Detect Proxy or VPN IP,1,2.0,0.0,100.0,0.0
+ESportApi&&LeagueSeasons,1,2.0,0.0,100.0,0.0
+ESportApi&&Search,1,2.0,0.0,100.0,0.0
+Ephemeral Proxies&&Check datacenter proxies service status,1,2.0,0.0,100.0,0.0
+Ephemeral Proxies&&Check residential proxies service status,1,2.0,0.0,100.0,0.0
+Ephemeral Proxies&&Extend expiration time of a datacenter proxy,1,2.0,0.0,100.0,0.0
+Ephemeral Proxies&&Get user's traffic balance,1,2.0,0.0,100.0,0.0
+Ethereum Service&&Get Transaction Receipt,1,2.0,0.0,100.0,0.0
+Eventful&&addVenueTags,1,2.0,0.0,100.0,0.0
+Eventful&&createEvent,1,2.0,0.0,100.0,0.0
+Farmonaut Satellite and Weather Data&&Retrieve Forecast Weather Data,1,2.0,0.0,100.0,0.0
+Farmonaut Satellite and Weather Data&&Retrieve Weather Forecast Data from Latitude and Longitude,1,2.0,0.0,100.0,0.0
+Find Places to Live&&/location (Search for a town or neighborhood),1,2.0,0.0,100.0,0.0
+Flickr&&getInfoByUrl,1,2.0,0.0,100.0,0.0
+Flickr&&resolvePlaceId,1,2.0,0.0,100.0,0.0
+Flickr&&suggestLocation,1,2.0,0.0,100.0,0.0
+Football Aggregated Data&&Get Leagues By Season,1,2.0,0.0,100.0,0.0
+Football Betting Prediction API&&Get Popular Football Matches Predictions & Insights - Updated every day at 10:00-14:00 GMT,1,2.0,0.0,100.0,0.0
+GetWeatherForCoordinates,1,2.0,0.0,100.0,0.0
+Giphy&&Get GIFs by ID,1,2.0,0.0,100.0,0.0
+Horse Racing France&&List of meetings (reunions),1,2.0,0.0,100.0,0.0
+Horse Racing France&&Meeting (reunion) details,1,2.0,0.0,100.0,0.0
+IMDb&&title/get-meta-data,1,2.0,0.0,100.0,0.0
+Ice Hockey Data&&Tournament List,1,2.0,0.0,100.0,0.0
+Ice Hockey Data&&Tournament Teams,1,2.0,0.0,100.0,0.0
+Investing - Cryptocurrency Markets&&get-ico-calendar,1,2.0,0.0,100.0,0.0
+Lightbase Zip Codes&&Distance Calculator,1,2.0,0.0,100.0,0.0
+Location and Time&&Get Date and Time by City,1,2.0,0.0,100.0,0.0
+Location and Time&&Get Time at Other City,1,2.0,0.0,100.0,0.0
+Location and Time&&Search City by Name,1,2.0,0.0,100.0,0.0
+LocationWeatherAPI&&/weather,1,2.0,0.0,100.0,0.0
+New Cryptocurrencies Listings&&News,1,2.0,0.0,100.0,0.0
+Open Weather Map&&current weather data,1,2.0,0.0,100.0,0.0
+OpenCritic API&&/game/reviewed-this-week,1,2.0,0.0,100.0,0.0
+OpenCritic API&&/game/reviewed-today,1,2.0,0.0,100.0,0.0
+OpenNWI&&GetScoreDetails,1,2.0,0.0,100.0,0.0
+OpenWeather&&getCurrentWeather,1,2.0,0.0,100.0,0.0
+Phone Number Validator&&Format Number For Region,1,2.0,0.0,100.0,0.0
+PhoneValication&&API Endpoint 1,1,2.0,0.0,100.0,0.0
+Priceline com Provider&&Auto Suggest,1,2.0,0.0,100.0,0.0
+Priceline com Provider&&Downalods hotels,1,2.0,0.0,100.0,0.0
+Priceline com Provider&&Download cities clusters,1,2.0,0.0,100.0,0.0
+Priceline com Provider&&Download locations,1,2.0,0.0,100.0,0.0
+Quotel - Quotes&&GetRandomQuote,1,2.0,0.0,100.0,0.0
+Recipe Scraper API&&Get All Recipes URL,1,2.0,0.0,100.0,0.0
+Recipe Scraper API&&Recipe API Home,1,2.0,0.0,100.0,0.0
+Restaurant&&restaurant,1,2.0,0.0,100.0,0.0
+SMS sending&&deleteContacts,1,2.0,0.0,100.0,0.0
+Sportsbook Odds&&BookBreakers Team Lookups,1,2.0,0.0,100.0,0.0
+Sportsbook Odds&&Game Odds - By Site Schedule,1,2.0,0.0,100.0,0.0
+Sportsbook Odds&&Line Updates (Changes in Odds),1,2.0,0.0,100.0,0.0
+Spotify&&Artist discovered on,1,2.0,0.0,100.0,0.0
+Spotify_v3&&Artist discovered on,1,2.0,0.0,100.0,0.0
+The Sandbox - SAND&&Past 3 Months,1,2.0,0.0,100.0,0.0
+TheMealDB&&List all meals by first letter,1,2.0,0.0,100.0,0.0
+TimeTable Lookup &&airports - Nearest airports for a given latitude and longitude,1,2.0,0.0,100.0,0.0
+Travel Advisor&&attractions/list-in-boundary (Deprecated),1,2.0,0.0,100.0,0.0
+Travel Advisor&&photos/list (Deprecated),1,2.0,0.0,100.0,0.0
+Twelve Data&&EPS Revisions,1,2.0,0.0,100.0,0.0
+USA People Search - Public Records&&Name Search,1,2.0,0.0,100.0,0.0
+Url-Shortner&&GET ALL URLs,1,2.0,0.0,100.0,0.0
+VIN Decoder API - Europe&&VIN Decoder,1,2.0,0.0,100.0,0.0
+WallStreetBets Sentiment&&Intraday Stock Sentiment,1,2.0,0.0,100.0,0.0
+WatchSignals&&Get reference numbers of a specific brand,1,2.0,0.0,100.0,0.0
+WatchSignals&&Get watch,1,2.0,0.0,100.0,0.0
+WatchSignals&&Get watch dealer,1,2.0,0.0,100.0,0.0
+Watches E-Commerce&&Search Product,1,2.0,0.0,100.0,0.0
+Weather Service&&Weather Forecast 7 days,1,2.0,0.0,100.0,0.0
+Worldwide Recipes&&Suggestions,1,2.0,0.0,100.0,0.0
+Wyre Data&&Search restaurants by local authority,1,2.0,0.0,100.0,0.0
+Zigatext - Global Bulk SMS & OTP&&Fetch Sent Message Extra,1,2.0,0.0,100.0,0.0
+Zillow_v2&&Agent's rental listings,1,2.0,0.0,100.0,0.0
+backup_agenda,1,2.0,0.0,100.0,0.0
+cs-skin API&&Random Skin from Weapon,1,2.0,0.0,100.0,0.0
+de-boundaries-io&&Query for Postal Code Boundary By location,1,2.0,0.0,100.0,0.0
+de-boundaries-io&&Query for Postal Code Boundary by postal code.,1,2.0,0.0,100.0,0.0
+dnsleuth&&/dns/mx/,1,2.0,0.0,100.0,0.0
+geo_location_finder,1,2.0,0.0,100.0,0.0
+get_dish_id,1,2.0,0.0,100.0,0.0
+route-precedence-test-1&&/prices/today,1,2.0,0.0,100.0,0.0
+search_train,1,2.0,0.0,100.0,0.0
+set_schedule_priority,1,2.0,0.0,100.0,0.0
+special_foreign_currency_purchase,1,2.0,0.0,100.0,0.0
+ticket_info_query,1,2.0,0.0,100.0,0.0
+view_schedule,1,2.0,0.0,100.0,0.0
+<<API-BASKETBALL&&head 2 head>>,1,1.0,0.0,0.0,0.0
+<<Airport&&Get Airport by IATA>>,1,1.0,0.0,0.0,0.0
+<<Chuck Norris&&/jokes/categories>>,1,1.0,0.0,0.0,0.0
+<<Cricket Analytics&&team from Id>>,1,1.0,0.0,0.0,0.0
+<<Cricket Analytics&&venue from Id>>,1,1.0,0.0,0.0,0.0
+<<Deezer&&Infos>>,1,1.0,0.0,0.0,0.0
+<<Eventful&&addEventTags>>,1,1.0,0.0,0.0,0.0
+<<Greenlight&&Get Signals>>,1,1.0,0.0,0.0,0.0
+<<Hourly Market Data&&GET Current ETH Data>>,1,1.0,0.0,0.0,0.0
+<<Ice Hockey Data&&Recent Match List>>,1,1.0,0.0,0.0,0.0
+<<Investing - Cryptocurrency Markets&&coins/list-pairs>>,1,1.0,0.0,0.0,0.0
+<<MLB Data&&Broadcast Info>>,1,1.0,0.0,0.0,0.0
+<<New Cryptocurrencies Listings&&Supported Exchanges>>,1,1.0,0.0,0.0,0.0
+<<PedidosYa&&Get Restaurant by Link>>,1,1.0,0.0,0.0,0.0
+<<Semantic Quotes&&Random Quote>>,1,1.0,0.0,0.0,0.0
+<<Sportspage Feeds&&Game By ID>>,1,1.0,0.0,0.0,0.0
+<<Tik-Tok-Feed&&Video by ID No Cache>>,1,1.0,0.0,0.0,0.0
+<<Tik-Tok-Feed&&Video by ID>>,1,1.0,0.0,0.0,0.0
+<<TikTok_v3&&Music Id By Url>>,1,1.0,0.0,0.0,0.0
+<<Translate Plus&&supported_languages>>,1,1.0,0.0,0.0,0.0
+<<Tripadvisor&&Search Vacation Rental Location>>,1,1.0,0.0,0.0,0.0
+<<URL Lookup by API-Ninjas&&v1/urllookup>>,1,1.0,0.0,0.0,0.0
+<<Website Descriptor&&Describe URL>>,1,1.0,0.0,0.0,0.0
+<<Zillow&&Property details>>,1,1.0,0.0,0.0,0.0
+<<de-boundaries-io&&Query for City Boundary by Name>>,1,1.0,0.0,0.0,0.0
+<<de-boundaries-io&&Query for City Names by State>>,1,1.0,0.0,0.0,0.0
+<<de-boundaries-io&&Query for all State names.>>,1,1.0,0.0,0.0,0.0
+"<<webcams.travel&&/webcams/list/limit={limit},{offset}>>",1,1.0,0.0,0.0,0.0
+API-BASKETBALL&&head 2 head,1,1.0,0.0,0.0,0.0
+APIXYnew&&posts,1,1.0,0.0,0.0,0.0
+Air Quality API&&Air Quality Forecasts,1,1.0,0.0,0.0,0.0
+Air Quality Converter&&PM25toUSAQI,1,1.0,0.0,0.0,0.0
+Air Quality Converter&&USAQItoPM25,1,1.0,0.0,0.0,0.0
+Air Quality Indicator API&&Air Quality Health Index,1,1.0,0.0,0.0,0.0
+Air Quality&&Air Quality History,1,1.0,0.0,0.0,0.0
+Airport&&Get Airport by IATA,1,1.0,0.0,0.0,0.0
+Anime DB&&Get Genres,1,1.0,0.0,0.0,0.0
+Anime DB&&Get one anime by ranking,1,1.0,0.0,0.0,0.0
+Appibase&&getOrders,1,1.0,0.0,0.0,0.0
+Appibase&&getOrdersItems,1,1.0,0.0,0.0,0.0
+Appibase&&getPrice,1,1.0,0.0,0.0,0.0
+Appibase&&getVariation,1,1.0,0.0,0.0,0.0
+Australia People Search - Public Records&&Name Search,1,1.0,0.0,0.0,0.0
+Auto Segmentation&&Auto Segmentation Italian Text,1,1.0,0.0,0.0,0.0
+BTC Crypto Whale Tracker &&Address history,1,1.0,0.0,0.0,0.0
+Beer Live&&TOP10 Beers,1,1.0,0.0,0.0,0.0
+Beer Live&&TOP5 Beers,1,1.0,0.0,0.0,0.0
+Bet-at-Home&&Matches,1,1.0,0.0,0.0,0.0
+Betmaster&&Matches,1,1.0,0.0,0.0,0.0
+BetsAPI Soccer&&4 - Event View,1,1.0,0.0,0.0,0.0
+BetsAPI&&Bet365 Upcoming Events,1,1.0,0.0,0.0,0.0
+Billboard API_v2&&Romania Songs,1,1.0,0.0,0.0,0.0
+Billboard-API&&Holiday 100 Songs,1,1.0,0.0,0.0,0.0
+Booking&&properties/get-hotel-photos,1,1.0,0.0,0.0,0.0
+Bybit&&Get Instrument Info,1,1.0,0.0,0.0,0.0
+COUNTRYS-API&&Get Country By ID,1,1.0,0.0,0.0,0.0
+Car API&&Trim View,1,1.0,0.0,0.0,0.0
+Car API&&Trims,1,1.0,0.0,0.0,0.0
+Carbon Footprint Calculator API&&Air Quality Health Index,1,1.0,0.0,0.0,0.0
+CarbonFootprint&&AirQualityHealthIndex,1,1.0,0.0,0.0,0.0
+CarbonSutra&&Nearest Airport from Postal Code,1,1.0,0.0,0.0,0.0
+Certificate Transparency Scan&&Certificate Transparency Scan,1,1.0,0.0,0.0,0.0
+Chem Oblib&&Home,1,1.0,0.0,0.0,0.0
+Chem Oblib&&predict_predit__post,1,1.0,0.0,0.0,0.0
+Chuck Norris&&/jokes/categories,1,1.0,0.0,0.0,0.0
+Coinbase&&Get bitcoin receive address,1,1.0,0.0,0.0,0.0
+Coinbase&&getSingleWithdrawal,1,1.0,0.0,0.0,0.0
+Contact Scraper&&Scrape Contact Details from a html or text,1,1.0,0.0,0.0,0.0
+Countries Cities&&Country Details,1,1.0,0.0,0.0,0.0
+Cricket Analytics&&team from Id,1,1.0,0.0,0.0,0.0
+Cricket Analytics&&venue from Id,1,1.0,0.0,0.0,0.0
+Crypto Market Data APIs&&Ethereum Mainnet Get Address Token Transfers,1,1.0,0.0,0.0,0.0
+Crypto&&Base Currency,1,1.0,0.0,0.0,0.0
+Crypto&&Latest Price,1,1.0,0.0,0.0,0.0
+Deezer&&Genre,1,1.0,0.0,0.0,0.0
+Deezer&&addCommentToAlbum,1,1.0,0.0,0.0,0.0
+Deezer&&getPersonalRadioByGenre,1,1.0,0.0,0.0,0.0
+Deezer&&getRadioByGenre,1,1.0,0.0,0.0,0.0
+Deezer&&getRadiosForGenre,1,1.0,0.0,0.0,0.0
+Deezer&&removeComment,1,1.0,0.0,0.0,0.0
+Deezer&&searchRadio,1,1.0,0.0,0.0,0.0
+Dicolink&&Get Antonyms,1,1.0,0.0,0.0,0.0
+Dicolink&&Get Lexical Field,1,1.0,0.0,0.0,0.0
+Dicolink&&Get Scrabble score,1,1.0,0.0,0.0,0.0
+DocTop&&Italian topics,1,1.0,0.0,0.0,0.0
+Driver License Search&&/GetArchiveReport,1,1.0,0.0,0.0,0.0
+EarningsData&&GetByStock,1,1.0,0.0,0.0,0.0
+Enhanced People Search&&/GetArchiveReport,1,1.0,0.0,0.0,0.0
+Enhanced People Search&&/GetReport,1,1.0,0.0,0.0,0.0
+Epic Games store&&Get free games,1,1.0,0.0,0.0,0.0
+Eventful&&addEventPerformer,1,1.0,0.0,0.0,0.0
+Eventful&&addEventTags,1,1.0,0.0,0.0,0.0
+FIFA 2022 Schedule and Stats&&Get matches on a specific date,1,1.0,0.0,0.0,0.0
+Fantasy Premier League&&Fixtures,1,1.0,0.0,0.0,0.0
+Fitness Calculator&&Food Names And Ids,1,1.0,0.0,0.0,0.0
+Fitness Calculator&&macros amounts,1,1.0,0.0,0.0,0.0
+Fitness Calculator&&tablenames,1,1.0,0.0,0.0,0.0
+Flixbus&&cities,1,1.0,0.0,0.0,0.0
+Flixbus&&stations,1,1.0,0.0,0.0,0.0
+Food Calories&&all foods list,1,1.0,0.0,0.0,0.0
+Food Calories&&categories,1,1.0,0.0,0.0,0.0
+Food Calories&&category by name,1,1.0,0.0,0.0,0.0
+Food Calories&&sorted by calories,1,1.0,0.0,0.0,0.0
+Food Calories&&sorted by kj,1,1.0,0.0,0.0,0.0
+Football Betting Prediction API&&Get Tickets for Today - Updated every day at 00:00 - 05:00 GMT,1,1.0,0.0,0.0,0.0
+Fortnite unofficial&&Maps,1,1.0,0.0,0.0,0.0
+Free games this month&&Get available gift games,1,1.0,0.0,0.0,0.0
+Freshdesk&&updateCompany,1,1.0,0.0,0.0,0.0
+G - Finance&&market-trends,1,1.0,0.0,0.0,0.0
+G Translate&&Translate Text,1,1.0,0.0,0.0,0.0
+Geneea Interpretor NLP&&Language Detection,1,1.0,0.0,0.0,0.0
+GeoApi&&/api/Geo/ClosestLine,1,1.0,0.0,0.0,0.0
+GeoApi&&/api/Geo/Intersection,1,1.0,0.0,0.0,0.0
+GeoApi&&/api/Geo/PointAtDistanceOnLine,1,1.0,0.0,0.0,0.0
+GeoApi&&/api/Geo/Union,1,1.0,0.0,0.0,0.0
+German Companies API&&search,1,1.0,0.0,0.0,0.0
+Giphy&&Sticker Search,1,1.0,0.0,0.0,0.0
+Google Translate_v2&&translate,1,1.0,0.0,0.0,0.0
+Greenlight&&Get Signals,1,1.0,0.0,0.0,0.0
+Horse Racing France&&Race (course) details,1,1.0,0.0,0.0,0.0
+Horse Racing&&Results,1,1.0,0.0,0.0,0.0
+Hourly Market Data&&GET Current ETH Data,1,1.0,0.0,0.0,0.0
+IMDB_API&&/get_movies_by_cast_name,1,1.0,0.0,0.0,0.0
+IMDB_API&&/get_movies_by_director,1,1.0,0.0,0.0,0.0
+IMDB_API&&/get_movies_by_name,1,1.0,0.0,0.0,0.0
+IMDB_API&&/get_movies_by_year,1,1.0,0.0,0.0,0.0
+Ice Hockey Data&&Recent Match List,1,1.0,0.0,0.0,0.0
+Ice Hockey Data&&Tournament Standings,1,1.0,0.0,0.0,0.0
+Indie Songs : DistroKid & Unsigned&&Search indie songs by filters,1,1.0,0.0,0.0,0.0
+Investing - Cryptocurrency Markets&&coins/list-pairs,1,1.0,0.0,0.0,0.0
+Is This Coin A Scam&&Get a list of highest community rated profiles,1,1.0,0.0,0.0,0.0
+Is This Coin A Scam&&Get a list of latest profiles,1,1.0,0.0,0.0,0.0
+Kiara Translate v2&&kiara.translate,1,1.0,0.0,0.0,0.0
+Koios Cardano's Decentralized API&&/tx_info,1,1.0,0.0,0.0,0.0
+LINE Messaging&&Send reply message,1,1.0,0.0,0.0,0.0
+Lemmatization POS and Parsing&&parser-2.0,1,1.0,0.0,0.0,0.0
+Linkedin Public Search&&peoplesearch,1,1.0,0.0,0.0,0.0
+LiveAgent&&updateCompany,1,1.0,0.0,0.0,0.0
+Location and Time&&Calculate Distance Between Cities,1,1.0,0.0,0.0,0.0
+Location and Time&&Calculate Distance Between Locations,1,1.0,0.0,0.0,0.0
+Location and Time&&Encode Geohash,1,1.0,0.0,0.0,0.0
+Location and Time&&Get Astral Data by City,1,1.0,0.0,0.0,0.0
+Location and Time&&Get Astral Data by Location,1,1.0,0.0,0.0,0.0
+Location and Time&&Get Time Diff by City,1,1.0,0.0,0.0,0.0
+Location and Time&&Get Time at Other Location,1,1.0,0.0,0.0,0.0
+Location and Time&&Get Time at Other Timezone,1,1.0,0.0,0.0,0.0
+"Locations - Languages, Countries & German Cities&&Filter German Cities",1,1.0,0.0,0.0,0.0
+Lyrics Search&&Search Song Lyrics,1,1.0,0.0,0.0,0.0
+MLB Data&&Broadcast Info,1,1.0,0.0,0.0,0.0
+MS Finance&&{type}/portfolio/get-fixed-income-exposure-analysis,1,1.0,0.0,0.0,0.0
+MessageAPI&&customers,1,1.0,0.0,0.0,0.0
+Metrx Factory&&Match Odds History,1,1.0,0.0,0.0,0.0
+Multiple Language Translator API&&Spanish to English Translator,1,1.0,0.0,0.0,0.0
+NAVITIME Geocoding&&address,1,1.0,0.0,0.0,0.0
+NAVITIME Geocoding&&address_autocomplete,1,1.0,0.0,0.0,0.0
+NAVITIME Geocoding&&address_code,1,1.0,0.0,0.0,0.0
+NAVITIME Geocoding&&address_inclusion,1,1.0,0.0,0.0,0.0
+NAVITIME Geocoding&&address_postal_code,1,1.0,0.0,0.0,0.0
+NBA Statistics API&&playerSeasonStatsByName,1,1.0,0.0,0.0,0.0
+NBA Statistics API&&topAssistsInThePlayoffsBySeasonTotalAssists,1,1.0,0.0,0.0,0.0
+NBA Statistics API&&topScorersBySeasonTotalPoints,1,1.0,0.0,0.0,0.0
+NBA Stats_v2&&get_per_game_post_season,1,1.0,0.0,0.0,0.0
+NBA Stats_v2&&get_per_game_post_season_by_id,1,1.0,0.0,0.0,0.0
+NBA Stats_v2&&get_season_totals_post_season_by_id,1,1.0,0.0,0.0,0.0
+NBA Stats_v2&&get_teams,1,1.0,0.0,0.0,0.0
+NBA Stats_v2&&get_teams_by_id,1,1.0,0.0,0.0,0.0
+New Cryptocurrencies Listings&&Supported Exchanges,1,1.0,0.0,0.0,0.0
+Opensea Data&&Sales,1,1.0,0.0,0.0,0.0
+Otapi Aliexpress&&Get Item Review,1,1.0,0.0,0.0,0.0
+Otapi Aliexpress&&Get Vendor,1,1.0,0.0,0.0,0.0
+PayPal&&getPayoutItem,1,1.0,0.0,0.0,0.0
+PedidosYa&&Get Restaurant by Link,1,1.0,0.0,0.0,0.0
+Phone verification&&Upload File with Phone Numbers For Verification,1,1.0,0.0,0.0,0.0
+PhoneNumberValidateFree&&Validate,1,1.0,0.0,0.0,0.0
+PostFPT&&Posts_copy,1,1.0,0.0,0.0,0.0
+Posts&&posts,1,1.0,0.0,0.0,0.0
+PrivatePublicAPI&&loginUser,1,1.0,0.0,0.0,0.0
+Product Finder Beta&&Search for the product,1,1.0,0.0,0.0,0.0
+Product Hunt&&update details,1,1.0,0.0,0.0,0.0
+Python Anywhere&&main,1,1.0,0.0,0.0,0.0
+QueryMeeting,1,1.0,0.0,0.0,0.0
+QueryReminder,1,1.0,0.0,0.0,0.0
+QuickBooksAccounting&&updateItem,1,1.0,0.0,0.0,0.0
+Qvantana&&Standard deviation,1,1.0,0.0,0.0,0.0
+Qvantana&&Stochastic,1,1.0,0.0,0.0,0.0
+Qvantana&&Volume Weighted Average Price (VWAP),1,1.0,0.0,0.0,0.0
+Random User by API-Ninjas&&/v1/randomuser,1,1.0,0.0,0.0,0.0
+SEO BERT Score&&SEO BERT Score,1,1.0,0.0,0.0,0.0
+SLP&&price,1,1.0,0.0,0.0,0.0
+SMS Receive&&/GetNumbers,1,1.0,0.0,0.0,0.0
+SMS Receive&&/GetTag,1,1.0,0.0,0.0,0.0
+SMS Receive&&/GetUpdates,1,1.0,0.0,0.0,0.0
+SMS Receive&&/SetTag,1,1.0,0.0,0.0,0.0
+SMS Text messaging  functions&&Send SMS,1,1.0,0.0,0.0,0.0
+Scraper's Proxy&&Tor GET,1,1.0,0.0,0.0,0.0
+Sentiment Analysis&&sentiment-2.1,1,1.0,0.0,0.0,0.0
+Shazam&&Artist Info,1,1.0,0.0,0.0,0.0
+Shazam&&Artist Search,1,1.0,0.0,0.0,0.0
+Similar Clothes AI&&Picture analysis,1,1.0,0.0,0.0,0.0
+Similar sites&&Domain,1,1.0,0.0,0.0,0.0
+Simple Otp&&OTP,1,1.0,0.0,0.0,0.0
+SoccersAPI&&Fixtures by Season,1,1.0,0.0,0.0,0.0
+SoccersAPI&&Fixtures by Season / Team,1,1.0,0.0,0.0,0.0
+SongMeanings&&comments.rating.put,1,1.0,0.0,0.0,0.0
+Spectation Sports Events API&&Event,1,1.0,0.0,0.0,0.0
+Sportspage Feeds&&Game By ID,1,1.0,0.0,0.0,0.0
+Startup Ideas&&ideas,1,1.0,0.0,0.0,0.0
+Startup Ideas&&{category_slug},1,1.0,0.0,0.0,0.0
+SuperHero Search&&Villains,1,1.0,0.0,0.0,0.0
+Swagger PetStore&&loginUser,1,1.0,0.0,0.0,0.0
+Synonyms + Word Info&&GET/v1/word,1,1.0,0.0,0.0,0.0
+Synonyms + Word Info&&GET/v1/word/info,1,1.0,0.0,0.0,0.0
+Taobao Tmall advanced product data&&get item description images and html,1,1.0,0.0,0.0,0.0
+TelephoneToCountry&&getCountryByNumber,1,1.0,0.0,0.0,0.0
+Text To Speech_v2&&Voices Endpoint,1,1.0,0.0,0.0,0.0
+TextFlow SMS API&&Check OTP verification code,1,1.0,0.0,0.0,0.0
+TextFlow SMS API&&Send OTP verification code,1,1.0,0.0,0.0,0.0
+The Sandbox - SAND&&Past 1 Day,1,1.0,0.0,0.0,0.0
+The Sandbox - SAND&&Past 1 Week,1,1.0,0.0,0.0,0.0
+The Sandbox - SAND&&Quote,1,1.0,0.0,0.0,0.0
+Tik-Tok-Feed&&Video by ID,1,1.0,0.0,0.0,0.0
+Tik-Tok-Feed&&Video by ID No Cache,1,1.0,0.0,0.0,0.0
+TikTok_v3&&Challenge,1,1.0,0.0,0.0,0.0
+TikTok_v3&&Music Id By Url,1,1.0,0.0,0.0,0.0
+Tomorrow.io&&retrieveAnAlert,1,1.0,0.0,0.0,0.0
+Tripadvisor&&Rental Search,1,1.0,0.0,0.0,0.0
+Tripadvisor&&Search Vacation Rental Location,1,1.0,0.0,0.0,0.0
+Trivia&&/trivia,1,1.0,0.0,0.0,0.0
+Trivia&&/trivia/categories,1,1.0,0.0,0.0,0.0
+Trivia&&/trivia/random,1,1.0,0.0,0.0,0.0
+Trustin Trade&&Country list,1,1.0,0.0,0.0,0.0
+Twelve Data&&Market Movers,1,1.0,0.0,0.0,0.0
+Twelve Data&&TEMA,1,1.0,0.0,0.0,0.0
+Twelve Data&&TSF,1,1.0,0.0,0.0,0.0
+UK-phonenumber-area-search&&findByNumber,1,1.0,0.0,0.0,0.0
+URL Lookup by API-Ninjas&&v1/urllookup,1,1.0,0.0,0.0,0.0
+URLTEST&&loginUser,1,1.0,0.0,0.0,0.0
+US Geo Data&&Get Zips in State,1,1.0,0.0,0.0,0.0
+User Generator and Random Profiles&&locale,1,1.0,0.0,0.0,0.0
+Visa List&&Country List,1,1.0,0.0,0.0,0.0
+WallStreetBets Sentiment&&Daily Stock Prices,1,1.0,0.0,0.0,0.0
+Weather Forecast Live&&Get specific weather forecast source,1,1.0,0.0,0.0,0.0
+Weather Service&&Weather Forecast 3 days,1,1.0,0.0,0.0,0.0
+Website Descriptor&&Describe URL,1,1.0,0.0,0.0,0.0
+Woo-temp&&product_category,1,1.0,0.0,0.0,0.0
+Word Bank World Development Indicators&&Indicator Detail,1,1.0,0.0,0.0,0.0
+Word translation word to word&&Translate word to word,1,1.0,0.0,0.0,0.0
+World Cup 2018 Live Scores&&Events subscribed,1,1.0,0.0,0.0,0.0
+World Cup 2018 Live Scores&&Subscribe,1,1.0,0.0,0.0,0.0
+World Population&&getCountriesByContinent,1,1.0,0.0,0.0,0.0
+Worldwide Restaurants&&Typeahead,1,1.0,0.0,0.0,0.0
+Xchange Currency&&Current Foreign Currency Exchange Rate,1,1.0,0.0,0.0,0.0
+Xchange Currency&&Supported Currencies,1,1.0,0.0,0.0,0.0
+YH Finance Complete&&fund Profile,1,1.0,0.0,0.0,0.0
+YH Finance Complete&&index Trend,1,1.0,0.0,0.0,0.0
+YH Finance Complete&&industry Trend,1,1.0,0.0,0.0,0.0
+Zigatext - Global Bulk SMS & OTP&&Send Message,1,1.0,0.0,0.0,0.0
+acopaer&&UpdateCompanyBy:tax_number,1,1.0,0.0,0.0,0.0
+add_reminder,1,1.0,0.0,0.0,0.0
+bank_balance_query,1,1.0,0.0,0.0,0.0
+blog&&Andrei,1,1.0,0.0,0.0,0.0
+book_meeting_room,1,1.0,0.0,0.0,0.0
+calendar_annotation,1,1.0,0.0,0.0,0.0
+cancer rates by usa state&&Get by filter,1,1.0,0.0,0.0,0.0
+cancer rates by usa state&&Get by state,1,1.0,0.0,0.0,0.0
+chaincerts&&changeForSaleStatus,1,1.0,0.0,0.0,0.0
+chaincerts&&listoftheitemsoldandquantity0,1,1.0,0.0,0.0,0.0
+confirm_appointment,1,1.0,0.0,0.0,0.0
+confirm_cleaning_availability,1,1.0,0.0,0.0,0.0
+de-boundaries-io&&Query for City Boundary by Name,1,1.0,0.0,0.0,0.0
+de-boundaries-io&&Query for City Names by State,1,1.0,0.0,0.0,0.0
+de-boundaries-io&&Query for all State names.,1,1.0,0.0,0.0,0.0
+find_transaction,1,1.0,0.0,0.0,0.0
+flight_price_query,1,1.0,0.0,0.0,0.0
+food_recommendation,1,1.0,0.0,0.0,0.0
+generate_unique_id,1,1.0,0.0,0.0,0.0
+geolocation_tracker,1,1.0,0.0,0.0,0.0
+get_account_statement,1,1.0,0.0,0.0,0.0
+get_transaction_history,1,1.0,0.0,0.0,0.0
+httpbin-test&&GET,1,1.0,0.0,0.0,0.0
+ipapi&&get,1,1.0,0.0,0.0,0.0
+lb365api&&preMatchOdds,1,1.0,0.0,0.0,0.0
+mgs&&blogs_copy,1,1.0,0.0,0.0,0.0
+openai-code-interpreter,1,1.0,0.0,0.0,0.0
+schedule_delivery,1,1.0,0.0,0.0,0.0
+select_ticket,1,1.0,0.0,0.0,0.0
+send_confirmation,1,1.0,0.0,0.0,0.0
+shared_calendar,1,1.0,0.0,0.0,0.0
+shell,1,1.0,0.0,0.0,0.0
+taboo-api&&Get Stored Word From Any Category,1,1.0,0.0,0.0,0.0
+team petstore&&loginUser,1,1.0,0.0,0.0,0.0
+test_db_connection,1,1.0,0.0,0.0,0.0
+tourist_souvenir_creator,1,1.0,0.0,0.0,0.0
+travel_info_search,1,1.0,0.0,0.0,0.0
+travel_itinerary_planner,1,1.0,0.0,0.0,0.0
+travel_plan_maker,1,1.0,0.0,0.0,0.0
+uNoGS Disney+&&/search/people,1,1.0,0.0,0.0,0.0
+versions-paid&&v1,1,1.0,0.0,0.0,0.0
+vin-decoder&&USA Plate Number Lookup,1,1.0,0.0,0.0,0.0
+visualize_location_data,1,1.0,0.0,0.0,0.0
+"webcams.travel&&/webcams/list/exclude={webcamid}[,{webcamid}[,...]]",1,1.0,0.0,0.0,0.0
+"webcams.travel&&/webcams/list/nearby={lat},{lng},{radius}",1,1.0,0.0,0.0,0.0
+"webcams.travel&&/webcams/list/property={property}[,{property}[,...]]",1,1.0,0.0,0.0,0.0
+"webcams.travel&&/webcams/list/webcam={webcamid}[,{webcamid}[,...]]",1,1.0,0.0,0.0,0.0
+NBA Statistics API&&allPlayersBySeason,1,-1.0,0.0,0.0,100.0
+NBA Statistics API&&playerShotChartDataSeasonPlayoffs,1,-1.0,0.0,0.0,100.0
+get_service_provider_contact,1,-2.0,0.0,0.0,100.0
+mobile_number_info,1,-2.0,0.0,0.0,100.0
+168predict VIP Football Predictions&&Tomorrow Sure VIP Over 1.5 Goals,1,-3.0,0.0,0.0,100.0
+168predict VIP Football Predictions&&Yesterday Sure VIP Over 1.5 Goals,1,-3.0,0.0,0.0,100.0
+168predict VIP Football Predictions&&Yesterday Sure VIP Over 2.5 Goals,1,-3.0,0.0,0.0,100.0
+<< Onboarding Project&&Get Products>>,1,-3.0,0.0,0.0,100.0
+<<<<Places&&Place properties>>,1,-3.0,0.0,0.0,100.0
+<<Car API&&Engines>>,1,-3.0,0.0,0.0,100.0
+<<Car API&&Exterior Colors>>,1,-3.0,0.0,0.0,100.0
+<<Fresh LinkedIn Profile Data&&Get Company by Domain>>,1,-3.0,0.0,0.0,100.0
+<<Fresh LinkedIn Profile Data&&Get Company by URL>>,1,-3.0,0.0,0.0,100.0
+<<Fresh LinkedIn Profile Data&&Get Job Details>>,1,-3.0,0.0,0.0,100.0
+<<Fresh LinkedIn Profile Data&&Get Open Profile Status>>,1,-3.0,0.0,0.0,100.0
+<<Fresh LinkedIn Profile Data&&Get Open to Work Status>>,1,-3.0,0.0,0.0,100.0
+<<Messages&&getMsgs>>,1,-3.0,0.0,0.0,100.0
+<<Places&&Autosuggest>>,1,-3.0,0.0,0.0,100.0
+AI Random User Generator&&Get Random User,1,-3.0,0.0,0.0,100.0
+API-BASEBALL&&standings,1,-3.0,0.0,0.0,100.0
+API-BASKETBALL&&bookmakers,1,-3.0,0.0,0.0,100.0
+API-BASKETBALL&&groups,1,-3.0,0.0,0.0,100.0
+API-BASKETBALL&&search bookmakers,1,-3.0,0.0,0.0,100.0
+API-BASKETBALL&&standings,1,-3.0,0.0,0.0,100.0
+AccountInfo,1,-3.0,0.0,0.0,100.0
+Address Compare&&Address Compare Api,1,-3.0,0.0,0.0,100.0
+All Random&&Random Cat Fact,1,-3.0,0.0,0.0,100.0
+Amazon Web Scrapper&&Get Product Offers,1,-3.0,0.0,0.0,100.0
+Amazon historical price&&Get historical price,1,-3.0,0.0,0.0,100.0
+Anilist&&getUserReviews,1,-3.0,0.0,0.0,100.0
+Argaam Data APIs Free&&Get Regular Commodities,1,-3.0,0.0,0.0,100.0
+AudrBar Amazon Data Scraper&&Get Amazon Search Result,1,-3.0,0.0,0.0,100.0
+BTH Amazon Data Scraper&&Get Amazon Search Result,1,-3.0,0.0,0.0,100.0
+BarPatterns&&Doji,1,-3.0,0.0,0.0,100.0
+BarPatterns&&Macd Crossover Down,1,-3.0,0.0,0.0,100.0
+BarPatterns&&Macd Crossover Up,1,-3.0,0.0,0.0,100.0
+BarPatterns&&Three Outside Up,1,-3.0,0.0,0.0,100.0
+Bartenders&&ReadAll,1,-3.0,0.0,0.0,100.0
+Best OCR API&&Numbers & Special Chars OCR,1,-3.0,0.0,0.0,100.0
+Best OCR API&&Text OCR,1,-3.0,0.0,0.0,100.0
+Betigolo Tips&&Premium Tips,1,-3.0,0.0,0.0,100.0
+Blockrates&&Latest Rates,1,-3.0,0.0,0.0,100.0
+Blockrates&&Supported currencies,1,-3.0,0.0,0.0,100.0
+Booking.com_v2&&currencies,1,-3.0,0.0,0.0,100.0
+Booking.com_v2&&languages,1,-3.0,0.0,0.0,100.0
+Booking.com_v2&&stays/auto-complete,1,-3.0,0.0,0.0,100.0
+Booking.com_v2&&stays/properties/detail,1,-3.0,0.0,0.0,100.0
+Boomi_Inventory&&stockAlert,1,-3.0,0.0,0.0,100.0
+Bulk US phone numbers&&Check status,1,-3.0,0.0,0.0,100.0
+CAISO&&caisoprice,1,-3.0,0.0,0.0,100.0
+CSGO matches and tournaments&&Upcoming,1,-3.0,0.0,0.0,100.0
+Car API&&Exterior Colors,1,-3.0,0.0,0.0,100.0
+Car API&&Interior Colors,1,-3.0,0.0,0.0,100.0
+Cash4Life&&Random QuickPick for Play,1,-3.0,0.0,0.0,100.0
+Chuck Norris Jokes&&Get Information,1,-3.0,0.0,0.0,100.0
+Cities Cost of Living and Average Prices API&&Get Countries,1,-3.0,0.0,0.0,100.0
+Coinbase&&Send bitcoins to address,1,-3.0,0.0,0.0,100.0
+Coinbase&&getNotifications,1,-3.0,0.0,0.0,100.0
+Coinpaprika&&Coin ID,1,-3.0,0.0,0.0,100.0
+Coinpaprika&&Exchanges for coin,1,-3.0,0.0,0.0,100.0
+Coinpaprika&&People,1,-3.0,0.0,0.0,100.0
+Cricket Analytics&&player from Id,1,-3.0,0.0,0.0,100.0
+Cricket Live Data&&Fixtures By Date,1,-3.0,0.0,0.0,100.0
+Crypto Market Data APIs&&Ethereum Mainnet Locally Sign Your Transaction Endpoint,1,-3.0,0.0,0.0,100.0
+Crypto Markets&&Current Average Price,1,-3.0,0.0,0.0,100.0
+Crypto Update Live&&GET Top gainers losers list,1,-3.0,0.0,0.0,100.0
+Crypto Update Live&&GET top 100 cryptocurrencies list,1,-3.0,0.0,0.0,100.0
+Crypto&&Pivot Points,1,-3.0,0.0,0.0,100.0
+Crypto&&Technical Indicator,1,-3.0,0.0,0.0,100.0
+Cryptocurrency APIs&&GetAddressInfo,1,-3.0,0.0,0.0,100.0
+Cryptocurrency Alerting&&Create Crypto Alert,1,-3.0,0.0,0.0,100.0
+Cryptocurrency balance&&Get Vechain Balance,1,-3.0,0.0,0.0,100.0
+Daily Quote&&Random Keyword,1,-3.0,0.0,0.0,100.0
+Data.Police.UK&&Last updated,1,-3.0,0.0,0.0,100.0
+Dicolink&&Get Random Word,1,-3.0,0.0,0.0,100.0
+DigitalOcean&&convertImageToSnapshot,1,-3.0,0.0,0.0,100.0
+DigitalOcean&&getImageBySlug,1,-3.0,0.0,0.0,100.0
+DigitalOcean&&transferImage,1,-3.0,0.0,0.0,100.0
+DocTop&&French topics,1,-3.0,0.0,0.0,100.0
+DocTop&&Spanish topics,1,-3.0,0.0,0.0,100.0
+Domain Availability&&/api/v1,1,-3.0,0.0,0.0,100.0
+ESportApi&&PlayerPlaceholderImage,1,-3.0,0.0,0.0,100.0
+ESportApi&&TournamentPlaceholderImage,1,-3.0,0.0,0.0,100.0
+Elyes Amazon Scraper&&Get search results,1,-3.0,0.0,0.0,100.0
+Email Delivery Checker&&Verify Email,1,-3.0,0.0,0.0,100.0
+EmailReminder,1,-3.0,0.0,0.0,100.0
+English Talking&&Approve a dialogue,1,-3.0,0.0,0.0,100.0
+English Talking&&Get an answer,1,-3.0,0.0,0.0,100.0
+English Talking&&Register User,1,-3.0,0.0,0.0,100.0
+English Talking&&Rejecting a dialogue,1,-3.0,0.0,0.0,100.0
+Enode API&&getHVAC,1,-3.0,0.0,0.0,100.0
+Enode API&&postSetChargerMaxCurrent,1,-3.0,0.0,0.0,100.0
+Facts by API-Ninjas&&/v1/facts,1,-3.0,0.0,0.0,100.0
+Fake Credit Card Number Generator API&&Fake Credit Card Number Generator,1,-3.0,0.0,0.0,100.0
+Find any IP address or Domain Location world wide&&IP Location of Client or IP Location of Visitor,1,-3.0,0.0,0.0,100.0
+Fitness Calculator&&activities,1,-3.0,0.0,0.0,100.0
+Flickr&&placesForMachineTagsByWoeId,1,-3.0,0.0,0.0,100.0
+Flickr&&placesForTagsByWoeId,1,-3.0,0.0,0.0,100.0
+Formula 1 - fixed&&Mostrecentraceresult,1,-3.0,0.0,0.0,100.0
+Fresh LinkedIn Profile Data&&Get Company by Domain,1,-3.0,0.0,0.0,100.0
+Fresh LinkedIn Profile Data&&Get Company by URL,1,-3.0,0.0,0.0,100.0
+Fresh LinkedIn Profile Data&&Get Job Details,1,-3.0,0.0,0.0,100.0
+Fresh LinkedIn Profile Data&&Get Open Profile Status,1,-3.0,0.0,0.0,100.0
+Fresh LinkedIn Profile Data&&Get Open to Work Status,1,-3.0,0.0,0.0,100.0
+Gearbest&&/get_products_from_category,1,-3.0,0.0,0.0,100.0
+Gearbest&&/get_reviews,1,-3.0,0.0,0.0,100.0
+Gearbest&&/get_top_searches,1,-3.0,0.0,0.0,100.0
+Gearbest&&/search,1,-3.0,0.0,0.0,100.0
+Giphy&&Translate,1,-3.0,0.0,0.0,100.0
+Global Stock Market API Data&&Get Global Indices by price,1,-3.0,0.0,0.0,100.0
+HandballAPI&&TeamStandingsSeasons,1,-3.0,0.0,0.0,100.0
+Happy Birthday API&&Greet me Cuz it's my Birthday and I'm lonely!,1,-3.0,0.0,0.0,100.0
+Horse Racing USA&&Jockeys win rate,1,-3.0,0.0,0.0,100.0
+Horse Racing USA&&Trainers win rate,1,-3.0,0.0,0.0,100.0
+Horse Racing&&Jockeys win rate,1,-3.0,0.0,0.0,100.0
+Horse Racing&&Trainers win rate,1,-3.0,0.0,0.0,100.0
+HowToSpeak&&Japanese2Chinese,1,-3.0,0.0,0.0,100.0
+Hubspot APIs&&Search calls,1,-3.0,0.0,0.0,100.0
+Humor-Jokes-and-Memes&&generate-nonsense-word,1,-3.0,0.0,0.0,100.0
+JIRA&&moveScreenFieldByNeighbours,1,-3.0,0.0,0.0,100.0
+JIRA&&moveScreenTab,1,-3.0,0.0,0.0,100.0
+JIRA&&renameScreenTab,1,-3.0,0.0,0.0,100.0
+KeenIO&&createAccessKey,1,-3.0,0.0,0.0,100.0
+Kitten Placeholder&&Cat,1,-3.0,0.0,0.0,100.0
+Kitten Placeholder&&Kitten,1,-3.0,0.0,0.0,100.0
+LINE Messaging&&Get default rich menu ID,1,-3.0,0.0,0.0,100.0
+LINE Messaging&&Get profile,1,-3.0,0.0,0.0,100.0
+LINE Messaging&&Issue link token,1,-3.0,0.0,0.0,100.0
+Linear Program Solver&&solve,1,-3.0,0.0,0.0,100.0
+Litecoin Wallet&&Get Litecoin Transaction by hash,1,-3.0,0.0,0.0,100.0
+Locations and Postcodes UK&&getDistanceBetweenPostcodes,1,-3.0,0.0,0.0,100.0
+Lonely&&covid,1,-3.0,0.0,0.0,100.0
+Lost Ark Simple&&Get Character Skills,1,-3.0,0.0,0.0,100.0
+Lost Ark Simple&&Get Chest Item Recipes,1,-3.0,0.0,0.0,100.0
+Lost Ark Simple&&Get Classes List,1,-3.0,0.0,0.0,100.0
+Lost Ark Simple&&Get Life Skill Tool Recipes,1,-3.0,0.0,0.0,100.0
+Lowest Common&&default,1,-3.0,0.0,0.0,100.0
+Lucky4Life&&Random QuickPick for Play,1,-3.0,0.0,0.0,100.0
+Luka2220 Amazon Data Scraper&&Get Product Search Results,1,-3.0,0.0,0.0,100.0
+Magic AliExpress&&/api/bestSales/product/{productID}/pricesHistory,1,-3.0,0.0,0.0,100.0
+Magic AliExpress&&/api/bestSales/product/{productID}/salesHistory,1,-3.0,0.0,0.0,100.0
+Magic AliExpress&&/api/product/{productId}/historic/prices,1,-3.0,0.0,0.0,100.0
+Mangadb with lots of top-rated manga  manwha  manuha&&top/page1,1,-3.0,0.0,0.0,100.0
+MapboxDirection&&getOptimalWalking,1,-3.0,0.0,0.0,100.0
+Mapillary&&searchDetections,1,-3.0,0.0,0.0,100.0
+Mapillary&&searchImages,1,-3.0,0.0,0.0,100.0
+Mapillary&&searchMaps,1,-3.0,0.0,0.0,100.0
+Mapillary&&searchUsers,1,-3.0,0.0,0.0,100.0
+MatinApi&&9939c2c0-7fad-11e9-8019-f5bb8c5310ff,1,-3.0,0.0,0.0,100.0
+Medium&&/search/stories,1,-3.0,0.0,0.0,100.0
+Medium&&/search/topics,1,-3.0,0.0,0.0,100.0
+Medium&&/stories/{topic},1,-3.0,0.0,0.0,100.0
+Mercari&&Get Item Information,1,-3.0,0.0,0.0,100.0
+Mercari&&Get Seller's Items,1,-3.0,0.0,0.0,100.0
+Mirror-AI&&Apply selected parts,1,-3.0,0.0,0.0,100.0
+Morning Star&&stock/v2/get-competitors,1,-3.0,0.0,0.0,100.0
+MoviesDatabase&&/actors/random,1,-3.0,0.0,0.0,100.0
+MoviesDatabase&&/titles/random,1,-3.0,0.0,0.0,100.0
+New Cryptocurrencies Listings&&Send Email,1,-3.0,0.0,0.0,100.0
+OddsBoom&&Events,1,-3.0,0.0,0.0,100.0
+OddsBoom&&Futures Events,1,-3.0,0.0,0.0,100.0
+Optimal Rubik Cube 3x3&&requestQuickSolve,1,-3.0,0.0,0.0,100.0
+Optimal Rubik Cube 3x3&&requestRandom,1,-3.0,0.0,0.0,100.0
+Optimal Rubik Cube 3x3&&requestSolve,1,-3.0,0.0,0.0,100.0
+Optimal Rubik Cube 3x3&&requestSolveTo,1,-3.0,0.0,0.0,100.0
+Optimism&&Account Balance,1,-3.0,0.0,0.0,100.0
+Optimism&&Account Transaction Count,1,-3.0,0.0,0.0,100.0
+Optimism&&Block,1,-3.0,0.0,0.0,100.0
+Optimism&&Current Block Number,1,-3.0,0.0,0.0,100.0
+Optimism&&Transaction,1,-3.0,0.0,0.0,100.0
+Option Chain&&options,1,-3.0,0.0,0.0,100.0
+Options Chain&&options,1,-3.0,0.0,0.0,100.0
+Orderful&&Transactions,1,-3.0,0.0,0.0,100.0
+Parking&&addPet,1,-3.0,0.0,0.0,100.0
+Photolab&&Send image and get result,1,-3.0,0.0,0.0,100.0
+PinDuoDuo Data Service&&GoodsSearchByTag,1,-3.0,0.0,0.0,100.0
+Pinnacle Data Feed&&/sports,1,-3.0,0.0,0.0,100.0
+Pinnacle Odds&&List of markets,1,-3.0,0.0,0.0,100.0
+Pinnacle Odds&&List of special markets,1,-3.0,0.0,0.0,100.0
+Pinnacle Odds&&List of sports,1,-3.0,0.0,0.0,100.0
+Portfolio Performance and Risk Analytics - Basic&&Calculate the periodic LTM returns of a portfolio or a basket of investment based on its periodic returns,1,-3.0,0.0,0.0,100.0
+"Portfolio Performance and Risk Analytics - Basic&&Calculate the periodic XIRR for a portfolio, a basket of investment, a position, an asset or a trade",1,-3.0,0.0,0.0,100.0
+Portfolio Performance and Risk Analytics - Basic&&Index returns - Calculate the periodic return based on Market Value,1,-3.0,0.0,0.0,100.0
+Power Assist&&Random,1,-3.0,0.0,0.0,100.0
+Powerball&&Random QuickPick for Play,1,-3.0,0.0,0.0,100.0
+QR Code API updated&&qr endpoint,1,-3.0,0.0,0.0,100.0
+Quatity Words&&default,1,-3.0,0.0,0.0,100.0
+Qvantana&&3 Line Strike,1,-3.0,0.0,0.0,100.0
+Qvantana&&Exponential Moving Average (EMA),1,-3.0,0.0,0.0,100.0
+Random anime img&&random img anime,1,-3.0,0.0,0.0,100.0
+Rawg&&Get Games,1,-3.0,0.0,0.0,100.0
+Realtor&&Property Details,1,-3.0,0.0,0.0,100.0
+Reddit&&Comments By Username,1,-3.0,0.0,0.0,100.0
+Reddit&&Top Comments By Username,1,-3.0,0.0,0.0,100.0
+Rewards as a Service&&1. Create an account,1,-3.0,0.0,0.0,100.0
+Rustybeer&&abv,1,-3.0,0.0,0.0,100.0
+Scanner Url&&GET,1,-3.0,0.0,0.0,100.0
+SearchApi&&1,1,-3.0,0.0,0.0,100.0
+Seeking Alpha Finance&&Symbols Author ratings,1,-3.0,0.0,0.0,100.0
+Seeking Alpha Finance&&Symbols Brief earnings,1,-3.0,0.0,0.0,100.0
+Seeking Alpha Finance&&Symbols Brief metrics,1,-3.0,0.0,0.0,100.0
+Seeking Alpha Finance&&Symbols Quotes,1,-3.0,0.0,0.0,100.0
+Seeking Alpha Finance&&Symbols Ratings,1,-3.0,0.0,0.0,100.0
+Snowpal: Project Management&&Add block note,1,-3.0,0.0,0.0,100.0
+SofaScores&&Attribute overviews,1,-3.0,0.0,0.0,100.0
+SofaScores&&Last ratings,1,-3.0,0.0,0.0,100.0
+SofaScores&&Standing competitor (motorsport),1,-3.0,0.0,0.0,100.0
+SofaScores&&Standings,1,-3.0,0.0,0.0,100.0
+SofaSport&&Cup trees,1,-3.0,0.0,0.0,100.0
+SofaSport&&Rounds,1,-3.0,0.0,0.0,100.0
+SofaSport&&Standings,1,-3.0,0.0,0.0,100.0
+Soundcloud&&getMyComments,1,-3.0,0.0,0.0,100.0
+Soundcloud&&getTracksLikedByUser,1,-3.0,0.0,0.0,100.0
+SpaceX API&&641060d2-db31-4f70-9878-0fcfca4736aa,1,-3.0,0.0,0.0,100.0
+SpaceX API&&b6777bac-f225-41af-ab9d-db80a7de448b,1,-3.0,0.0,0.0,100.0
+Sport Odds&&GetEventTypes,1,-3.0,0.0,0.0,100.0
+Sport Odds&&GetEvents,1,-3.0,0.0,0.0,100.0
+SpotifyUserAPI&&checkFollowArtist,1,-3.0,0.0,0.0,100.0
+SpotifyUserAPI&&getUserTopArtists,1,-3.0,0.0,0.0,100.0
+Steamcharts&&Top games,1,-3.0,0.0,0.0,100.0
+Stock & Crypto Universe&&Analyst Recommendations,1,-3.0,0.0,0.0,100.0
+Stock Compare&&S&P 500,1,-3.0,0.0,0.0,100.0
+Swiss Jobmarket Live&&search,1,-3.0,0.0,0.0,100.0
+TEXTKING Translation&&Get project,1,-3.0,0.0,0.0,100.0
+TEXTKING Translation&&Get topic,1,-3.0,0.0,0.0,100.0
+TEXTKING Translation&&List projects,1,-3.0,0.0,0.0,100.0
+TEXTKING Translation&&List topics,1,-3.0,0.0,0.0,100.0
+TextGears&&Create exception,1,-3.0,0.0,0.0,100.0
+Tik-Tok-Feed&&Collection by ID,1,-3.0,0.0,0.0,100.0
+Tik-Tok-Feed&&Video by URL,1,-3.0,0.0,0.0,100.0
+Top NFT Collections and Sales&&Get Top NFT Collections This Week,1,-3.0,0.0,0.0,100.0
+Top NFT Collections and Sales&&Get Top NFT Collections Today,1,-3.0,0.0,0.0,100.0
+Top NFT Collections and Sales&&Get Top NFT Sales All Time,1,-3.0,0.0,0.0,100.0
+Top NFT Collections and Sales&&Get Top NFT Sales This Week,1,-3.0,0.0,0.0,100.0
+Top NFT Collections and Sales&&Get Top NFT Sales Today,1,-3.0,0.0,0.0,100.0
+Toronto Pearson Airport&&Get Arrival by Flight Number,1,-3.0,0.0,0.0,100.0
+Toronto Pearson Airport&&Get Arrivals by Airline Name,1,-3.0,0.0,0.0,100.0
+Toronto Pearson Airport&&Get Arrivals by Carousel Number,1,-3.0,0.0,0.0,100.0
+Toronto Pearson Airport&&Get Arrivals by Terminal,1,-3.0,0.0,0.0,100.0
+Toronto Pearson Airport&&Get Departures by Airline Name,1,-3.0,0.0,0.0,100.0
+Travelling Salesman&&exampleProblem,1,-3.0,0.0,0.0,100.0
+Travelling Salesman&&solve,1,-3.0,0.0,0.0,100.0
+Twitch API&&Get Channel Leaderboards,1,-3.0,0.0,0.0,100.0
+Twitch API&&Get Chat Restrictions,1,-3.0,0.0,0.0,100.0
+Twitch API&&Get Pinned Chat,1,-3.0,0.0,0.0,100.0
+Twitch API&&Get Stream Tags,1,-3.0,0.0,0.0,100.0
+Twitch API&&Get User Id,1,-3.0,0.0,0.0,100.0
+Twitter&&User Likes,1,-3.0,0.0,0.0,100.0
+URLS UN-SHORTERER&&Unshort url by given url,1,-3.0,0.0,0.0,100.0
+US Gas Prices&&/us/il,1,-3.0,0.0,0.0,100.0
+US Stock Prices | Live!!&&StockPrice,1,-3.0,0.0,0.0,100.0
+UserMoviePreferences,1,-3.0,0.0,0.0,100.0
+VK Amazon Data Scraper&&Get Amazon Search Result,1,-3.0,0.0,0.0,100.0
+Virtual Number&&Get All Countries,1,-3.0,0.0,0.0,100.0
+Virtual Number&&Get Number By Country Id,1,-3.0,0.0,0.0,100.0
+Volleyball Data&&Seasonal Statistics: Points,1,-3.0,0.0,0.0,100.0
+Volleyball Data&&Team Schedule,1,-3.0,0.0,0.0,100.0
+Volleyball Data&&Tournament Fixture,1,-3.0,0.0,0.0,100.0
+Volleyball Data&&Tournament Info,1,-3.0,0.0,0.0,100.0
+Volleyball Data&&Tournament Standings,1,-3.0,0.0,0.0,100.0
+Waifu&&Check server status,1,-3.0,0.0,0.0,100.0
+Web - Novel API&&/search/{query},1,-3.0,0.0,0.0,100.0
+Web - Novel API&&/tags,1,-3.0,0.0,0.0,100.0
+WikiHow&&Images,1,-3.0,0.0,0.0,100.0
+Wisdom Quotes&&Get A Random Wisdom Quote,1,-3.0,0.0,0.0,100.0
+Word Scramble&&scramble/{word},1,-3.0,0.0,0.0,100.0
+YC Hacker news official&&updates,1,-3.0,0.0,0.0,100.0
+YouTube Data&&community-post-comments,1,-3.0,0.0,0.0,100.0
+ZendeskCore&&deleteAllSessions,1,-3.0,0.0,0.0,100.0
+ZendeskCore&&updateUsers,1,-3.0,0.0,0.0,100.0
+Zigatext - Global Bulk SMS & OTP&&Fetch Newsletter Lists,1,-3.0,0.0,0.0,100.0
+Zigatext - Global Bulk SMS & OTP&&Fetch Timezones,1,-3.0,0.0,0.0,100.0
+add_calendar_note,1,-3.0,0.0,0.0,100.0
+apfd&&addPet,1,-3.0,0.0,0.0,100.0
+aug13&&999,1,-3.0,0.0,0.0,100.0
+bet365-soccer&&inplay,1,-3.0,0.0,0.0,100.0
+book_online_meeting,1,-3.0,0.0,0.0,100.0
+business_trip_ticket_reservation,1,-3.0,0.0,0.0,100.0
+calculator&&add,1,-3.0,0.0,0.0,100.0
+calculator&&sub,1,-3.0,0.0,0.0,100.0
+car_rental_booking,1,-3.0,0.0,0.0,100.0
+car_rental_query,1,-3.0,0.0,0.0,100.0
+change_password,1,-3.0,0.0,0.0,100.0
+check_availability_and_price,1,-3.0,0.0,0.0,100.0
+check_delivery_status,1,-3.0,0.0,0.0,100.0
+check_service_center_availability,1,-3.0,0.0,0.0,100.0
+check_service_provider_availability,1,-3.0,0.0,0.0,100.0
+check_service_provider_coverage,1,-3.0,0.0,0.0,100.0
+checkprplan&&1,1,-3.0,0.0,0.0,100.0
+checktransfer&&1,1,-3.0,0.0,0.0,100.0
+company_credit_check,1,-3.0,0.0,0.0,100.0
+confirm_available_appointment_times,1,-3.0,0.0,0.0,100.0
+cover_letter_creator,1,-3.0,0.0,0.0,100.0
+crash1&&dfgdsfgsdfg,1,-3.0,0.0,0.0,100.0
+create_meeting_reminder,1,-3.0,0.0,0.0,100.0
+eBay Average Selling Price&&Item Detials,1,-3.0,0.0,0.0,100.0
+enterprise_credit_assessment,1,-3.0,0.0,0.0,100.0
+enterprise_credit_search,1,-3.0,0.0,0.0,100.0
+find_authorized_service_provider,1,-3.0,0.0,0.0,100.0
+foreign_currency_exchange,1,-3.0,0.0,0.0,100.0
+foreign_currency_purchase,1,-3.0,0.0,0.0,100.0
+fuse&&MetroCare,1,-3.0,0.0,0.0,100.0
+get_recent_transaction,1,-3.0,0.0,0.0,100.0
+global_population_search,1,-3.0,0.0,0.0,100.0
+gram&&ty,1,-3.0,0.0,0.0,100.0
+headline_news_search,1,-3.0,0.0,0.0,100.0
+hello 123&&addPet,1,-3.0,0.0,0.0,100.0
+hfghfgh&&games,1,-3.0,0.0,0.0,100.0
+hotel_info_query,1,-3.0,0.0,0.0,100.0
+insurance_customer_update,1,-3.0,0.0,0.0,100.0
+lcm&&default,1,-3.0,0.0,0.0,100.0
+movie_recommendation_tool,1,-3.0,0.0,0.0,100.0
+navicon1&&1,1,-3.0,0.0,0.0,100.0
+order_flowers,1,-3.0,0.0,0.0,100.0
+outward_reception_approval,1,-3.0,0.0,0.0,100.0
+package_status_tracking,1,-3.0,0.0,0.0,100.0
+petstore blitz&&addPet,1,-3.0,0.0,0.0,100.0
+platformbil&&addPet,1,-3.0,0.0,0.0,100.0
+population_info_search,1,-3.0,0.0,0.0,100.0
+query_past_ticket,1,-3.0,0.0,0.0,100.0
+reserve_vehicle,1,-3.0,0.0,0.0,100.0
+retrieve info&&Get random joke,1,-3.0,0.0,0.0,100.0
+schedule_flower_delivery,1,-3.0,0.0,0.0,100.0
+search_authorized_service_provider,1,-3.0,0.0,0.0,100.0
+select_nearest_service_provider,1,-3.0,0.0,0.0,100.0
+send_meeting_invitations,1,-3.0,0.0,0.0,100.0
+set_reminder,1,-3.0,0.0,0.0,100.0
+set_single_alarm,1,-3.0,0.0,0.0,100.0
+share_agenda,1,-3.0,0.0,0.0,100.0
+special_vehicle_rental_service,1,-3.0,0.0,0.0,100.0
+sportapi&&GetUpcoming,1,-3.0,0.0,0.0,100.0
+submit_booking_request,1,-3.0,0.0,0.0,100.0
+system_update_check,1,-3.0,0.0,0.0,100.0
+teamriverbubbles random utilities&&kda calculator,1,-3.0,0.0,0.0,100.0
+test pg prod&&Get,1,-3.0,0.0,0.0,100.0
+thatsWhatTheySaid&&Trivia,1,-3.0,0.0,0.0,100.0
+ticketpocket&&get_random_shop,1,-3.0,0.0,0.0,100.0
+tour_group_search,1,-3.0,0.0,0.0,100.0
+train_ticket_booking,1,-3.0,0.0,0.0,100.0
+train_ticket_changing,1,-3.0,0.0,0.0,100.0
+train_ticket_query,1,-3.0,0.0,0.0,100.0
+twitter-cors&&BlockauserID,1,-3.0,0.0,0.0,100.0
+uNoGS Disney+&&/search/deleted,1,-3.0,0.0,0.0,100.0
+user_feedback_analysis,1,-3.0,0.0,0.0,100.0
+user_feedback_tool,1,-3.0,0.0,0.0,100.0
+weather_v3&&weather,1,-3.0,0.0,0.0,100.0
+youtube,1,-3.0,0.0,0.0,100.0

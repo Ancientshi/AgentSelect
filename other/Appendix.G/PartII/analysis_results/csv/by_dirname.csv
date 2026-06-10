@@ -1,0 +1,2 @@
+dirname,n_records,rewrite_nonempty_rate,tools_per_record,top1_tool_mean,best_tool_mean,tool_mean,tool_ge2_rate,tool_eq3_rate,tool_neg_rate,agent_mean,agent_eq3_rate,agent_negative_tool_rate
+PartII,150,0.0,13.9933,1.6067,2.9867,1.3545,61.41,54.12,20.1,2.12,43.47,2.0

@@ -1,0 +1,93 @@
+recordId,dirname,rank,agent_name,score,question,rewritten_tool_query,tool_names,llm_names
+leaderboard_bbh_boolean_expressions_question_25,bbh_boolean_expressions,1,agent_1,3,False or False or True and not False is,boolean logic evaluation,,nvidia__OpenMath2-Llama3.1-8B
+leaderboard_bbh_boolean_expressions_question_30,bbh_boolean_expressions,1,agent_1,3,False or ( not False and False ) is,boolean expression evaluation; logical operators precedence; parse and simplify expression,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_boolean_expressions_question_157,bbh_boolean_expressions,1,agent_1,3,False or not not not False and True is,boolean logic evaluation,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_boolean_expressions_question_185,bbh_boolean_expressions,1,agent_1,3,True or False and not ( True ) is,boolean logic evaluation; parse logical expression,calculator | openai-code-interpreter,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_causal_judgement_question_14,bbh_causal_judgement,1,agent_1,3,"How would a typical person answer each of the following questions about causation?
+Janet is an employee in a factory. Since she works in the maintenance department, she knows how to grease and oil all of the machines in the factory. It is her responsibility to put oil into the machines. Kate is also an employee at the factory. While she works in the human resources department, she knows how to grease and oil all of the machines in the factory. If Janet does not put oil in the machines, it is not Kate's responsibility to do so. One day, Janet forgets to put oil in an important machine. Janet noticed that she did not put oil in the machine. Kate did not notice that Janet did not put oil in the machine, and Kate also did not put oil in the machine. The machine broke down a few days later. Did Kate not putting oil in the machine cause it to break down?
+Options:
+- Yes
+- No",causation question answering; binary classification; yes no answer,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_causal_judgement_question_59,bbh_causal_judgement,1,agent_1,3,"How would a typical person answer each of the following questions about causation?
+Drew, Kylie, Oliver, and Jen are regular customers at a small, local coffee shop. Given the selling price of the coffee and the cost of daily operation, the coffee shop will turn a profit if anyone orders coffee on a given day. Only one person ordering coffee is needed for the coffee shop to turn a profit that day. Drew, Kylie, and Oliver usually order coffee on Tuesdays. This Tuesday, as usual, Drew ordered coffee. The same day, Kylie ordered coffee, and Oliver also ordered coffee. Since at least one person ordered coffee on Tuesday, the coffee shop made a profit that day. Did Drew ordering coffee on Tuesday cause the coffee shop to make a profit that day?
+Options:
+- Yes
+- No",causation classification; answer multiple choice question; causal inference,,nvidia__AceInstruct-7B
+leaderboard_bbh_causal_judgement_question_65,bbh_causal_judgement,1,agent_1,3,"How would a typical person answer each of the following questions about causation?
+Jim, Carol, Bob, and Nancy are researchers in a remote area, and they have a limited supply of electricity. Because of their limited supply, the electricity only comes on in the evenings from 8-9 PM, and they have to restrict who can use power on certain days. If three people turn on their lamps at the same time, the breaker will fail. The breaker will not fail if fewer people turn on their lamps at the same time. Jim, Carol, Bob, and Nancy are all allowed to use their lamps on Thursdays. This Thursday Jim turns on his lamp at 8 PM. Just then, Carol turns on her lamp, and Bob also turns on his lamp. Since three people turned on their lamps at the same time, the circuit breaker failed. Did Jim turning on his lamp at 8 PM cause the circuit breaker to fail?
+Options:
+- Yes
+- No",causal reasoning answer yes/no; counterfactual causation; logic question classification,,deepseek-ai__deepseek-llm-7b-chat
+leaderboard_bbh_causal_judgement_question_175,bbh_causal_judgement,1,agent_1,3,"How would a typical person answer each of the following questions about causation?
+Lauren and Jane work for the same company. They each need to use a computer for work sometimes. Unfortunately, the computer isn't very powerful. If two people are logged on at the same time, it usually crashes. So the company decided to institute an official policy. It declared that Jane would be the only one permitted to use the computer in the mornings and that Lauren would be the only one permitted to use the computer in the afternoons. As expected, Jane logged on the computer the next day at 9:00 am. But Lauren decided to disobey the official policy. She also logged on at 9:00 am. The computer crashed immediately. Did Jane cause the computer to crash?
+Options:
+- Yes
+- No",causation reasoning; answer multiple choice; natural language question answering,,nvidia__AceInstruct-7B
+leaderboard_bbh_causal_judgement_question_181,bbh_causal_judgement,1,agent_1,3,"How would a typical person answer each of the following questions about causation?
+Alex is playing a board game. Every turn in the game, you simultaneously roll two-sided dice and flip a coin. Alex will either win or lose the game on his next turn. Alex will only win the game if the total of his dice roll is greater than 2 AND the coin comes up heads. It is very likely that he will roll higher than 2, and the coin has equal odds of coming up heads or tails. Alex flips the coin and rolls his dice at exactly the same time. The coin comes up heads, and he rolls a 12, so just as expected, he rolled greater than 2. Alex wins the game. Did Alex win because of the coin flip?
+Options:
+- Yes
+- No",causation question answering; common sense yes no classification,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_date_understanding_question_174,bbh_date_understanding,1,agent_1,3,"Jane is celebrating the last day of Jan 2012. What is the date today in MM/DD/YYYY?
+Options:
+(A) 01/31/2012
+(B) 01/29/2012
+(C) 02/10/2012
+(D) 03/22/2012
+(E) 01/30/2012
+(F) 01/21/2012",date lookup; calendar date today; format MM/DD/YYYY,current_time_service,microsoft__phi-4
+leaderboard_bbh_disambiguation_qa_question_70,bbh_disambiguation_qa,1,agent_1,3,"In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: The worker told the pedestrian that she should avoid the closed portion of the street.
+Options:
+(A) The worker should avoid the closed portion
+(B) The pedestrian should avoid the closed portion
+(C) Ambiguous",pronoun antecedent resolution; coreference disambiguation; text classification multiple choice,,nvidia__AceInstruct-7B
+leaderboard_bbh_disambiguation_qa_question_155,bbh_disambiguation_qa,1,agent_1,3,"In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: The construction worker called the editor and told her the whole story.
+Options:
+(A) Told the construction worker the story
+(B) Told the editor the story
+(C) Ambiguous",pronoun antecedent resolution; ambiguous pronoun detection; sentence answer extraction,Webit Language&&Analyze Grammar,nvidia__OpenMath2-Llama3.1-8B
+leaderboard_bbh_disambiguation_qa_question_162,bbh_disambiguation_qa,1,agent_1,3,"In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: Alex tells us that they could not meet.
+Options:
+(A) Alex could not meet
+(B) We could not meet
+(C) Ambiguous",pronoun antecedent resolution; ambiguity detection; multiple choice answer extraction,,nvidia__AceInstruct-7B
+leaderboard_bbh_disambiguation_qa_question_167,bbh_disambiguation_qa,1,agent_1,3,"In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: After meeting with the producers, Sam goes to their office.
+Options:
+(A) It is Sam's office
+(B) It is the producers' office
+(C) Ambiguous",pronoun antecedent resolution; ambiguity detection,,tiiuae__Falcon3-7B-Instruct
+leaderboard_bbh_disambiguation_qa_question_178,bbh_disambiguation_qa,1,agent_1,3,"In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: Bailey plans to meet the director at their office
+Options:
+(A) It is Bailey's office
+(B) It is the director's office
+(C) Ambiguous",pronoun antecedent resolution; ambiguous reference detection; multiple choice answer,,microsoft__Orca-2-7b
+leaderboard_bbh_formal_fallacies_question_10,bbh_formal_fallacies,1,agent_1,3,"""Is Siri a stepsister of Mary? Is Susan related to Kate? In large families, it is sometimes difficult to keep track of all one's relatives. The following argument seeks to clarify some such relations: Whoever is not a workmate of Hilda is a stepsister of Heather. Every workmate of Hilda is either a stepsister of Heather or an aunt of Clara, or both. We may conclude: Being an aunt of Clara is necessary for being a workmate of Hilda.""
+Is the argument, given the explicitly stated premises, deductively valid or invalid?
+Options:
+- valid 
+- invalid",logical validity checker; argument premise conclusion entailment; deductive reasoning validation,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_formal_fallacies_question_83,bbh_formal_fallacies,1,agent_1,3,"""Is Fred a cousin of Robert? Is Joe related to Bob? In large families, it is sometimes difficult to keep track of all one's relatives. The following argument seeks to clarify some such relations: First premise: Whoever is an uncle of Andrew and a brother of Derrick is also a grandson of Jon.second premise: Every cousin of Chad is an uncle of Andrew. Third premise: Being a brother of Derrick is necessary for being a cousin of Chad. All this entails that every cousin of Chad is a grandson of Jon.""
+Is the argument, given the explicitly stated premises, deductively valid or invalid?
+Options:
+- valid 
+- invalid",argument validity check; logical entailment proof; premise conclusion verification,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_formal_fallacies_question_147,bbh_formal_fallacies,1,agent_1,3,"""Is Fred a cousin of Robert? Is Joe related to Bob? In large families, it is sometimes difficult to keep track of all one's relatives. The following argument seeks to clarify some such relations: First of all, whoever is not a half-brother of Steven is a great-grandfather of Craig. Next, there is somebody who is a great-grandfather of Craig and, in addition, not an ancestor of Jordon or not a stepbrother of Gustavo. It follows that not every half-brother of Steven is both an ancestor of Jordon and a stepbrother of Gustavo.""
+Is the argument, given the explicitly stated premises, deductively valid or invalid?
+Options:
+- valid 
+- invalid",logical validity check; deductive argument evaluation; premise conclusion entailment,,google__mt5-small
+leaderboard_bbh_formal_fallacies_question_184,bbh_formal_fallacies,1,agent_1,3,"""Is Titanium oxide an ingredient of my washing power? Which chemicals does my perfume contain? It is really difficult to keep track of all chemicals one is regularly exposed to. The following argument seeks to clarify some such relations: Every ingredient of CUSTOM BLEND POWDER is an ingredient of Gold Dust or an ingredient of Parisian Chic. Whatever is an ingredient of Parisian Chic is not an ingredient of CUSTOM BLEND POWDER. In consequence, every ingredient of CUSTOM BLEND POWDER is an ingredient of Gold Dust.""
+Is the argument, given the explicitly stated premises, deductively valid or invalid?
+Options:
+- valid 
+- invalid",ingredient lookup; chemical composition search; deductive validity check,,deepseek-ai__DeepSeek-R1-Distill-Qwen-32B
+leaderboard_bbh_formal_fallacies_question_228,bbh_formal_fallacies,1,agent_1,3,"""Consumer research aims at understanding whether users of some products also tend to consume other ones, or not. The following argument seeks to clarify some such relations: First premise: Oliver is not a regular user of Organix Hair shampoo. Second premise: Everyone who is not both a regular user of Organix Hair shampoo and a rare consumer of Purpose soap is however a loyal buyer of Kiss My Face soap. We may conclude that Oliver is a loyal buyer of Kiss My Face soap.""
+Is the argument, given the explicitly stated premises, deductively valid or invalid?
+Options:
+- valid 
+- invalid",logical validity check; premise conclusion entailment; deductive argument evaluation,,nvidia__OpenMath2-Llama3.1-8B

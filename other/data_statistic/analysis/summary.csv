@@ -1,0 +1,2 @@
+num_questions,num_agents,num_interactions,density,sparsity,num_tools_defined,num_tools_used_by_agents,tools_per_agent_min,tools_per_agent_max,tools_per_agent_mean,tools_per_agent_median,tools_per_agent_p90,filter_lower_bound,filter_upper_bound,num_filtered_agents,agents_file,questions_file,rankings_file,tools_file,interaction_heatmap
+76197,47949,76197,2.1e-05,0.999979,0,12099,0,411,2.8232,3,4,0.0,10.0,46,merge.json,merge.json,merge.json,,skipped

@@ -1,0 +1,5 @@
+tool_count,n_agents,agent_mean,agent_std,agent_score3_rate,has_negative_tool_rate,all_tools_score3_rate
+0,523,3.0,0.0,100.0,0.0,100.0
+1,303,2.5941,0.5785,64.03,10.23,62.71
+2,124,2.1694,0.5943,27.42,34.68,14.52
+3,25,1.92,0.5715,12.0,44.0,16.0
