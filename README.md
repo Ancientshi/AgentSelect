@@ -13,7 +13,7 @@
 🧪 **Online Demo (Agent Recommendation API, WIP):** https://api.achieva-ai.com/OneAgent/
 
 <div align="center">
-  <img src="images/Figure1.png" alt="Figure 1" width="800"/>
+  <img src="other/images/Figure1.png" alt="Figure 1" width="800"/>
 </div>
 
 > **Status:** this repository is **under active refinement**. We are progressively cleaning code, adding missing scripts/docs, and improving reproducibility. If, during review, you notice incomplete parts or rough edges, please treat them as ongoing engineering work—we are actively consolidating everything.
@@ -41,7 +41,7 @@ Each agent is represented as a **capability profile**:
 * Stored as a **YAML configuration** to keep agents *deployable* (while we benchmark the stable capability core `(M, T)`). When deployed with agent framework, some additional configurations `C` may also required. 
 
 <div align="center">
-  <img src="images/Table1.png" alt="Table 1" width="300"/>
+  <img src="other/images/Table1.png" alt="Table 1" width="300"/>
 </div>
 
 ---
@@ -51,7 +51,7 @@ Each agent is represented as a **capability profile**:
 
 
 <div align="center">
-  <img src="images/Figure3.png" alt="Figure 3" width="800"/>
+  <img src="other/images/Figure3.png" alt="Figure 3" width="800"/>
 </div>
 
 AgentSelectBench comprises three complementary dataset parts:
