@@ -39,7 +39,7 @@ import torch
 from tqdm.auto import tqdm
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-from agent_rec.config import DEFAULT_DATA_ROOT, EVAL_TOPK, POS_TOPK, POS_TOPK_BY_PART
+from agent_rec.config import EVAL_TOPK, POS_TOPK, POS_TOPK_BY_PART
 from agent_rec.rerank_eval_utils import (
     accumulate_metrics,
     build_agent_text_cache,
@@ -104,19 +104,19 @@ def batched_tokenize_and_score(
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument(
         "--exp_name",
         type=str,
         default="infer_bge_reranker",
         help="Cache/log dir name; no training cache is saved but kept for naming consistency.",
     )
-    ap.add_argument("--model_dir", type=str, help="Saved reranker directory (HF or PEFT adapter).")
+    ap.add_argument("--model_dir", type=str, required=True, help="Saved reranker directory (HF or PEFT adapter).")
     ap.add_argument(
         "--model_name",
         type=str,
         default=None,
-        help="HF model for an unadapted run or an override of the adapter's base model.",
+        help="HF base model name when --peft=0; if omitted, --model_dir is used directly.",
     )
     ap.add_argument("--peft", type=int, default=0, help="1 to load PEFT adapter if available, 0 to load raw HF model.")
     ap.add_argument("--device", type=str, default="cuda:0")
@@ -129,8 +129,7 @@ def main() -> None:
     )
     ap.add_argument("--max_len", type=int, default=192)
     ap.add_argument("--rerank_batch", type=int, default=256)
-    ap.add_argument("--seed", type=int, default=1234, help="Seed for evaluation query sampling.")
-    ap.add_argument("--eval_seed", type=int, default=42, help="Seed for sampled evaluation candidates.")
+    ap.add_argument("--seed", type=int, default=1234, help="Global seed for data prep and negatives.")
     ap.add_argument("--split_seed", type=int, default=42, help="Seed for stratified eval split to match baselines.")
     ap.add_argument("--ks", type=str, default=str(EVAL_TOPK))
     ap.add_argument("--use_amp", type=int, default=1, help="1 to enable autocast(float16) on CUDA")
@@ -152,10 +151,6 @@ def main() -> None:
         help="1 to also print an overall table in addition to DNN-style per-Part tables.",
     )
     args = ap.parse_args()
-    if args.peft and not args.model_dir:
-        ap.error("--model_dir is required when --peft is enabled.")
-    if not args.model_dir and not args.model_name:
-        ap.error("Provide --model_dir or --model_name.")
 
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -166,7 +161,7 @@ def main() -> None:
     torch.manual_seed(args.seed)
 
     ks = parse_ks(args.ks)
-    if not ks or min(ks) <= 0:
+    if not ks:
         raise ValueError("--ks must provide at least one integer (e.g., 5,10,50)")
     if args.sample_per_part < 0:
         raise ValueError("--sample_per_part must be >= 0")
@@ -221,7 +216,7 @@ def main() -> None:
         tools=boot.tools or {},
         all_rankings=boot.bundle.all_rankings,
         a_ids=boot.a_ids,
-        seed=args.eval_seed,
+        seed=args.seed,
         cand_size=args.eval_cand_size,
         pos_topk=None if args.pos_topk <= 0 else args.pos_topk,
         qid_to_part=boot.bundle.qid_to_part,
@@ -230,8 +225,6 @@ def main() -> None:
     if args.max_eval and len(items) > args.max_eval:
         # Kept for smoke tests only. Full/official comparison should leave this as 0.
         items = items[: args.max_eval]
-    if not items:
-        raise ValueError("No ranked queries selected for evaluation. Check the data root and split settings.")
     pos_desc = "POS_TOPK_BY_PART" if args.pos_topk <= 0 else str(args.pos_topk)
     print(
         f"Prepared {len(items)} eval items "
@@ -243,26 +236,27 @@ def main() -> None:
 
     # 2) Model/tokenizer
     use_fast = os.environ.get("HF_NO_FAST_TOKENIZER", "0") != "1"
+    tok_src = args.model_name if (args.peft == 0 and args.model_name) else args.model_dir
+    tokenizer = AutoTokenizer.from_pretrained(tok_src, use_fast=use_fast)
+
     if args.peft == 0:
-        mdl_src = args.model_dir or args.model_name
-        tokenizer = AutoTokenizer.from_pretrained(mdl_src, use_fast=use_fast)
+        mdl_src = args.model_name if args.model_name else args.model_dir
         model = AutoModelForSequenceClassification.from_pretrained(mdl_src, num_labels=1)
     else:
-        from peft import PeftConfig, PeftModel
-
-        peft_cfg = PeftConfig.from_pretrained(args.model_dir)
-        base_src = args.model_name or peft_cfg.base_model_name_or_path
         try:
-            tokenizer = AutoTokenizer.from_pretrained(args.model_dir, use_fast=use_fast)
-        except OSError:
-            tokenizer = AutoTokenizer.from_pretrained(base_src, use_fast=use_fast)
-        base = AutoModelForSequenceClassification.from_pretrained(base_src, num_labels=1)
-        model = PeftModel.from_pretrained(base, args.model_dir)
+            model = AutoModelForSequenceClassification.from_pretrained(args.model_dir, num_labels=1)
+        except Exception:
+            from peft import PeftConfig, PeftModel
 
-    device = torch.device(args.device)
-    if device.type == "cuda" and not torch.cuda.is_available():
+            peft_cfg = PeftConfig.from_pretrained(args.model_dir)
+            base = AutoModelForSequenceClassification.from_pretrained(
+                peft_cfg.base_model_name_or_path, num_labels=1
+            )
+            model = PeftModel.from_pretrained(base, args.model_dir)
+
+    device = torch.device(args.device if torch.cuda.is_available() else "cpu")
+    if device.type == "cpu" and args.device != "cpu":
         print(f"[warn] CUDA not available, running on CPU instead of {args.device}.")
-        device = torch.device("cpu")
     model.to(device)
     model.eval()
     if torch.cuda.is_available():

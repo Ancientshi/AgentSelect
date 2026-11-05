@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../common_env.sh"
 
-ARGS=(--data_root "$DATA_ROOT" --device "$DEVICE")
-if [[ -n "${BGE_FEATURE_DIR:-}" ]]; then
-  ARGS+=(--bge_feature_dir "$BGE_FEATURE_DIR")
-fi
+BGE_FEATURE_DIR="$DATA_ROOT/.cache/shared/features/twotower_bge_fd6ccb32_01915b90"
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../OneRec_seq.py" \
+
+python "$SCRIPT_DIR/../../OneRec_seq.py" \
+  --data_root "$DATA_ROOT" \
+  --device "cuda:0" \
   --mode sft \
   --topk 10 \
   --epochs 5 \
@@ -23,6 +23,7 @@ fi
   --use_nce 1 \
   --nce_lambda 0.1 \
   --nce_temp 0.07 \
+  --bge_feature_dir "$BGE_FEATURE_DIR" \
   --init_tok_from_bge 1 \
   --freeze_tok_emb 1 \
   --amp 1 \
@@ -30,4 +31,3 @@ fi
   --eval_per_part 200 \
   --eval_parts "PartI,PartII,PartIII" \
   --skip_eval 0 \
-  "${ARGS[@]}" "$@"

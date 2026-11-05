@@ -9,6 +9,7 @@ source "$SCRIPT_DIR/../common_env.sh"
 EPOCHS="${EPOCHS:-5}"
 BATCH_SIZE="${BATCH_SIZE:-512}"
 LR="${LR:-1e-3}"
+DEVICE="${DEVICE:-cuda:0}"
 
 TEXT_HIDDEN="${TEXT_HIDDEN:-256}"
 ID_DIM="${ID_DIM:-64}"
@@ -26,7 +27,7 @@ EVAL_CAND_SIZE="${EVAL_CAND_SIZE:-1000}"
 
 # BGE settings, aligned with TwoTower BGE.
 EMBED_BACKEND="${EMBED_BACKEND:-local}"
-BGE_MODEL="${BGE_MODEL:-BAAI/bge-m3}"
+BGE_MODEL="${BGE_MODEL:-path_to/models/BAAI/bge-m3}"
 BGE_DEVICE="${BGE_DEVICE:-$DEVICE}"
 BGE_FP16="${BGE_FP16:-1}"
 
@@ -39,10 +40,10 @@ REBUILD_TRAINING_CACHE="${REBUILD_TRAINING_CACHE:-0}"
 
 # Optional explicit BGE feature cache dir.
 # Leave empty to use data_sig + BGE settings to build a deterministic shared cache path.
-FEATURE_CACHE_DIR="${FEATURE_CACHE_DIR:-}"
+FEATURE_CACHE_DIR="${FEATURE_CACHE_DIR:-path_to/AgentSelect/dataset/.cache/shared/features/dnn_bge_94c91bc8_01915b90}"
 
 CMD=(
-  "$PYTHON_BIN" "$SCRIPT_DIR/../../run_dnn_bge.py"
+  python "$SCRIPT_DIR/../../run_dnn_bge.py"
   --data_root "$DATA_ROOT"
   --device "$DEVICE"
   --epochs "$EPOCHS"

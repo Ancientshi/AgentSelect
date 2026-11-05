@@ -20,7 +20,6 @@ import numpy as np
 
 from agent_rec.config import pos_topk_for_qid
 from agent_rec.data import stratified_train_valid_split
-from agent_rec.eval import sample_eval_candidates
 
 
 @dataclass
@@ -123,6 +122,36 @@ def sample_qids_by_part(
     return sampled
 
 
+def _negatives_via_sampling(
+    *,
+    rel_set: Set[str],
+    a_ids_arr: np.ndarray,
+    need_neg: int,
+    np_rng: np.random.Generator,
+    oversample_mult: float = 2.0,
+) -> List[str]:
+    """
+    Draw negatives by random sampling over all agent IDs instead of building
+    an explicit `all_agents - rel_set` pool. This keeps memory overhead low
+    and matches the optimized approach used in the EasyRec threaded script.
+    """
+    neg_list: List[str] = []
+    if need_neg <= 0:
+        return neg_list
+
+    target = max(int(need_neg * oversample_mult), 1)
+    while len(neg_list) < need_neg:
+        idx = np_rng.integers(0, len(a_ids_arr), size=target, endpoint=False)
+        for aid in a_ids_arr[idx]:
+            if aid not in rel_set and aid not in neg_list:
+                neg_list.append(aid)
+                if len(neg_list) >= need_neg:
+                    break
+        if len(neg_list) < need_neg:
+            target = max(int((need_neg - len(neg_list)) * oversample_mult), 1)
+    return neg_list[:need_neg]
+
+
 def prepare_eval_items(
     *,
     eval_qids: Iterable[str],
@@ -140,10 +169,11 @@ def prepare_eval_items(
     """
     Construct evaluation items with positives injected and random negatives.
     """
-    if cand_size <= 0:
-        raise ValueError("Candidate size must be positive")
+    assert cand_size > 0
+
+    a_ids_arr = np.asarray(a_ids)
     a_set = set(a_ids)
-    catalog = sorted(a_set)
+    np_rng = np.random.default_rng(seed)
 
     if agent_text_cache is None:
         agent_text_cache = build_agent_text_cache(all_agents, tools)
@@ -151,12 +181,17 @@ def prepare_eval_items(
     items: List[EvalItem] = []
     for qid in eval_qids:
         k = pos_topk if pos_topk is not None else pos_topk_for_qid(qid, qid_to_part)
-        gt = [aid for aid in (all_rankings.get(qid) or [])[:k] if aid in a_set]
+        gt_all = [aid for aid in (all_rankings.get(qid, []) or []) if aid in a_set]
+        gt = gt_all[:k]
         if not gt:
             continue
         rel_set = set(gt)
 
-        cand_ids = sample_eval_candidates(catalog, gt, cand_size, qid=qid, seed=seed)
+        need_neg = max(0, cand_size - len(gt))
+        neg_list = _negatives_via_sampling(
+            rel_set=rel_set, a_ids_arr=a_ids_arr, need_neg=need_neg, np_rng=np_rng
+        )
+        cand_ids = gt + neg_list
 
         qtext = (all_questions.get(qid, {}) or {}).get("input", "") or ""
         doc_texts = [agent_text_cache.get(aid, "") for aid in cand_ids]
@@ -231,7 +266,7 @@ def topk_hits_from_scores(
     if scores.size == 0 or len(cand_ids) == 0:
         return [], []
     max_k = max(ks)
-    order = np.argsort(-scores, kind="stable")[:max_k]
+    order = np.argsort(-scores)[:max_k]
     pred_ids = [cand_ids[i] for i in order]
     bin_hits = [1 if aid in rel_set else 0 for aid in pred_ids]
     return pred_ids, bin_hits

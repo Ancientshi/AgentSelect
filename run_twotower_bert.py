@@ -18,8 +18,9 @@ import torch.nn.functional as F
 from tqdm.auto import tqdm
 from transformers import AutoModel, AutoTokenizer
 
-from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
+from agent_rec.cli_common import add_shared_training_args
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
+from agent_rec.data import stratified_train_valid_split
 from agent_rec.features import (
     build_agent_content_view,
     build_agent_tool_id_buffers,
@@ -567,8 +568,14 @@ def main() -> None:
         agent_llm_idx=np.asarray(agent_llm_idx_np, dtype=np.int64),
     )
 
-    train_parts = sorted(set(args.train_parts))
-    eval_parts = list(dict.fromkeys(args.eval_parts))
+    train_parts = list(args.train_parts)
+    eval_parts = list(args.eval_parts)
+    qids_for_training = [qid for qid in qids_in_rank if qid_to_part.get(qid, "") in set(train_parts)]
+    if not qids_for_training:
+        raise RuntimeError(
+            f"No qids found for train_parts={train_parts}. Available parts: {sorted(set(qid_to_part.values()))}"
+        )
+    print(f"[parts] train_parts={train_parts} -> qids={len(qids_for_training)}; eval_parts={eval_parts}")
 
     want_meta = {
         "data_sig": data_sig,
@@ -582,7 +589,13 @@ def main() -> None:
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
+        train_qids, valid_qids = stratified_train_valid_split(
+            qids_for_training,
+            qid_to_part=qid_to_part,
+            valid_ratio=args.valid_ratio,
+            seed=args.split_seed,
+        )
+        print(f"[split] train_parts={train_parts} train={len(train_qids)}  valid={len(valid_qids)}")
         pairs = build_pos_pairs(
             {qid: all_rankings[qid] for qid in train_qids},
             qid_to_part=qid_to_part,
@@ -863,7 +876,7 @@ def main() -> None:
         qid2idx=qid2idx,
         a_ids=a_ids,
         all_rankings=all_rankings,
-        qids_in_rank=valid_qids,
+        qids_in_rank=qids_in_rank,
         qid_to_part=qid_to_part,
         eval_parts=eval_parts,
         device=device,

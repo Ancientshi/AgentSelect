@@ -12,7 +12,7 @@ ALPHA_ID="${ALPHA_ID:-1.0}"
 ALPHA_FEAT="${ALPHA_FEAT:-1.0}"
 MAX_FEATURES="${MAX_FEATURES:-5000}"
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_lightfm.py" \
+python "$SCRIPT_DIR/../../run_lightfm.py" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \
   --epochs "$EPOCHS" \

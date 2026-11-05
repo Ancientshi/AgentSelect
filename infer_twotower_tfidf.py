@@ -32,7 +32,7 @@ import numpy as np
 import torch
 from flask import Flask, jsonify, render_template_string, request
 
-from agent_rec.config import DEFAULT_DATA_ROOT, TFIDF_MAX_FEATURES
+from agent_rec.config import TFIDF_MAX_FEATURES
 from agent_rec.features import (
     UNK_LLM_TOKEN,
     UNK_TOOL_TOKEN,
@@ -42,8 +42,8 @@ from agent_rec.features import (
     load_vectorizers,
 )
 from agent_rec.models.two_tower import TwoTowerTFIDF
-from agent_rec.run_common import bootstrap_run
-from agent_rec.data import dataset_signature, load_tools as load_tools_json, load_LLMs as load_llms_json
+from agent_rec.run_common import bootstrap_run, shared_cache_dir
+from agent_rec.data import load_tools as load_tools_json, load_LLMs as load_llms_json
 
 # ----------------------------
 # GPT Tool-Query Rewriting
@@ -654,22 +654,11 @@ def _load_checkpoint(model_path: str, device: torch.device) -> dict:
     return ckpt
 
 def _resolve_feature_cache_dir(data_root: str, max_features: int, data_sig: str) -> str:
-    root = os.path.join(data_root, ".cache", "shared", "features")
-    current = os.path.join(root, f"tfidf_{max_features}_{data_sig}")
-    if feature_cache_exists(current):
-        return current
-    legacy = os.path.join(root, f"twotower_tfidf_{max_features}_{data_sig}")
-    return legacy if feature_cache_exists(legacy) else current
+    return shared_cache_dir(data_root, "features", f"twotower_tfidf_{max_features}_{data_sig}")
 
 def _build_encoder(*, ckpt: dict, feature_cache, device: torch.device) -> TwoTowerTFIDF:
     flags = ckpt.get("flags", {}) if isinstance(ckpt, dict) else {}
     dims = ckpt.get("dims", {}) if isinstance(ckpt, dict) else {}
-    state = ckpt["state_dict"]
-    num_parts = 3
-    if "q_gate.2.weight" in state:
-        num_parts = state["q_gate.2.weight"].shape[0]
-    elif "emb_part.weight" in state:
-        num_parts = state["emb_part.weight"].shape[0]
 
     encoder = TwoTowerTFIDF(
         d_q=int(dims.get("d_q", feature_cache.Q.shape[1])),
@@ -687,22 +676,13 @@ def _build_encoder(*, ckpt: dict, feature_cache, device: torch.device) -> TwoTow
         agent_tool_idx_padded=torch.tensor(feature_cache.agent_tool_idx_padded, dtype=torch.long, device=device),
         agent_tool_mask=torch.tensor(feature_cache.agent_tool_mask, dtype=torch.float32, device=device),
         agent_llm_idx=torch.tensor(feature_cache.agent_llm_idx, dtype=torch.long, device=device),
-        use_tool_id_emb=bool(flags.get("use_tool_id_emb", "emb_tool.weight" in state)),
-        use_llm_id_emb=bool(flags.get("use_llm_id_emb", "emb_llm.weight" in state)),
+        use_tool_id_emb=bool(flags.get("use_tool_id_emb", True)),
+        use_llm_id_emb=bool(flags.get("use_llm_id_emb", False)),
         num_agents=len(feature_cache.a_ids),
         num_queries=len(feature_cache.q_ids),
-        use_query_id_emb=bool(flags.get("use_query_id_emb", "emb_query.weight" in state)),
-        use_agent_id_emb=bool(flags.get("use_agent_id_emb", "emb_agent.weight" in state)),
-        num_parts=num_parts,
-        use_part_emb="emb_part.weight" in state,
-        use_moe_q="q_gate.0.weight" in state,
-        gate_hid=state["q_gate.0.weight"].shape[0] if "q_gate.0.weight" in state else 128,
-        use_part_aux_loss="part_cls.weight" in state,
+        use_query_id_emb=bool(flags.get("use_query_id_emb", False)),
     ).to(device)
-    for name in ("tool_idx", "tool_mask", "llm_idx"):
-        if name in state and not torch.equal(getattr(encoder, name), state[name]):
-            raise ValueError(f"Checkpoint {name} does not match the feature cache. Use the original training cache.")
-    encoder.load_state_dict(state, strict=True)
+    encoder.load_state_dict(ckpt["state_dict"], strict=False)
     encoder.eval()
     return encoder
 
@@ -712,14 +692,16 @@ class TwoTowerInference:
         self,
         *,
         data_root: str,
-        model_path: str | None,
+        model_path: str,
         device: torch.device,
-        max_features: int | None,
+        max_features: int,
         topk: int,
         scoring_url: str,
     ) -> None:
         self.data_root = data_root
+        self.model_path = model_path
         self.device = device
+        self.max_features = max_features
         self.topk = topk
         self.scoring_url = scoring_url
 
@@ -732,52 +714,17 @@ class TwoTowerInference:
         )
         self.bundle = boot.bundle
 
-        legacy_sig = dataset_signature(boot.qids_in_rank, boot.a_ids, {
-            qid: boot.bundle.all_rankings[qid] for qid in boot.qids_in_rank
-        })
-        if model_path is None:
-            model_dir = os.path.join(data_root, ".cache", "two_tower_tfidf", "models")
-            default_paths = [
-                os.path.join(model_dir, f"two_tower_tfidf_{sig}.pt") for sig in (boot.data_sig, legacy_sig)
-            ]
-            model_path = next((path for path in default_paths if os.path.isfile(path)), None)
-            if model_path is None:
-                raise FileNotFoundError(
-                    f"No matching TwoTower checkpoint in {model_dir}. Train run_twotower_tfidf.py or pass --model_path."
-                )
-        self.model_path = model_path
         ckpt = _load_checkpoint(model_path, device)
         self.ckpt = ckpt
-        if ckpt.get("flags", {}).get("use_query_id_emb") or "emb_query.weight" in ckpt["state_dict"]:
-            raise ValueError("Free-text inference requires a checkpoint trained with --use_query_id_emb 0.")
-        self.ckpt_data_sig = ckpt.get("data_sig")
-        if self.ckpt_data_sig not in (boot.data_sig, legacy_sig):
-            raise ValueError("Checkpoint does not match this dataset. Use the training dataset or retrain TwoTower.")
-        saved_features = ckpt.get("args", {}).get("max_features")
-        if saved_features is not None and max_features is not None and saved_features != max_features:
-            raise ValueError(f"--max_features={max_features} does not match checkpoint value {saved_features}.")
-        self.max_features = max_features if max_features is not None else (
-            saved_features if saved_features is not None else TFIDF_MAX_FEATURES
-        )
+        self.ckpt_data_sig = ckpt.get("data_sig", boot.data_sig)
 
-        cache_dir = _resolve_feature_cache_dir(data_root, self.max_features, self.ckpt_data_sig)
+        cache_dir = _resolve_feature_cache_dir(data_root, max_features, self.ckpt_data_sig)
         if not feature_cache_exists(cache_dir):
             raise RuntimeError(
                 f"未找到特征缓存: {cache_dir}\n"
                 "请确认使用相同的数据根目录与max_features训练过TwoTower TF-IDF模型。"
             )
         self.feature_cache = load_feature_cache(cache_dir)
-        expected_mappings = {
-            "q_ids": boot.q_ids,
-            "a_ids": boot.a_ids,
-            "tool_names": sorted(boot.tools or {}),
-        }
-        saved_mappings = ckpt.get("mappings", {})
-        for name, expected in expected_mappings.items():
-            if list(getattr(self.feature_cache, name)) != expected:
-                raise ValueError(f"Feature cache {name} does not match this dataset: {cache_dir}")
-            if (name in saved_mappings or self.ckpt_data_sig != boot.data_sig) and saved_mappings.get(name) != expected:
-                raise ValueError(f"Checkpoint {name} does not match this dataset.")
 
         vecs = load_vectorizers(cache_dir)
         if vecs is None or not hasattr(vecs, "q_vec"):
@@ -854,8 +801,11 @@ class TwoTowerInference:
     def _encode_query(self, query: str) -> np.ndarray:
         vec = self.q_vectorizer.transform([query]).toarray().astype(np.float32)
         q = torch.from_numpy(vec).to(self.device)
+        q_idx = None
+        if getattr(self.encoder, "use_query_id_emb", False):
+            q_idx = torch.zeros(1, dtype=torch.long, device=self.device)
         with torch.no_grad():
-            qe = self.encoder.encode_q(q).cpu().numpy()
+            qe = self.encoder.encode_q(q, q_idx=q_idx).cpu().numpy()
         return qe
 
     def score_all_agents(self, query: str) -> np.ndarray:
@@ -1320,9 +1270,9 @@ def build_app(infer: TwoTowerInference) -> Flask:
 
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="TwoTower TF-IDF 推理与Flask服务（Col4用外部API打分）")
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT, help="数据集根目录 (包含PartI/II/III)")
-    ap.add_argument("--model_path", type=str, help="Checkpoint override. Defaults to the matching training checkpoint.")
-    ap.add_argument("--max_features", type=int, help="Use the checkpoint value when omitted.")
+    ap.add_argument("--data_root", type=str, required=True, help="数据集根目录 (包含PartI/II/III)")
+    ap.add_argument("--model_path", type=str, required=True, help="训练好的TwoTowerTFIDF模型(.pt)")
+    ap.add_argument("--max_features", type=int, default=TFIDF_MAX_FEATURES)
     ap.add_argument("--device", type=str, default="cpu", help="设备: cpu / cuda:0 等")
     ap.add_argument("--topk", type=int, default=10, help="TopK")
     ap.add_argument("--host", type=str, default="0.0.0.0")

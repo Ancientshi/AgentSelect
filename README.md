@@ -1,50 +1,231 @@
-# AgentSelect
+--------
 
-AgentSelect is a benchmark for recommending agent configurations from natural-language queries. Agents are represented by a backbone language model and a set of tools. The benchmark combines model-only, tool-only, and compositional agents.
 
-[Paper](https://openreview.net/pdf?id=4M5Kj2UqaM) · [Dataset](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link)
+# AgentSelectBench 🌟
+[![Benchmark Introduction](https://img.shields.io/badge/Docs-Getting%20Started-black)](https://v0-agent-recommendation-website.vercel.app)
+[![ICML 2026](https://img.shields.io/badge/ICML%202026-yellow)](#citation)
 
-## Dataset
+[Paper (ICML 2026)](https://openreview.net/pdf?id=4M5Kj2UqaM) · [Dataset](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link)
 
-Download [Dataset.zip](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link). Each of `PartI/`, `PartII/`, and `PartIII/` contains queries, agents, and rankings in JSONL format. `Merged/` provides a combined view.
 
-## Quick start
 
-Python 3.10 or later is required. Clone the repository and place the downloaded `Dataset.zip` in the project directory:
+**AgentSelectBench (AGENTSELECT)** is a unified-supervision benchmark for **narrative query-to-agent recommendation**: given a free-form natural-language request, rank **deployable agent configurations** represented as capability profiles **(backbone LLM, toolkit)**. It systematically converts heterogeneous evaluation artifacts (LLM leaderboards, tool-use benchmarks, etc.) into **query-conditioned, positive-only** interactions for training and evaluating agent recommenders at scale.
+
+🔗 **Getting Started / Documentation:** https://v0-agent-recommendation-website.vercel.app/#getting-started  
+🧪 **Online Demo (Agent Recommendation API, WIP):** https://api.achieva-ai.com/OneAgent/
+
+<div align="center">
+  <img src="other/images/Figure1.png" alt="Figure 1" width="800"/>
+</div>
+
+> **Status:** this repository is **under active refinement**. We are progressively cleaning code, adding missing scripts/docs, and improving reproducibility. If, during review, you notice incomplete parts or rough edges, please treat them as ongoing engineering work—we are actively consolidating everything.
+
+---
+
+
+
+
+## News 
+* We have updated the camera-ready paper: `icml2026_AgentSelection_cr.pdf`.
+
+* We have further cleaned Part III dataset.
+
+* Additional experimental details and data-processing workflows are provided in the `Other/` folder.
+
+
+## Why AgentSelectBench ✨
+
+Modern agent ecosystems offer an exploding space of configurations, but existing benchmarks evaluate **components in isolation** (models or tools). AgentSelectBench instead supports the end task:
+
+* **Input:** a narrative query (no persistent user ID; intent is fully expressed in the query)
+* **Output:** a ranked list of **deployable agents** as capability profiles **(M, T)**
+* **Supervision:** **positive-only** query–agent interactions unified across sources 
+
+---
+
+## Capability Profile Format 🧾
+
+Each agent is represented as a **capability profile**:
+
+* **Backbone LLM**: `M`
+* **Toolkit**: `T` (a set of tools with name + description)
+* Stored as a **YAML configuration** to keep agents *deployable* (while we benchmark the stable capability core `(M, T)`). When deployed with agent framework, some additional configurations `C` may also required. 
+
+<div align="center">
+  <img src="other/images/Table1.png" alt="Table 1" width="300"/>
+</div>
+
+---
+
+
+## Benchmark Overview 📦
+
+
+<div align="center">
+  <img src="other/images/Figure3.png" alt="Figure 3" width="800"/>
+</div>
+
+AgentSelectBench comprises three complementary dataset parts:
+
+### 🧩 Part I — LLM-only Agents
+
+Query-conditioned supervision derived from LLM evaluations/leaderboards (tools absent). Positives are typically constructed as **top-k** preferred backbones per query. 
+
+### 🧰 Part II — Toolkit-only Agents
+
+Tool-use benchmarks provide the **required/reference toolkit** for each query; we treat each query’s toolkit as the positive target (backbone fixed to a placeholder). 
+
+### 🔗 Part III — Compositional Agents
+
+We synthesize realistic **(M, T)** configurations by retrieving relevant components and composing them into candidate agents, yielding **pseudo-positive** interactions designed to reflect capability-consistent supervision. 
+
+
+---
+
+## Project Code Structure 🏗️
+
+A typical structure (may evolve as we refactor):
+
+```
+AgentSelectBench/
+├── agent_rec/                      # Research scaffold for agent recommendation
+│   ├── data/                        # Dataset loaders / parsing
+│   ├── features/                    # Unified feature interfaces (text + IDs)
+│   ├── models/                      # Baselines (MF/LightFM/TwoTower/etc.)
+│   ├── eval/                        # Metrics + evaluation harness
+│   └── utils.py                     # Shared utilities (metrics printing, etc.)
+├── scripts/                         # Helper scripts (training / eval wrappers)
+├── run_bpr_mf_knn.py                # MF baseline with KNN query-vector surrogate
+├── run_lightfm_handwritten.py       # LightFM baseline
+├── run_generative.py                # Inference-only structured/generative baseline
+├── run_generative_train.py          # Optional: seq2seq finetuning from exported pairs
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Getting Started 🚀
+
+### 1) Clone the repository
 
 ```bash
 git clone https://github.com/Ancientshi/AgentSelect.git
 cd AgentSelect
 ```
 
-```bash
-unzip Dataset.zip -d ./data
-python scripts/prepare_optimized_dataset.py \
-  --input ./data/Dataset \
-  --output ./data/AgentSelect
-```
-
-The output directory must not already exist. To run the TF-IDF retrieval example:
+### 2) Install dependencies
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+
 pip install -r requirements.txt
-python run_generative.py \
-  --data_root ./data/AgentSelect \
-  --query "How can I analyze a CSV file?" \
-  --top_k 3
 ```
 
-This command retrieves agents by text similarity and formats their configurations; it does not train a model. Other baseline and evaluation entry points are in the repository root and `scripts/` and may require additional dependencies.
+### 3) Prepare dataset
 
-## Evaluation
+Download the latest [Dataset.zip](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link). The archive contains `PartI/`, `PartII/`, and `PartIII/`, each with:
 
-Training and evaluation scripts default to `data/AgentSelect` inside the repository. Use `DATA_ROOT` or `--data_root` to point to a different prepared dataset. Compatible artifacts are reused from `<data_root>/.cache/`.
+* `queries.jsonl`: query IDs and natural-language text.
+* `agents.jsonl`: agent IDs, language models, and tool lists.
+* `rankings.jsonl`: ordered candidate agent IDs for each query.
 
-Evaluation uses a held-out query split within each part and reports metrics at top 10. The positive sets use the first 10, 1, and 5 ranked agents for Parts I, II, and III. For comparable sampled results, use the same split, candidate size, and sampling seed.
+`Merged/` provides a joint view of the three parts in the same JSONL format, retaining source information and keeping queries from different parts separate. The root files `llms.jsonl` and `tools.jsonl` list the models and tools.
 
-## Citation
+---
+
+## Evaluation Protocol 📊
+
+* **Positives:** Part I (top-10), Part II (top-1), Part III (top-5)
+* **Ranking cutoff:** fixed **Top-10** evaluation
+* **Reporting:** metrics are reported for **Part I / Part II / Part III / Overall** 
+
+---
+
+## Quick Runs 🛠️
+
+### Run (BPR-MF + KNN q-vector)
+
+```bash
+python run_bpr_mf_knn.py \
+  --data_root /path/to/dataset_root \
+  --device cuda:0 \
+  --epochs 5 --batch_size 4096 --factors 128 --neg_per_pos 1 \
+  --knn_N 3 --eval_cand_size 100 --score_mode dot
+```
+
+### Run (LightFM)
+
+```bash
+python run_lightfm_handwritten.py \
+  --data_root /path/to/dataset_root \
+  --device cuda:0 \
+  --epochs 5 --batch_size 4096 --factors 128 --neg_per_pos 1 \
+  --alpha_id 1.0 --alpha_feat 1.0 --max_features 5000 \
+  --knn_N 3 --eval_cand_size 100 \
+  --use_tool_id_emb 1
+```
+
+**Note:** this scaffold assumes you have `utils.py` in the same folder as the entry scripts, providing `print_metrics_table(...)` (consistent with the current research scaffold).
+
+---
+
+## Generative / Structured Baseline (Inference-Only) ✍️
+
+This entrypoint is **inference-only** (no training). It fits a TF-IDF retriever each run, then formats structured token outputs for a query. You can also export supervised pairs for training an external seq2seq model.
+
+### Generate structured token outputs (LLM + tools) for a query
+
+```bash
+python run_generative.py \
+  --data_root /path/to/dataset_root \
+  --query "How do I write a web scraper?" \
+  --top_k 3 \
+  --with_metadata 1
+```
+
+### Export supervised pairs for seq2seq finetuning (JSONL)
+
+```bash
+python run_generative.py \
+  --data_root /path/to/dataset_root \
+  --export_pairs /tmp/generative_pairs.jsonl \
+  --max_examples 5000
+```
+
+### Fine-tune a seq2seq model (e.g., T5) on exported pairs
+
+```bash
+python run_generative_train.py \
+  --data_root /path/to/dataset_root \
+  --output_dir /tmp/generative_t5_ckpt \
+  --model_name t5-small \
+  --epochs 3 \
+  --batch_size 16
+```
+
+### Shell helper (env-style)
+
+```bash
+DATA_ROOT=/path/to/dataset_root \
+QUERY="How do I write a web scraper?" \
+TOP_K=3 \
+WITH_METADATA=1 \
+./scripts/run_generative.sh
+```
+
+---
+
+## Reproducibility Notes 🧪
+
+* We will keep adding: dataset build scripts, caching, and deterministic evaluation harnesses.
+* If you are reviewing this work and find a missing script or unclear step, it likely reflects ongoing repository cleanup rather than missing methodology; please feel free to flag it—we are actively addressing gaps.
+
+---
+
+## Citation 📚
 
 ```bibtex
 @inproceedings{shi2026agentselect,

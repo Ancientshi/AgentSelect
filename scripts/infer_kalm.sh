@@ -4,6 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common_env.sh"
 
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 export TOKENIZERS_PARALLELISM="${TOKENIZERS_PARALLELISM:-false}"
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
 export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
@@ -22,17 +23,17 @@ ENCODE_BATCH="${ENCODE_BATCH:-64}"
 NORMALIZE="${NORMALIZE:-1}"
 USE_AMP="${USE_AMP:-1}"
 
-# Toggle base and fine-tuned models independently.
+# Toggle whether to run base / fine-tuned models (run both by default)
 RUN_KALM_BASE="${RUN_KALM_BASE:-0}"
 RUN_KALM_LORA="${RUN_KALM_LORA:-1}"
 
 # Base model can point to the original KaLM embedding HF repo
 KALM_BASE_MODEL_DIR="${KALM_BASE_MODEL_DIR:-KaLM-Embedding/KaLM-embedding-multilingual-mini-instruct-v2.5}"
 # Fine-tuned export directory (Sentence-Transformers format)
-KALM_LORA_MODEL_DIR="${KALM_LORA_MODEL_DIR:-}"
+KALM_LORA_MODEL_DIR="${KALM_LORA_MODEL_DIR:-/home/username/Data/workspace/QueryAgentMatch/benchmark/KALM/st-biencoder}"
 
 if [[ "$RUN_KALM_BASE" == "1" ]]; then
-  "$PYTHON_BIN" "$SCRIPT_DIR/../infer_KALM.py" \
+  python "$SCRIPT_DIR/../infer_KALM.py" \
     --data_root "$DATA_ROOT" \
     --exp_name "infer_kalm_base${EXP_SUFFIX}" \
     --model_dir "$KALM_BASE_MODEL_DIR" \
@@ -52,8 +53,7 @@ if [[ "$RUN_KALM_BASE" == "1" ]]; then
 fi
 
 if [[ "$RUN_KALM_LORA" == "1" ]]; then
-  : "${KALM_LORA_MODEL_DIR:?Set KALM_LORA_MODEL_DIR to the exported KaLM model directory.}"
-  "$PYTHON_BIN" "$SCRIPT_DIR/../infer_KALM.py" \
+  python "$SCRIPT_DIR/../infer_KALM.py" \
     --data_root "$DATA_ROOT" \
     --exp_name "infer_kalm_lora${EXP_SUFFIX}" \
     --model_dir "$KALM_LORA_MODEL_DIR" \

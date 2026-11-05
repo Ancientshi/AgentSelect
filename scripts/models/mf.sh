@@ -7,7 +7,7 @@ source "$SCRIPT_DIR/../common_env.sh"
 EPOCHS=11
 BATCH_SIZE=4096
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_mf.py" \
+python "$SCRIPT_DIR/../../run_mf.py" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \
   --epochs "$EPOCHS" \

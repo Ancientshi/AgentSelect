@@ -33,20 +33,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 from sklearn.neighbors import NearestNeighbors
 
-from agent_rec.features import (
-    UNK_LLM_TOKEN,
-    UNK_TOOL_TOKEN,
-    build_agent_tool_id_buffers,
-    build_unified_corpora,
-    feature_cache_exists,
-    load_feature_cache,
-)
-from agent_rec.config import DEFAULT_DATA_ROOT, EVAL_TOPK, TFIDF_MAX_FEATURES, pos_topk_for_qid
-from agent_rec.data import collect_data, dataset_content_signature, load_tools, qids_with_rankings, stratified_train_valid_split
-from agent_rec.eval import sample_eval_candidates
-from agent_rec.rerank_eval_utils import metrics_from_hits
+from agent_rec.features import load_feature_cache, build_agent_content_view
+from agent_rec.config import EVAL_TOPK, TFIDF_MAX_FEATURES, pos_topk_for_qid
+from agent_rec.data import stratified_train_valid_split
 from agent_rec.run_common import set_global_seed, warn_if_topk_diff
-from OneRec_seq import fill_random_candidates
 from utils import print_metrics_table
 
 
@@ -59,6 +49,42 @@ def ensure_cache_dir(root: str) -> str:
     d = os.path.join(root, f".cache/{filename}")
     os.makedirs(d, exist_ok=True)
     return d
+
+def load_json(p: str):
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def collect_data(data_root: str):
+    parts = ["PartI", "PartII", "PartIII"]
+    all_agents: Dict[str, dict] = {}
+    all_questions: Dict[str, dict] = {}
+    all_rankings: Dict[str, List[str]] = {}
+    qid_to_part: Dict[str, str] = {}
+
+    for part in parts:
+        agents_path = os.path.join(data_root, part, "agents", "merge.json")
+        questions_path = os.path.join(data_root, part, "questions", "merge.json")
+        rankings_path = os.path.join(data_root, part, "rankings", "merge.json")
+
+        if os.path.exists(agents_path):
+            all_agents.update(load_json(agents_path))
+
+        if os.path.exists(questions_path):
+            qd = load_json(questions_path)
+            all_questions.update(qd)
+            for qid in qd.keys():
+                qid_to_part.setdefault(qid, part)
+
+        if os.path.exists(rankings_path):
+            r = load_json(rankings_path)
+            rr = r.get("rankings", {})
+            all_rankings.update(rr)
+            for qid in rr.keys():
+                qid_to_part.setdefault(qid, part)
+
+    tools_path = os.path.join(data_root, "Tools", "merge.json")
+    tools = load_json(tools_path) if os.path.exists(tools_path) else {}
+    return all_agents, all_questions, all_rankings, tools, qid_to_part
 
 def build_text_corpora(all_agents, all_questions, tools):
     q_ids = sorted(all_questions.keys())
@@ -88,10 +114,7 @@ def stratified_split_by_part(qids, qid_to_part, valid_ratio, seed):
 
 def sample_qids_by_part(qids, qid_to_part, per_part, seed, parts=None):
     if per_part <= 0:
-        if parts is None:
-            return list(qids)
-        allowed = set(parts)
-        return [qid for qid in qids if qid_to_part.get(qid) in allowed]
+        return list(qids)
     rng = random.Random(seed)
     buckets = defaultdict(list)
     for q in qids:
@@ -115,9 +138,35 @@ def dataset_signature(a_ids: List[str], all_rankings: Dict[str, List[str]]) -> s
 
 # ---------------------- metrics (same as your sampled binary relevance) ----------------------
 
+def _dcg_at_k(binary_hits, k):
+    dcg = 0.0
+    for i, h in enumerate(binary_hits[:k]):
+        if h:
+            dcg += 1.0 / math.log2(i + 2.0)
+    return dcg
+
+@torch.no_grad()
 def evaluate_sampled(pred_ids_topk: List[str], rel_set: set, ks=(10,)):
-    hits = [int(aid in rel_set) for aid in pred_ids_topk]
-    return metrics_from_hits(hits, len(rel_set), ks)
+    bin_hits = [1 if aid in rel_set else 0 for aid in pred_ids_topk]
+    out = {}
+    for k in ks:
+        Hk = sum(bin_hits[:k])
+        P = Hk / float(k)
+        R = Hk / float(len(rel_set)) if len(rel_set) > 0 else 0.0
+        F1 = (2*P*R)/(P+R) if (P+R) > 0 else 0.0
+        Hit = 1.0 if Hk > 0 else 0.0
+        dcg = _dcg_at_k(bin_hits, k)
+        ideal = min(len(rel_set), k)
+        idcg = sum(1.0 / math.log2(i + 2.0) for i in range(ideal)) if ideal > 0 else 0.0
+        nDCG = (dcg / idcg) if idcg > 0 else 0.0
+        rr = 0.0
+        for i in range(k):
+            if bin_hits[i]:
+                rr = 1.0 / float(i+1)
+                break
+        out[k] = {"P":P, "R":R, "F1":F1, "Hit":Hit, "nDCG":nDCG, "MRR":rr}
+    return out
+
 
 # ---------------------- query encoder (Transformer) ----------------------
 
@@ -464,7 +513,7 @@ def evaluate_model(
     skipped = 0
 
     all_agent_set = set(a_ids)
-    aid2idx = {aid: i for i, aid in enumerate(a_ids)}
+    rnd = random.Random(rng_seed)
 
     pbar = tqdm(eval_qids, desc="Evaluating (structured-seq, sampled)", total=len(eval_qids))
     for i, qid in enumerate(pbar, start=1):
@@ -475,18 +524,59 @@ def evaluate_model(
             continue
 
         rel_set = set(gt_list)
-        cand_ids = sample_eval_candidates(a_ids, gt_list, cand_size, qid=qid, seed=rng_seed)
+        neg_pool = list(all_agent_set - rel_set)
+        need_neg = max(0, cand_size - len(gt_list))
+        if need_neg > 0 and len(neg_pool) > 0:
+            k = min(need_neg, len(neg_pool))
+            sampled_negs = rnd.sample(neg_pool, k)
+            cand_ids = gt_list + sampled_negs
+        else:
+            cand_ids = gt_list
 
-        cand_aidx = [aid2idx[aid] for aid in cand_ids]
-        cand_seq = agent_seq_tok[cand_aidx].unsqueeze(0).to(device)
+        # candidate agent indices
+        aid2idxA = {aid: j for j, aid in enumerate(a_ids)}
+        cand_aidx = []
+        seen = set()
+        for aid in cand_ids:
+            j = aid2idxA.get(aid, None)
+            if j is None or j in seen:
+                continue
+            seen.add(j)
+            cand_aidx.append(j)
+        if len(cand_aidx) < Kref:
+            # pad with random agents to allow topK
+            while len(cand_aidx) < Kref and len(cand_aidx) < len(a_ids):
+                j = rnd.randrange(len(a_ids))
+                if j not in seen:
+                    seen.add(j)
+                    cand_aidx.append(j)
+
+        cand_aidx = cand_aidx[:cand_size]
+        while len(cand_aidx) < cand_size:
+            cand_aidx.append(-1)
+
+        cand_aidx_t = torch.tensor([cand_aidx], dtype=torch.long, device=device)  # (1,C)
+
+        # build cand sequences (1,C,L)
+        # agent_seq_tok is CPU (Na,L)
+        L = agent_seq_tok.size(1)
+        cand_seq = torch.full((1, cand_size, L), StructuredTokenVocab.PAD, dtype=torch.long, device=device)
+        for c in range(cand_size):
+            j = cand_aidx[c]
+            if j >= 0:
+                cand_seq[0, c] = agent_seq_tok[j].to(device)
 
         qi = qid2idx[qid]
         enc = enc_vecs_cpu[qi:qi+1].to(device, non_blocking=True)
 
         scores = gen_model.score_candidates(enc, cand_seq)  # (1,C)
-        topk_idx = torch.topk(scores, k=min(Kref, len(cand_ids)), dim=1).indices[0].tolist()
+        topk_idx = torch.topk(scores, k=Kref, dim=1).indices[0].tolist()
 
-        pred_ids = [cand_ids[ci] for ci in topk_idx]
+        pred_ids = []
+        for ci in topk_idx:
+            j = cand_aidx[ci]
+            if j >= 0:
+                pred_ids.append(a_ids[j])
 
         md = evaluate_sampled(pred_ids, rel_set, ks)
         for k in ks:
@@ -515,7 +605,7 @@ def evaluate_model(
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--max_features", type=int, default=TFIDF_MAX_FEATURES)
 
@@ -532,7 +622,6 @@ def main():
     ap.add_argument("--cand_extra", type=int, default=32)
     ap.add_argument("--rand_neg_ratio", type=float, default=0.25)
     ap.add_argument("--eval_candidate_size", type=int, default=200)
-    ap.add_argument("--eval_seed", type=int, default=42, help="Seed for sampled evaluation candidates.")
 
     # backbone/model
     ap.add_argument("--enc_dim", type=int, default=512)
@@ -591,8 +680,6 @@ def main():
     use_amp = bool(args.amp) and use_cuda
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
 
-    if args.topk <= 0 or args.eval_candidate_size < args.topk:
-        raise ValueError("--eval_candidate_size must be at least --topk, and --topk must be positive.")
     if args.candidate_size < args.topk:
         raise ValueError("candidate_size must be >= topk")
     if not (0.0 <= args.rand_neg_ratio <= 1.0):
@@ -603,16 +690,8 @@ def main():
     w_ndcg = args.gt_reward_w_ndcg / wsum
 
     # ---------------- load data ----------------
-    bundle = collect_data(args.data_root)
-    all_agents = bundle.all_agents
-    all_questions = bundle.all_questions
-    all_rankings = bundle.all_rankings
-    qid_to_part = bundle.qid_to_part
-    tools = load_tools(args.data_root)
-    content_sig = dataset_content_signature(bundle, tools)
+    all_agents, all_questions, all_rankings, tools, qid_to_part = collect_data(args.data_root)
     q_ids, q_texts, a_ids, a_texts, _ = build_text_corpora(all_agents, all_questions, tools)
-    if args.mode == "dpo" and len(a_ids) < args.topk:
-        raise ValueError("DPO requires at least --topk distinct agents in the dataset.")
     qid2idx = {qid:i for i,qid in enumerate(q_ids)}
     aid2idxA = {aid:i for i,aid in enumerate(a_ids)}
 
@@ -638,7 +717,7 @@ def main():
         return ind  # (B,k)
 
     # ---------------- split ----------------
-    qids_in_rank = qids_with_rankings(q_ids, all_rankings)
+    qids_in_rank = [qid for qid in q_ids if qid in all_rankings]
     train_qids, valid_qids = stratified_split_by_part(qids_in_rank, qid_to_part, args.valid_ratio, args.split_seed)
 
     # ---------------- build query tensor ----------------
@@ -647,36 +726,39 @@ def main():
         q_dense = Q_csr[idx].toarray().astype(np.float32)
         return torch.from_numpy(q_dense)
 
-    # Use IDs from the current data. Preserve the token order of an explicit
-    # feature cache for checkpoints trained with FEATURE_DIR.
-    feature_dir = os.environ.get("FEATURE_DIR")
-    legacy_cache_dir = os.path.join(args.data_root, ".cache", "shared", "features")
-    if feature_dir is None and feature_cache_exists(legacy_cache_dir):
-        feature_dir = legacy_cache_dir
-    if feature_dir:
-        cache = load_feature_cache(feature_dir)
-        cache_aid2i = {aid: i for i, aid in enumerate(cache.a_ids)}
-        if set(cache_aid2i) != set(a_ids):
-            raise ValueError(f"Feature cache agent IDs do not match the dataset: {feature_dir}")
-        rows = [cache_aid2i[aid] for aid in a_ids]
-        llm_idx = cache.agent_llm_idx[rows]
-        tool_pad = cache.agent_tool_idx_padded[rows, :args.max_tool_per_agent]
-        tool_msk = cache.agent_tool_mask[rows, :args.max_tool_per_agent]
-        llm_vocab = cache.llm_vocab
-        tool_vocab = cache.tool_id_vocab
-    else:
-        _, _, tool_names, _, _, _, agent_tools, llm_ids = build_unified_corpora(
-            all_agents, all_questions, tools, a_id_order=a_ids
-        )
-        llm_vocab = [UNK_LLM_TOKEN, *dict.fromkeys(lid for lid in llm_ids if lid and lid != UNK_LLM_TOKEN)]
-        tool_vocab = [UNK_TOOL_TOKEN, *(name for name in tool_names if name != UNK_TOOL_TOKEN)]
-        llm_vocab_index = {name: i for i, name in enumerate(llm_vocab)}
-        tool_vocab_index = {name: i for i, name in enumerate(tool_vocab)}
-        llm_idx = np.asarray([llm_vocab_index.get(lid, 0) for lid in llm_ids], dtype=np.int64)
-        tool_pad, tool_msk = build_agent_tool_id_buffers(
-            agent_tools, tool_vocab_index, max_tools_per_agent=args.max_tool_per_agent
-        )
-    tok_vocab = StructuredTokenVocab(llm_vocab, tool_vocab)
+    # ---------------- load feature cache for llm/tool ids ----------------
+    # you already have a bge cache pipeline; here we just reuse the stored id buffers
+    cache_dir = os.path.join(args.data_root, ".cache", "shared", "features")
+    # if你不是这个路径，改成你的feature_dir；也可以加参数
+    # 这里为了“可跑”，你可以手动把 cache_dir 指到你生成的 bge_feature_dir
+    # 我们做一个更宽松的策略：优先从 --feature_dir 环境变量读
+    feature_dir = os.environ.get("FEATURE_DIR", None)
+    if feature_dir is None:
+        feature_dir = cache_dir
+    cache = load_feature_cache(feature_dir)
+
+    # align cache order to a_ids order
+    cache_aid2i = {aid:i for i,aid in enumerate(cache.a_ids)}
+    Na = len(a_ids)
+    llm_idx = np.zeros((Na,), dtype=np.int64)
+    tool_pad = np.zeros((Na, args.max_tool_per_agent), dtype=np.int64)
+    tool_msk = np.zeros((Na, args.max_tool_per_agent), dtype=np.float32)
+
+    missing = 0
+    for i, aid in enumerate(a_ids):
+        j = cache_aid2i.get(aid, None)
+        if j is None:
+            missing += 1
+            continue
+        llm_idx[i] = int(cache.agent_llm_idx[j])
+        tp = np.asarray(cache.agent_tool_idx_padded[j], dtype=np.int64).reshape(-1)[:args.max_tool_per_agent]
+        tm = np.asarray(cache.agent_tool_mask[j], dtype=np.float32).reshape(-1)[:args.max_tool_per_agent]
+        tool_pad[i, :len(tp)] = tp
+        tool_msk[i, :len(tm)] = tm
+    if missing:
+        print(f"[warn] {missing} agents missing in feature cache alignment.")
+
+    tok_vocab = StructuredTokenVocab(cache.llm_vocab, cache.tool_id_vocab)
     agent_seq_np = build_agent_seq_tokens(llm_idx, tool_pad, tool_msk, tok_vocab, args.max_tool_per_agent)
     agent_seq_tok_cpu = torch.from_numpy(agent_seq_np).long()  # (Na,L) CPU
 
@@ -725,7 +807,7 @@ def main():
         return: (B,C) agent indices, PAD=-1
         """
         B = gt_aidx.size(0)
-        C = min(args.candidate_size, len(a_ids))
+        C = args.candidate_size
         cand_list = []
 
         top_idx = None
@@ -757,8 +839,21 @@ def main():
                         if hard_slots <= 0 or len(cand) >= C:
                             break
 
-                fill_random_candidates(cand, range(len(a_ids)), C)
+                need = C - len(cand)
+                if need > 0:
+                    forbid = set(gt)
+                    tries = 0
+                    while need > 0 and tries < need * 50:
+                        j = random.randrange(len(a_ids))
+                        tries += 1
+                        if j in forbid or j in cand:
+                            continue
+                        cand.append(j)
+                        need -= 1
 
+            cand = cand[:C]
+            if len(cand) < C:
+                cand += [-1] * (C - len(cand))
             cand_list.append(cand)
 
         return torch.tensor(cand_list, dtype=torch.long, device=device)
@@ -859,12 +954,10 @@ def main():
             "q_enc": q_enc.state_dict(),
             "gen": gen.state_dict(),
             "data_sig": data_sig,
-            "content_sig": content_sig,
-            "args": vars(args),
             "saved_at": datetime.now().isoformat(timespec="seconds"),
             "tok_vocab": {
-                "llm_vocab": llm_vocab,
-                "tool_vocab": tool_vocab,
+                "llm_vocab": cache.llm_vocab,
+                "tool_vocab": cache.tool_id_vocab,
                 "vocab_size": tok_vocab.vocab_size,
                 "max_tool_per_agent": args.max_tool_per_agent,
             }
@@ -889,7 +982,7 @@ def main():
                 device=device,
                 ks=(args.topk,),
                 cand_size=args.eval_candidate_size,
-                rng_seed=args.eval_seed,
+                rng_seed=args.seed,
                 qid_to_part=qid_to_part,
                 agent_seq_tok=agent_seq_tok_cpu,
             )
@@ -899,18 +992,6 @@ def main():
     if args.mode == "dpo":
         assert os.path.exists(model_path), f"SFT checkpoint not found: {model_path}"
         ckpt = torch.load(model_path, map_location=device)
-        if ckpt.get("content_sig", content_sig) != content_sig:
-            raise ValueError("SFT checkpoint was trained on different data. Retrain on the selected dataset.")
-        saved_settings = ckpt.get("args", {})
-        for name in ("max_features", "split_seed", "valid_ratio"):
-            if name in saved_settings and saved_settings[name] != getattr(args, name):
-                raise ValueError(f"--{name} must match the SFT checkpoint value {saved_settings[name]}.")
-        saved_vocab = ckpt.get("tok_vocab")
-        if saved_vocab is not None and (
-            saved_vocab["llm_vocab"] != llm_vocab or saved_vocab["tool_vocab"] != tool_vocab
-            or saved_vocab["max_tool_per_agent"] != args.max_tool_per_agent
-        ):
-            raise ValueError("Structured token vocabulary does not match the SFT checkpoint.")
         q_enc.load_state_dict(ckpt["q_enc"])
         gen.load_state_dict(ckpt["gen"])
 
@@ -1066,8 +1147,6 @@ def main():
             "q_enc": q_enc.state_dict(),
             "gen": gen.state_dict(),
             "data_sig": data_sig,
-            "content_sig": content_sig,
-            "args": vars(args),
             "saved_at": datetime.now().isoformat(timespec="seconds")
         }, out_path)
         print(f"[save] dpo model -> {out_path}")
@@ -1076,8 +1155,14 @@ def main():
             print("[eval] encoding all queries...")
             enc_all = encode_queries_in_chunks(q_ids, chunk=args.enc_chunk)
 
-            parts = eval_parts if args.dpo_part_scope == "ALL" else [args.dpo_part_scope]
-            eval_qids = sample_qids_by_part(valid_qids, qid_to_part, args.eval_per_part, args.seed, parts)
+            if args.dpo_part_scope == "ALL":
+                eval_qids = sample_qids_by_part(valid_qids, qid_to_part, args.eval_per_part, args.seed, eval_parts)
+            else:
+                scope = args.dpo_part_scope
+                valid_scope = [q for q in valid_qids if qid_to_part.get(q, "Unknown") == scope]
+                rnd = random.Random(args.seed)
+                rnd.shuffle(valid_scope)
+                eval_qids = valid_scope[: min(args.eval_per_part, len(valid_scope))]
 
             m = evaluate_model(
                 gen_model=gen,
@@ -1089,7 +1174,7 @@ def main():
                 device=device,
                 ks=(args.topk,),
                 cand_size=args.eval_candidate_size,
-                rng_seed=args.eval_seed,
+                rng_seed=args.seed,
                 qid_to_part=qid_to_part,
                 agent_seq_tok=agent_seq_tok_cpu,
             )

@@ -12,9 +12,9 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
+from agent_rec.cli_common import add_shared_training_args
 from agent_rec.config import EVAL_TOPK, POS_TOPK, POS_TOPK_BY_PART
-from agent_rec.data import build_training_pairs
+from agent_rec.data import build_training_pairs, stratified_train_valid_split
 from agent_rec.features import build_unified_corpora, build_agent_tool_id_buffers, UNK_LLM_TOKEN, UNK_TOOL_TOKEN
 from agent_rec.knn import build_knn_cache, load_knn_cache
 from agent_rec.eval import evaluate_sampled_knn_top10, split_eval_qids_by_part
@@ -73,13 +73,15 @@ def main():
         "rng_seed_pairs": int(args.rng_seed_pairs),
         "split_seed": int(args.split_seed),
         "valid_ratio": float(args.valid_ratio),
-        "train_parts": sorted(set(args.train_parts)),
-        "pair_type": "q_pos_neg_posTopK",
     }
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
+        train_qids, valid_qids = stratified_train_valid_split(
+            qids_in_rank, qid_to_part=qid_to_part, valid_ratio=args.valid_ratio, seed=args.split_seed
+        )
+        print(f"[split] train={len(train_qids)}  valid={len(valid_qids)}")
+
         rankings_train = {qid: all_rankings[qid] for qid in train_qids}
         pairs = build_training_pairs(
             rankings_train,
@@ -206,7 +208,6 @@ def main():
     print(f"[save] model -> {ckpt_path}")
     print(f"[save] meta  -> {meta_path}")
 
-    model.eval()
     knn_path = os.path.join(exp_cache_dir, "knn_copy.pkl")
     build_knn_cache(
         train_qids=train_qids,
@@ -218,11 +219,12 @@ def main():
     print("[cache] saved KNN-copy cache")
     knn_cache = load_knn_cache(knn_path)
 
+    model.eval()
     topk = int(args.topk)
 
 
     part_splits = split_eval_qids_by_part(valid_qids, qid_to_part=qid_to_part)
-    for part in dict.fromkeys(args.eval_parts):
+    for part in ["PartI", "PartII", "PartIII"]:
         qids_part = part_splits.get(part, [])
         if not qids_part:
             continue
@@ -234,7 +236,6 @@ def main():
             eval_qids=qids_part,
             knn_cache=knn_cache,
             cand_size=args.eval_cand_size,
-            seed=args.rng_seed_pairs,
             knn_N=args.knn_N,
             qid_to_part=qid_to_part,
             pos_topk_by_part=POS_TOPK_BY_PART,

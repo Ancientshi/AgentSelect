@@ -23,14 +23,11 @@ Optional BGE feature init:
 
 from agent_rec.features import load_feature_cache, build_agent_content_view
 from agent_rec.config import (
-    DEFAULT_DATA_ROOT,
     EVAL_TOPK,
     TFIDF_MAX_FEATURES,
     pos_topk_for_qid,
 )
-from agent_rec.data import collect_data, dataset_content_signature, load_tools, qids_with_rankings, stratified_train_valid_split
-from agent_rec.eval import sample_eval_candidates
-from agent_rec.rerank_eval_utils import metrics_from_hits
+from agent_rec.data import stratified_train_valid_split
 from agent_rec.run_common import set_global_seed, warn_if_topk_diff
 
 import os, json, math, argparse, random, zlib, copy
@@ -48,7 +45,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 from sklearn.neighbors import NearestNeighbors
 
-from OneRec_seq import fill_random_candidates, resolve_bge_feature_dir
 from utils import print_metrics_table
 
 filename = os.path.splitext(os.path.basename(__file__))[0]
@@ -60,6 +56,42 @@ def ensure_cache_dir(root: str) -> str:
     d = os.path.join(root, f".cache/{filename}")
     os.makedirs(d, exist_ok=True)
     return d
+
+def load_json(p: str):
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def collect_data(data_root: str):
+    parts = ["PartI", "PartII", "PartIII"]
+    all_agents: Dict[str, dict] = {}
+    all_questions: Dict[str, dict] = {}
+    all_rankings: Dict[str, List[str]] = {}
+    qid_to_part: Dict[str, str] = {}
+
+    for part in parts:
+        agents_path = os.path.join(data_root, part, "agents", "merge.json")
+        questions_path = os.path.join(data_root, part, "questions", "merge.json")
+        rankings_path = os.path.join(data_root, part, "rankings", "merge.json")
+
+        if os.path.exists(agents_path):
+            all_agents.update(load_json(agents_path))
+
+        if os.path.exists(questions_path):
+            qd = load_json(questions_path)
+            all_questions.update(qd)
+            for qid in qd.keys():
+                qid_to_part.setdefault(qid, part)
+
+        if os.path.exists(rankings_path):
+            r = load_json(rankings_path)
+            rr = r.get("rankings", {})
+            all_rankings.update(rr)
+            for qid in rr.keys():
+                qid_to_part.setdefault(qid, part)
+
+    tools_path = os.path.join(data_root, "Tools", "merge.json")
+    tools = load_json(tools_path) if os.path.exists(tools_path) else {}
+    return all_agents, all_questions, all_rankings, tools, qid_to_part
 
 def build_text_corpora(all_agents, all_questions, tools):
     q_ids = sorted(all_questions.keys())
@@ -105,10 +137,7 @@ def sample_qids_by_part(
     parts: Optional[List[str]] = None
 ) -> List[str]:
     if per_part <= 0:
-        if parts is None:
-            return list(qids)
-        allowed = set(parts)
-        return [qid for qid in qids if qid_to_part.get(qid) in allowed]
+        return list(qids)
 
     rng = random.Random(seed)
     buckets = defaultdict(list)
@@ -136,9 +165,36 @@ def dataset_signature(a_ids: List[str], all_rankings: Dict[str, List[str]]) -> s
 
 # ---------------------- metrics ----------------------
 
+def _dcg_at_k(binary_hits, k):
+    dcg = 0.0
+    for i, h in enumerate(binary_hits[:k]):
+        if h:
+            dcg += 1.0 / math.log2(i + 2.0)
+    return dcg
+
+@torch.no_grad()
 def evaluate_sampled(pred_ids_topk: List[str], rel_set: set, ks=(10,)):
-    hits = [int(aid in rel_set) for aid in pred_ids_topk]
-    return metrics_from_hits(hits, len(rel_set), ks)
+    # NOTE: ks must be a tuple, e.g. (10,) not (10)
+    bin_hits = [1 if aid in rel_set else 0 for aid in pred_ids_topk]
+    out = {}
+    for k in ks:
+        Hk = sum(bin_hits[:k])
+        P = Hk / float(k)
+        R = Hk / float(len(rel_set)) if len(rel_set) > 0 else 0.0
+        F1 = (2*P*R)/(P+R) if (P+R) > 0 else 0.0
+        Hit = 1.0 if Hk > 0 else 0.0
+        dcg = _dcg_at_k(bin_hits, k)
+        ideal = min(len(rel_set), k)
+        idcg = sum(1.0 / math.log2(i + 2.0) for i in range(ideal)) if ideal > 0 else 0.0
+        nDCG = (dcg / idcg) if idcg > 0 else 0.0
+        rr = 0.0
+        for i in range(k):
+            if bin_hits[i]:
+                rr = 1.0 / float(i+1)
+                break
+        out[k] = {"P":P, "R":R, "F1":F1, "Hit":Hit, "nDCG":nDCG, "MRR":rr}
+    return out
+
 
 # ---------------------- vocab ----------------------
 
@@ -487,8 +543,6 @@ def init_tok_emb_from_bge_plus_ids(
     ).astype(np.float32)  # (Na_cache, d_content)
 
     cache_a_ids = cache.a_ids
-    if set(cache_a_ids) != set(a_ids):
-        raise ValueError(f"Feature cache agent IDs do not match the dataset: {feature_dir}")
     idx_map = {aid: i for i, aid in enumerate(cache_a_ids)}
 
     tool_pad = cache.agent_tool_idx_padded
@@ -710,7 +764,7 @@ def evaluate_model_gen(
     skipped = 0
 
     all_agent_set = set(a_ids)
-
+    rnd = random.Random(rng_seed)
     vocab = AgentVocab(a_ids)
 
     pbar = tqdm(eval_qids, desc="Evaluating (gen, sampled)", total=len(eval_qids))
@@ -737,16 +791,36 @@ def evaluate_model_gen(
             continue
 
         rel_set = set(gt_list)
-        cand_ids = sample_eval_candidates(a_ids, gt_list, cand_size, qid=qid, seed=rng_seed)
+        neg_pool = list(all_agent_set - rel_set)
+        need_neg = max(0, cand_size - len(gt_list))
+        if need_neg > 0 and len(neg_pool) > 0:
+            k = min(need_neg, len(neg_pool))
+            sampled_negs = rnd.sample(neg_pool, k)
+            cand_ids = gt_list + sampled_negs
+        else:
+            cand_ids = gt_list
 
-        cand_tokens = [vocab.aid_to_token(a) for a in cand_ids]
-        cand_tok = torch.tensor([cand_tokens], dtype=torch.long, device=device)
+        cand_tok_list = [vocab.aid_to_token(a) for a in cand_ids]
+        seen = set()
+        cand_tok_u = []
+        for t in cand_tok_list:
+            if t in seen:
+                continue
+            seen.add(t)
+            cand_tok_u.append(t)
+
+        while len(cand_tok_u) < max(ks):
+            cand_tok_u.append(vocab.PAD)
+
+        cand_tok_u = cand_tok_u[:cand_size] if len(cand_tok_u) > cand_size else cand_tok_u
+        while len(cand_tok_u) < cand_size:
+            cand_tok_u.append(vocab.PAD)
+
+        cand_tok = torch.tensor([cand_tok_u], dtype=torch.long, device=device)
 
         qi = qid2idx[qid]
         enc = enc_vecs_cpu[qi:qi+1].to(device, non_blocking=True)
-        pred_tok = gen_model.generate(
-            enc, topk=min(max(ks), len(cand_ids)), cand_tok=cand_tok, temperature=0.0
-        )
+        pred_tok = gen_model.generate(enc, topk=max(ks), cand_tok=cand_tok, temperature=0.0)
 
         pred_ids = []
         for t in pred_tok[0].tolist():
@@ -784,7 +858,7 @@ def evaluate_model_gen(
 def main():
     ap = argparse.ArgumentParser()
 
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--max_features", type=int, default=TFIDF_MAX_FEATURES)
 
@@ -805,7 +879,6 @@ def main():
                     help="When train_mask=1: fraction of candidate slots (excluding GT) filled by random negatives [0..1]")
 
     ap.add_argument("--eval_candidate_size", type=int, default=200)
-    ap.add_argument("--eval_seed", type=int, default=42, help="Seed for sampled evaluation candidates.")
 
     # model
     ap.add_argument("--enc_dim", type=int, default=512)
@@ -872,8 +945,6 @@ def main():
     use_cuda = (device.type == "cuda")
     use_amp = bool(args.amp) and use_cuda
 
-    if args.topk <= 0 or args.eval_candidate_size < args.topk:
-        raise ValueError("--eval_candidate_size must be at least --topk, and --topk must be positive.")
     if args.candidate_size < args.topk:
         raise ValueError(f"candidate_size ({args.candidate_size}) must be >= topk ({args.topk}).")
     if not (0.0 <= args.rand_neg_ratio <= 1.0):
@@ -887,16 +958,8 @@ def main():
     w_ndcg = args.gt_reward_w_ndcg / wsum
 
     # ---------------- load data ----------------
-    bundle = collect_data(args.data_root)
-    all_agents = bundle.all_agents
-    all_questions = bundle.all_questions
-    all_rankings = bundle.all_rankings
-    qid_to_part = bundle.qid_to_part
-    tools = load_tools(args.data_root)
-    content_sig = dataset_content_signature(bundle, tools)
+    all_agents, all_questions, all_rankings, tools, qid_to_part = collect_data(args.data_root)
     q_ids, q_texts, a_ids, a_texts, a_tool_lists = build_text_corpora(all_agents, all_questions, tools)
-    if args.mode == "dpo" and len(a_ids) < args.topk:
-        raise ValueError("DPO requires at least --topk distinct agents in the dataset.")
     qid2idx = {qid:i for i,qid in enumerate(q_ids)}
     vocab = AgentVocab(a_ids)
 
@@ -928,7 +991,7 @@ def main():
         return ind  # (B,k) agent indices
 
     # ---------------- split ----------------
-    qids_in_rank = qids_with_rankings(q_ids, all_rankings)
+    qids_in_rank = [qid for qid in q_ids if qid in all_rankings]
     train_qids, valid_qids = stratified_split_by_part(
         qids_in_rank,
         qid_to_part=qid_to_part,
@@ -969,12 +1032,9 @@ def main():
         ).to(device)
 
     composer = None
-    feature_dir = None
-    if args.init_tok_from_bge and args.mode != "dpo":
-        feature_dir = resolve_bge_feature_dir(args.data_root, args.bge_feature_dir, content_sig)
-    if feature_dir:
+    if args.init_tok_from_bge and args.bge_feature_dir:
         composer = init_tok_emb_from_bge_plus_ids(
-            gen, vocab, a_ids, feature_dir, device,
+            gen, vocab, a_ids, args.bge_feature_dir, device,
             freeze_tok=bool(args.freeze_tok_emb),
             max_tool_per_agent=args.max_tool_per_agent,
             init_chunk=args.tok_init_chunk,
@@ -1000,7 +1060,7 @@ def main():
           - then fill a fraction with random negatives (rand_neg_ratio)
         """
         B = tgt_tok.size(0)
-        C = min(args.candidate_size, len(a_ids))
+        C = args.candidate_size
         cand_list = []
 
         top_idx = None
@@ -1033,7 +1093,26 @@ def main():
                         if hard_slots <= 0 or len(cand) >= C:
                             break
 
-                fill_random_candidates(cand, range(vocab.offset, vocab.vocab_size), C)
+                # random negatives
+                need = C - len(cand)
+                if need > 0:
+                    forbid_agent = set([t - vocab.offset for t in gt if t >= vocab.offset])
+                    tries = 0
+                    while need > 0 and tries < need * 50:
+                        aidx = random.randrange(len(a_ids))
+                        tries += 1
+                        if aidx in forbid_agent:
+                            continue
+                        t = vocab.offset + aidx
+                        if t in cand:
+                            continue
+                        cand.append(t)
+                        need -= 1
+
+            if len(cand) < C:
+                cand += [vocab.PAD] * (C - len(cand))
+            else:
+                cand = cand[:C]
 
             cand_list.append(cand)
 
@@ -1149,8 +1228,6 @@ def main():
             "q_enc": q_enc.state_dict(),
             "gen": gen.state_dict(),
             "data_sig": data_sig,
-            "content_sig": content_sig,
-            "args": vars(args),
             "saved_at": datetime.now().isoformat(timespec="seconds"),
             "dims": {
                 "d_q": int(Q_csr.shape[1]),
@@ -1186,12 +1263,12 @@ def main():
                 all_rankings=all_rankings,
                 eval_qids=eval_qids,
                 device=device,
-                ks=(args.topk,),
+                ks=(10,),   # FIXED
                 cand_size=args.eval_candidate_size,
-                rng_seed=args.eval_seed,
+                rng_seed=args.seed,
                 qid_to_part=qid_to_part,
             )
-            print_metrics_table(f"Validation (GEN/{args.decoder}, per-part sampled)", valid_metrics, ks=(args.topk,), filename=filename)
+            print_metrics_table(f"Validation (GEN/{args.decoder}, per-part sampled)", valid_metrics, ks=(10,), filename=filename)
 
             for part in eval_parts:
                 part_qids = [q for q in eval_qids if qid_to_part.get(q, "Unknown") == part]
@@ -1205,23 +1282,17 @@ def main():
                     all_rankings=all_rankings,
                     eval_qids=part_qids,
                     device=device,
-                    ks=(args.topk,),
+                    ks=(10,),  # FIXED
                     cand_size=args.eval_candidate_size,
-                    rng_seed=args.eval_seed,
+                    rng_seed=args.seed + 17,
                     qid_to_part=qid_to_part,
                 )
-                print_metrics_table(f"Validation (GEN/{args.decoder}) {part} (n={len(part_qids)})", m_part,ks=(args.topk,),  filename=filename)
+                print_metrics_table(f"Validation (GEN/{args.decoder}) {part} (n={len(part_qids)})", m_part,ks=(10,),  filename=filename)
 
     # ===================== DPO =====================
     if args.mode == "dpo":
         assert os.path.exists(model_path), f"CE checkpoint not found: {model_path}"
         ckpt = torch.load(model_path, map_location=device)
-        if ckpt.get("content_sig", content_sig) != content_sig:
-            raise ValueError("SFT checkpoint was trained on different data. Retrain on the selected dataset.")
-        saved_settings = ckpt.get("args", {})
-        for name in ("max_features", "split_seed", "valid_ratio"):
-            if name in saved_settings and saved_settings[name] != getattr(args, name):
-                raise ValueError(f"--{name} must match the SFT checkpoint value {saved_settings[name]}.")
 
         print(f"[load] ckpt decoder={ckpt.get('decoder','?')}  current decoder={args.decoder}")
 
@@ -1441,8 +1512,6 @@ def main():
             "q_enc": q_enc.state_dict(),
             "gen": gen.state_dict(),
             "data_sig": data_sig,
-            "content_sig": content_sig,
-            "args": vars(args),
             "saved_at": datetime.now().isoformat(timespec="seconds")
         }
         out_path = model_path.replace(".pt", "_dpo.pt")
@@ -1471,12 +1540,12 @@ def main():
                 all_rankings=all_rankings,
                 eval_qids=eval_qids,
                 device=device,
-                ks=(args.topk,),
+                ks=(10,),  # FIXED
                 cand_size=args.eval_candidate_size,
-                rng_seed=args.eval_seed,
+                rng_seed=args.seed,
                 qid_to_part=qid_to_part,
             )
-            print_metrics_table(f"Validation (GEN/{args.decoder}+DPO, per-part sampled)", valid_metrics, ks=(args.topk,), filename=filename)
+            print_metrics_table(f"Validation (GEN/{args.decoder}+DPO, per-part sampled)", valid_metrics, ks=(10,), filename=filename)
 
             for part in eval_parts:
                 part_qids = [q for q in eval_qids if qid_to_part.get(q, "Unknown") == part]
@@ -1490,12 +1559,12 @@ def main():
                     all_rankings=all_rankings,
                     eval_qids=part_qids,
                     device=device,
-                    ks=(args.topk,),
+                    ks=(10,),  # FIXED
                     cand_size=args.eval_candidate_size,
-                    rng_seed=args.eval_seed,
+                    rng_seed=args.seed + 17,
                     qid_to_part=qid_to_part,
                 )
-                print_metrics_table(f"Validation (GEN/{args.decoder}+DPO) {part} (n={len(part_qids)})", m_part,ks=(args.topk,), filename=filename)
+                print_metrics_table(f"Validation (GEN/{args.decoder}+DPO) {part} (n={len(part_qids)})", m_part,ks=(10,), filename=filename)
 
 
 if __name__ == "__main__":

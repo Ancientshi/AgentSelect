@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
+# Helper to run the regime shift analysis without import errors.
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/common_env.sh"
-: "${ANALYSIS_SCRIPT:=${REPO_ROOT}/analysis/popularity_analysis.py}"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# Update these to point to your dataset root and desired output directory.
+: "${DATA_ROOT:=/home/username/Data/workspace/QueryAgentMatch/QueryAgentMatch-Public/dataset}"
 : "${OUTPUT_DIR:=${REPO_ROOT}/analysis/artifacts_content_pop}"
 
-if [[ ! -f "$ANALYSIS_SCRIPT" ]]; then
-  echo "Popularity analysis source is not included. Set ANALYSIS_SCRIPT to your copy of popularity_analysis.py." >&2
-  exit 1
-fi
 mkdir -p "${OUTPUT_DIR}"
 
 # Ensure the repo is on PYTHONPATH so agent_rec can be imported.
 export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}${REPO_ROOT}"
 
-"$PYTHON_BIN" "$ANALYSIS_SCRIPT" \
+python "${REPO_ROOT}/analysis/popularity_analysis.py" \
   --data_root "${DATA_ROOT}" \
   --output_dir "${OUTPUT_DIR}" \
   "$@"

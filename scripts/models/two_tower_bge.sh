@@ -7,7 +7,9 @@ source "$SCRIPT_DIR/../common_env.sh"
 
 EPOCHS=4
 BATCH_SIZE=512
+DEVICE="cuda:0"
 
+MAX_FEATURES="${MAX_FEATURES:-5000}"
 HID="${HID:-256}"
 TEMPERATURE="${TEMPERATURE:-0.07}"
 EVAL_CHUNK="${EVAL_CHUNK:-8192}"
@@ -19,7 +21,7 @@ USE_QUERY_ID_EMB="${USE_QUERY_ID_EMB:-0}"
 TOPK="${TOPK:-10}"
 
 EMBED_BACKEND="${EMBED_BACKEND:-local}"
-BGE_MODEL="${BGE_MODEL:-BAAI/bge-m3}"
+BGE_MODEL="${BGE_MODEL:-path_to/models/BAAI/bge-m3}"
 BGE_DEVICE="${BGE_DEVICE:-$DEVICE}"
 BGE_FP16="${BGE_FP16:-1}"
 
@@ -29,7 +31,14 @@ EMBED_BATCH="${EMBED_BATCH:-64}"
 EVAL_CAND_SIZE="${EVAL_CAND_SIZE:-1000}"
 AMP="${AMP:-1}"
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_twotower_bge.py" \
+USE_TOOL_ID_EMB="${USE_TOOL_ID_EMB:-${USE_TOOL_EMB:-1}}"
+USE_LLM_ID_EMB="${USE_LLM_ID_EMB:-${USE_AGENT_ID_EMB:-1}}"
+USE_MODEL_CONTENT_VECTOR="${USE_MODEL_CONTENT_VECTOR:-1}"
+USE_TOOL_CONTENT_VECTOR="${USE_TOOL_CONTENT_VECTOR:-1}"
+USE_QUERY_ID_EMB="${USE_QUERY_ID_EMB:-0}"
+TOPK="${TOPK:-10}"
+
+python "$SCRIPT_DIR/../../run_twotower_bge.py" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \
   --epochs "$EPOCHS" \
@@ -52,5 +61,5 @@ AMP="${AMP:-1}"
   --use_tool_content_vector "$USE_TOOL_CONTENT_VECTOR" \
   --use_query_id_emb "$USE_QUERY_ID_EMB" \
   --use_agent_id_emb 0 \
-  --exp_name "two_tower_bge_use_agent_id_emb" \
-  "$@"
+  --feature_cache_dir path_to/AgentSelect/dataset/.cache/shared/features/twotower_bge_58631b56_01915b90 \
+  --exp_name "two_tower_bge_use_agent_id_emb"

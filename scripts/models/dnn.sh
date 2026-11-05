@@ -13,7 +13,7 @@ ID_DIM="${ID_DIM:-64}"
 MAX_FEATURES="${MAX_FEATURES:-5000}"
 
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_dnn.py" \
+python "$SCRIPT_DIR/../../run_dnn.py" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \
   --epochs "$EPOCHS" \

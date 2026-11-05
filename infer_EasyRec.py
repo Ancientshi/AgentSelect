@@ -29,7 +29,7 @@ from requests.adapters import HTTPAdapter
 from tqdm.auto import tqdm
 from urllib3.util.retry import Retry
 
-from agent_rec.config import DEFAULT_DATA_ROOT, EVAL_TOPK
+from agent_rec.config import EVAL_TOPK
 from agent_rec.rerank_eval_utils import (
     accumulate_metrics,
     build_agent_text_cache,
@@ -95,10 +95,12 @@ def score_by_service(
         resp = session.post(service_url, json=payload, timeout=timeout)
         resp.raise_for_status()
         data = resp.json()
-        scores = data.get("scores") if isinstance(data, dict) else None
-        if not isinstance(scores, list) or len(scores) != len(batch_docs):
-            raise RuntimeError(f"Expected one score for each of {len(batch_docs)} documents.")
-        scores_all.extend(float(score) for score in scores)
+        if "scores" not in data or not isinstance(data["scores"], list):
+            raise RuntimeError(f"Bad response from service: {data}")
+        scores_all.extend([float(s) for s in data["scores"]])
+
+    if len(scores_all) != len(doc_texts):
+        raise RuntimeError(f"Score length mismatch: got {len(scores_all)} for {len(doc_texts)} docs")
     return np.asarray(scores_all, dtype=np.float32)
 
 
@@ -108,7 +110,7 @@ def parse_ks(arg: str) -> Tuple[int, ...]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument(
         "--exp_name",
         type=str,
@@ -124,8 +126,7 @@ def main() -> None:
         help="Positive cutoff per query. 0 = use per-part defaults (POS_TOPK_BY_PART).",
     )
     ap.add_argument("--ks", type=str, default=str(EVAL_TOPK))
-    ap.add_argument("--seed", type=int, default=1234, help="Seed for evaluation query sampling.")
-    ap.add_argument("--eval_seed", type=int, default=42, help="Seed for sampled evaluation candidates.")
+    ap.add_argument("--seed", type=int, default=1234, help="Global seed for data prep and negatives.")
     ap.add_argument("--split_seed", type=int, default=42, help="Seed for stratified eval split to match baselines.")
     ap.add_argument("--valid_ratio", type=float, default=0.2, help="Portion of qids (with rankings) used for eval.")
     ap.add_argument("--rerank_batch", type=int, default=256, help="Max documents per HTTP request.")
@@ -143,10 +144,8 @@ def main() -> None:
     os.environ.setdefault("MKL_NUM_THREADS", "1")
 
     ks = parse_ks(args.ks)
-    if not ks or min(ks) <= 0:
+    if not ks:
         raise ValueError("--ks must provide at least one integer (e.g., 5,10,50)")
-    if min(args.eval_cand_size, args.rerank_batch, args.max_workers) <= 0:
-        raise ValueError("Candidate size, HTTP batch size, and worker count must be positive.")
 
     # 1) Data/bootstrap
     boot = bootstrap_run(
@@ -177,7 +176,7 @@ def main() -> None:
         tools=boot.tools or {},
         all_rankings=boot.bundle.all_rankings,
         a_ids=boot.a_ids,
-        seed=args.eval_seed,
+        seed=args.seed,
         cand_size=args.eval_cand_size,
         pos_topk=None if args.pos_topk <= 0 else args.pos_topk,
         qid_to_part=boot.bundle.qid_to_part,
@@ -185,8 +184,6 @@ def main() -> None:
     )
     if args.max_eval and len(items) > args.max_eval:
         items = items[: args.max_eval]
-    if not items:
-        raise ValueError("No ranked queries selected for evaluation. Check the data root and split settings.")
     print(f"Prepared {len(items)} eval items (valid_ratio={args.valid_ratio}, seed={args.seed}).")
 
     # 2) Threaded evaluation via HTTP

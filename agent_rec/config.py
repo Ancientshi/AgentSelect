@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-from pathlib import Path
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATA_ROOT = os.environ.get("DATA_ROOT") or str(REPO_ROOT / "data" / "AgentSelect")
-
 POS_TOPK_BY_PART = {
     "PartI": 10,
     "PartII": 1,

@@ -6,6 +6,7 @@ source "$SCRIPT_DIR/../common_env.sh"
 
 EPOCHS=10
 BATCH_SIZE=4096
+DEVICE="cuda:0"
 
 MAX_FEATURES="${MAX_FEATURES:-5000}"
 HID="${HID:-256}"
@@ -19,7 +20,7 @@ USE_QUERY_ID_EMB="${USE_QUERY_ID_EMB:-0}"
 TOPK="${TOPK:-10}"
 
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_twotower_tfidf.py" \
+python "$SCRIPT_DIR/../../run_twotower_tfidf.py" \
   --eval_cand_size "$EVAL_CAND_SIZE" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \

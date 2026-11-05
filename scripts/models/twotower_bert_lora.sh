@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export HF_ENDPOINT=https://hf-mirror.com
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../common_env.sh"
@@ -8,12 +9,13 @@ source "$SCRIPT_DIR/../common_env.sh"
 # TwoTower-BERT LoRA setting:
 # - Training remains TwoTower + in-batch InfoNCE.
 # - BERT encoder is updated online through lightweight LoRA adapters.
+DEVICE="${DEVICE:-cuda:4}"
 EPOCHS="${EPOCHS:-5}"
 BATCH_SIZE="${BATCH_SIZE:-256}"
 LR="${LR:-1e-3}"
 
 TUNE_MODE="${TUNE_MODE:-lora}"
-PRETRAINED_MODEL="${PRETRAINED_MODEL:-distilbert-base-uncased}"
+PRETRAINED_MODEL="${PRETRAINED_MODEL:-path_to/models/distilbert-base-uncased}"
 POOLING="${POOLING:-cls}"
 MAX_LEN="${MAX_LEN:-128}"
 ENCODE_BATCH_SIZE="${ENCODE_BATCH_SIZE:-256}"
@@ -42,7 +44,7 @@ USE_QUERY_ID_EMB="${USE_QUERY_ID_EMB:-0}"
 USE_AGENT_ID_EMB="${USE_AGENT_ID_EMB:-0}"
 SOFT_EVAL="${SOFT_EVAL:-0}"
 
-"$PYTHON_BIN" "$SCRIPT_DIR/../../run_twotower_bert.py" \
+python "$SCRIPT_DIR/../../run_twotower_bert.py" \
   --eval_cand_size "$EVAL_CAND_SIZE" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import annotations
-import hashlib
 import math
 import random
-from typing import Collection, Dict, List, Optional, Sequence
+import zlib
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -15,44 +15,6 @@ from .config import EPS, POS_TOPK, POS_TOPK_BY_PART, EVAL_TOPK
 from .knn import knn_qvec_for_question_text
 from .scoring import score_candidates, ScoreMode
 from .models.base import RecommenderBase
-
-
-def stable_seed_from_qid(qid: str, seed: int) -> int:
-    digest = hashlib.blake2b(qid.encode("utf-8"), digest_size=8).digest()
-    return (int.from_bytes(digest, "little") ^ (seed * 16777619)) & 0xFFFFFFFF
-
-
-def sample_eval_candidates(
-    a_ids: Sequence[str],
-    positives: Sequence[str],
-    cand_size: int,
-    *,
-    qid: str,
-    seed: int,
-    exclude: Collection[str] | None = None,
-) -> List[str]:
-    """Sample without replacement from an ordered, unique agent catalog."""
-    if cand_size <= 0:
-        raise ValueError("Candidate size must be positive")
-    rng = random.Random(stable_seed_from_qid(qid, seed))
-    candidates = list(dict.fromkeys(positives))
-    need = max(0, cand_size - len(candidates))
-    if need:
-        blocked = set(candidates)
-        blocked.update(exclude or ())
-        if len(blocked) + need > len(a_ids) // 2:
-            pool = [aid for aid in a_ids if aid not in blocked]
-            candidates.extend(rng.sample(pool, min(need, len(pool))))
-        else:
-            while need:
-                aid = rng.choice(a_ids)
-                if aid not in blocked:
-                    candidates.append(aid)
-                    blocked.add(aid)
-                    need -= 1
-    # Avoid systematically ranking the injected positives first on score ties.
-    rng.shuffle(candidates)
-    return candidates
 
 
 def _ideal_dcg(k: int, num_rel: int) -> float:
@@ -122,7 +84,8 @@ def evaluate_sampled_knn_top10(
     else:
         bias_t = None
 
-    all_agents = sorted(aid2idx)
+    all_agents = list(aid2idx.keys())
+    all_agent_set = set(all_agents)
 
     agg = {m: 0.0 for m in ["P", "R", "F1", "Hit", "nDCG", "MRR"]}
     cnt, skipped = 0, 0
@@ -137,7 +100,18 @@ def evaluate_sampled_knn_top10(
             continue
 
         rel_set = set(gt)
-        cand = sample_eval_candidates(all_agents, gt, cand_size, qid=qid, seed=seed)
+        neg_pool = list(all_agent_set - rel_set)
+
+        qid_seed = (zlib.crc32(str(qid).encode("utf-8")) ^ (seed * 2654435761)) & 0xFFFFFFFF
+        rnd = random.Random(qid_seed)
+
+        need_neg = max(0, cand_size - len(gt))
+        if need_neg > 0 and neg_pool:
+            k = min(need_neg, len(neg_pool))
+            sampled_negs = rnd.sample(neg_pool, k)
+            cand = gt + sampled_negs
+        else:
+            cand = gt
 
         qtext = all_questions.get(qid, {}).get("input", "")
         qv = knn_qvec_for_question_text(qtext, knn_cache, N=knn_N)  # (F,)
@@ -162,10 +136,10 @@ def evaluate_sampled_knn_top10(
                 s_t = s_t + bias_t.index_select(0, ai_idx_t)
 
             k_top = min(topk, s_t.numel())
-            order = torch.argsort(s_t, descending=True, stable=True)[:k_top].cpu().tolist()
+            order = torch.topk(s_t, k_top).indices.cpu().tolist()
         else:
             s = score_candidates(A, qv, ai_idx, bias_a=bias_a, mode=score_mode)
-            order = np.argsort(-s, kind="stable")[:topk].tolist()
+            order = np.argsort(-s)[:topk].tolist()
 
         pred = [cand[i] for i in order]
 
@@ -227,7 +201,8 @@ def evaluate_sampled_direct_top10(
     device = next(model.parameters()).device
     A_t = torch.tensor(A_text_full, dtype=torch.float32, device=device)
 
-    all_agents = sorted(aid2idx)
+    all_agents = list(aid2idx.keys())
+    all_agent_set = set(all_agents)
 
     agg = {m: 0.0 for m in ["P", "R", "F1", "Hit", "nDCG", "MRR"]}
     cnt, skipped = 0, 0
@@ -242,7 +217,18 @@ def evaluate_sampled_direct_top10(
             continue
 
         rel_set = set(gt)
-        cand = sample_eval_candidates(all_agents, gt, cand_size, qid=qid, seed=seed)
+        neg_pool = list(all_agent_set - rel_set)
+
+        qid_seed = (zlib.crc32(str(qid).encode("utf-8")) ^ (seed * 2654435761)) & 0xFFFFFFFF
+        rnd = random.Random(qid_seed)
+
+        need_neg = max(0, cand_size - len(gt))
+        if need_neg > 0 and neg_pool:
+            k = min(need_neg, len(neg_pool))
+            sampled_negs = rnd.sample(neg_pool, k)
+            cand = gt + sampled_negs
+        else:
+            cand = gt
 
         qtext = all_questions.get(qid, {}).get("input", "")
         qv_np = q_vectorizer.transform([qtext]).toarray().astype(np.float32)[0]
@@ -253,7 +239,7 @@ def evaluate_sampled_direct_top10(
         qv_rep = qv.repeat(len(cand), 1)
         with torch.no_grad():
             scores = model.forward_score(qv_rep, A_t[ai_idx], ai_idx, q_idx=q_idx).detach().cpu().numpy()
-        order = np.argsort(-scores, kind="stable")[:topk]
+        order = np.argsort(-scores)[:topk]
         pred = [cand[i] for i in order]
 
         met = _metrics_at_k(pred, rel_set, topk)
@@ -301,7 +287,8 @@ def evaluate_sampled_embedding_topk(
     Q_t = Q_t.to(device)
     A_t = A_t.to(device)
 
-    all_agents = sorted(aid2idx)
+    all_agents = list(aid2idx.keys())
+    all_agent_set = set(all_agents)
 
     agg = {m: 0.0 for m in ["P", "R", "F1", "Hit", "nDCG", "MRR"]}
     cnt, skipped = 0, 0
@@ -316,7 +303,18 @@ def evaluate_sampled_embedding_topk(
             continue
 
         rel_set = set(gt)
-        cand = sample_eval_candidates(all_agents, gt, cand_size, qid=qid, seed=seed)
+        neg_pool = list(all_agent_set - rel_set)
+
+        qid_seed = (zlib.crc32(str(qid).encode("utf-8")) ^ (seed * 2654435761)) & 0xFFFFFFFF
+        rnd = random.Random(qid_seed)
+
+        need_neg = max(0, cand_size - len(gt))
+        if need_neg > 0 and neg_pool:
+            k = min(need_neg, len(neg_pool))
+            sampled_negs = rnd.sample(neg_pool, k)
+            cand = gt + sampled_negs
+        else:
+            cand = gt
 
         qi = qid2idx[qid]
         qv = Q_t[qi : qi + 1].repeat(len(cand), 1)
@@ -325,7 +323,7 @@ def evaluate_sampled_embedding_topk(
 
         with torch.no_grad():
             scores = model.forward_score(qv, A_t[ai_idx], ai_idx, q_idx=q_idx).detach().cpu().numpy()
-        order = np.argsort(-scores, kind="stable")[:topk]
+        order = np.argsort(-scores)[:topk]
         pred = [cand[i] for i in order]
 
         met = _metrics_at_k(pred, rel_set, topk)

@@ -1,18 +1,22 @@
 import os
+from FlagEmbedding import BGEM3FlagModel
+import torch
+import numpy as np
+import random
 import json
-from datetime import datetime
-
-from agent_rec.config import REPO_ROOT
 
 
 BGEM3_model = None
 
+# 设置缓存目录
+os.environ["TRANSFORMERS_CACHE"] = './model'
+
 def load_BGEM3_model():
     global BGEM3_model
     if BGEM3_model is None:
-        from FlagEmbedding import BGEM3FlagModel
-
         BGEM3_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:0")
+    else:
+        pass
     
 def get_embeddings(doc_list):
     embeddings = BGEM3_model.encode(doc_list, 
@@ -21,8 +25,13 @@ def get_embeddings(doc_list):
                             )['dense_vecs']
     return embeddings
 
+import logging
+from datetime import datetime
+
+
 def print_metrics_table(title, metrics_dict, ks=(5, 10, 50), filename=''):
-    log_dir = REPO_ROOT / "log"
+    #要把这个也记录在log/{filename}_{timestamp}.log里面
+    log_dir = "log"
     os.makedirs(log_dir, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path = os.path.join(log_dir, f"{filename}.log")
@@ -287,11 +296,21 @@ def load_json(p: str):
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
     
-def collect_data(parts=("PartI", "PartII", "PartIII"), data_root="."):
-    from agent_rec.data import collect_data as load_bundle
-
-    bundle = load_bundle(data_root, parts=list(parts))
-    return bundle.all_agents, bundle.all_questions, bundle.all_rankings
+def collect_data(parts = ["PartI", "PartII", "PartIII"], data_root = '.'):
+    all_agents: Dict[str, dict] = {}
+    all_questions: Dict[str, dict] = {}
+    all_rankings: Dict[str, List[str]] = {}
+    for part in parts:
+        agents_path    = os.path.join(data_root, part, "agents",    "merge.json")
+        questions_path = os.path.join(data_root, part, "questions", "merge.json")
+        rankings_path  = os.path.join(data_root, part, "rankings",  "merge.json")
+        agents    = load_json(agents_path)
+        questions = load_json(questions_path)
+        rankings  = load_json(rankings_path)
+        all_agents.update(agents)
+        all_questions.update(questions)
+        all_rankings.update(rankings["rankings"])
+    return all_agents, all_questions, all_rankings
 
 def ensure_cache_dir_of(data_root: str, train_filename: str) -> str:
     d = os.path.join(data_root, f".cache/{train_filename}")

@@ -13,9 +13,9 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
+from agent_rec.cli_common import add_shared_training_args
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART, TFIDF_MAX_FEATURES
-from agent_rec.data import build_training_pairs
+from agent_rec.data import build_training_pairs, stratified_train_valid_split
 from agent_rec.features import (
     build_feature_cache,
     build_agent_content_view,
@@ -78,8 +78,6 @@ def main():
     parser.add_argument("--knn_N", type=int, default=3)
 
     args = parser.parse_args()
-    if bool(args.user_features_path) != bool(args.item_features_path):
-        parser.error("Provide both --user_features_path and --item_features_path for external features")
 
     boot = bootstrap_run(
         data_root=args.data_root,
@@ -111,7 +109,7 @@ def main():
         f"tfidf_{args.max_features}_{data_sig}",
     )
 
-    using_external_features = bool(args.user_features_path)
+    using_external_features = bool(args.user_features_path) or bool(args.item_features_path)
 
     # IMPORTANT: always initialize
     feature_cache = None
@@ -172,8 +170,6 @@ def main():
         agent_llm_idx = np.array([llm_vocab_map.get(lid, 0) for lid in llm_ids], dtype=np.int64)
     else:
         # Feature-cache mode
-        if list(feature_cache.q_ids) != q_ids or list(feature_cache.a_ids) != a_ids:
-            raise ValueError("Feature cache IDs do not match the dataset. Rebuild with --rebuild_feature_cache 1.")
         Q_np = feature_cache.Q.astype(np.float32)
         A_text_full_np = build_agent_content_view(
             cache=feature_cache,
@@ -203,8 +199,6 @@ def main():
         "rng_seed_pairs": int(args.rng_seed_pairs),
         "split_seed": int(args.split_seed),
         "valid_ratio": float(args.valid_ratio),
-        "train_parts": sorted(set(args.train_parts)),
-        "pair_type": "q_pos_neg_posTopK",
     }
     training_cache_dir = shared_cache_dir(
         args.data_root,
@@ -213,7 +207,14 @@ def main():
     )
 
     def build_cache():
-        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
+        train_qids, valid_qids = stratified_train_valid_split(
+            qids_in_rank,
+            qid_to_part=qid_to_part,
+            valid_ratio=args.valid_ratio,
+            seed=args.split_seed,
+        )
+        print(f"[split] train={len(train_qids)}  valid={len(valid_qids)}")
+
         rankings_train = {qid: all_rankings[qid] for qid in train_qids}
         pairs = build_training_pairs(
             rankings_train,
@@ -342,7 +343,6 @@ def main():
     # -------------------------
     # 7) KNN-copy cache
     # -------------------------
-    model.eval()
     knn_path = os.path.join(exp_cache_dir, "knn_copy.pkl")
 
     if q_vectorizer_runtime is None:
@@ -369,11 +369,12 @@ def main():
     # -------------------------
     # 8) Eval
     # -------------------------
+    model.eval()
     topk = int(args.topk)
 
 
     part_splits = split_eval_qids_by_part(valid_qids, qid_to_part=qid_to_part)
-    for part in dict.fromkeys(args.eval_parts):
+    for part in ["PartI", "PartII", "PartIII"]:
         qids_part = part_splits.get(part, [])
         if not qids_part:
             continue
@@ -386,7 +387,6 @@ def main():
             eval_qids=qids_part,
             knn_cache=knn_cache,
             cand_size=args.eval_cand_size,
-            seed=args.rng_seed_pairs,
             knn_N=args.knn_N,
             qid_to_part=qid_to_part,
             pos_topk_by_part=POS_TOPK_BY_PART,

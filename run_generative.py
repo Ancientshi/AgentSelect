@@ -19,7 +19,6 @@ import json
 from pathlib import Path
 from typing import Iterable, List
 
-from agent_rec.config import DEFAULT_DATA_ROOT
 from agent_rec.models.generative import (
     GenerationConfig,
     GenerativeStructuredRecommender,
@@ -46,7 +45,7 @@ def parse_args() -> argparse.Namespace:
             "supervised targets for finetuning an external seq2seq model."
         )
     )
-    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument(
         "--query",
         type=str,
