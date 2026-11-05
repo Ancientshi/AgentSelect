@@ -31,11 +31,14 @@
 
 ## Why AgentSelectBench ✨
 
-Modern agent ecosystems offer an exploding space of configurations, but existing benchmarks evaluate **components in isolation** (models or tools). AgentSelectBench instead supports the end task:
+As agent marketplaces grow, users face a practical question: **given a natural-language task description, which agents should they use?** Answering this question calls for effective agent retrieval and recommendation, yet large-scale datasets connecting task descriptions with suitable agents remain limited.
 
-* **Input:** a narrative query (no persistent user ID; intent is fully expressed in the query)
-* **Output:** a ranked list of **deployable agents** as capability profiles **(M, T)**
-* **Supervision:** **positive-only** query–agent interactions unified across sources 
+To support research on this problem, we introduce **AgentSelectBench**, a benchmark for **narrative query-to-agent recommendation**. We consolidate publicly available evaluation resources to construct a large catalog of agent configurations and query–agent interaction records for training and evaluation. We then systematically benchmark existing retrieval and recommendation methods to investigate **how well they work in this setting, where they fall short, and what challenges agent recommendation introduces**.
+
+- **Input:** A natural-language task description.
+- **Output:** A ranked list of suitable agents from a candidate catalog.
+- **Data:** Agent capability profiles and positive-only query–agent interaction records.
+- **Goal:** Support the development and evaluation of methods that match task requirements to agent capabilities.
 
 ---
 
