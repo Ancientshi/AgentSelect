@@ -11,17 +11,17 @@ Key points:
 4) --amp optionally enables autocast(bfloat16) on CUDA.
 5) Feature cache can be built with BGE-M3 instead of HTTP API.
 
-Default BGE model path:
-  path_to/models/BAAI/bge-m3
+Default BGE model:
+  BAAI/bge-m3
 
 Example:
 python run_twotower_bge.py \
-  --data_root path_to/AgentSelect/dataset \
+  --data_root ./data/AgentSelect \
   --device cuda:4 \
   --epochs 5 \
   --batch_size 512 \
   --embed_backend local \
-  --bge_model path_to/models/BAAI/bge-m3 \
+  --bge_model BAAI/bge-m3 \
   --bge_device cuda:4 \
   --bge_fp16 1 \
   --embed_batch 64 \
@@ -43,9 +43,8 @@ import torch
 from tqdm.auto import tqdm
 
 import agent_rec.features as features_mod
-from agent_rec.cli_common import add_shared_training_args
+from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
-from agent_rec.data import stratified_train_valid_split
 from agent_rec.features import (
     build_agent_content_view,
     build_twotower_bge_feature_cache,
@@ -115,7 +114,7 @@ def bge_batch_embed(
     batch_size: int = 64,
     desc: str = "Embedding",
     *,
-    model_path: str = "path_to/models/BAAI/bge-m3",
+    model_path: str = "BAAI/bge-m3",
     device: str = "cuda",
     use_fp16: bool = True,
     normalize: bool = True,
@@ -213,7 +212,7 @@ def main() -> None:
     parser.add_argument("--embed_url", type=str, default="http://127.0.0.1:8502/get_embedding")
     parser.add_argument("--embed_batch", type=int, default=64)
     parser.add_argument("--embed_backend", type=str, default="local", choices=["local", "api"])
-    parser.add_argument("--bge_model", type=str, default="path_to/models/BAAI/bge-m3")
+    parser.add_argument("--bge_model", type=str, default="BAAI/bge-m3")
     parser.add_argument("--bge_device", type=str, default="", help="empty means use --device")
     parser.add_argument("--bge_fp16", type=int, default=1)
     parser.add_argument("--hid", type=int, default=256)
@@ -364,24 +363,8 @@ def main() -> None:
     tool_ids_np = feature_cache.agent_tool_idx_padded
     tool_mask_np = feature_cache.agent_tool_mask
 
-    # Make --train_parts control which question parts are used for training.
-    # This mirrors run_twotower_tfidf.py. Keep train_parts in the cache key so a
-    # stale PartI+II+III training cache is never reused for PartIII-only runs.
-    train_parts = list(args.train_parts)
-    eval_parts = list(args.eval_parts)
-    qids_for_training = [
-        qid for qid in qids_in_rank
-        if qid_to_part.get(qid, "") in set(train_parts)
-    ]
-    if not qids_for_training:
-        raise RuntimeError(
-            f"No qids found for train_parts={train_parts}. "
-            f"Available parts include: {sorted(set(qid_to_part.values()))}"
-        )
-    print(
-        f"[parts] train_parts={train_parts} -> qids={len(qids_for_training)}; "
-        f"eval_parts={eval_parts}"
-    )
+    train_parts = sorted(set(args.train_parts))
+    eval_parts = list(dict.fromkeys(args.eval_parts))
 
     want_meta = {
         "data_sig": data_sig,
@@ -395,16 +378,7 @@ def main() -> None:
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = stratified_train_valid_split(
-            qids_for_training,
-            qid_to_part=qid_to_part,
-            valid_ratio=args.valid_ratio,
-            seed=args.split_seed,
-        )
-        print(
-            f"[split] train_parts={train_parts} "
-            f"train={len(train_qids)}  valid={len(valid_qids)}"
-        )
+        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
         pairs = build_pos_pairs(
             {qid: all_rankings[qid] for qid in train_qids},
             qid_to_part=qid_to_part,
@@ -532,9 +506,6 @@ def main() -> None:
 
     topk = int(args.topk)
 
-    # Final reporting is controlled by --eval_parts, not by valid_qids.
-    # The actual sampled-eval implementation is shared in eval.py so BGE and
-    # TF-IDF can stay aligned except for feature/cache construction.
     evaluate_parts(
         encoder=encoder,
         Q_cpu=Q_cpu,
@@ -542,7 +513,7 @@ def main() -> None:
         qid2idx=qid2idx,
         a_ids=a_ids,
         all_rankings=all_rankings,
-        qids_in_rank=qids_in_rank,
+        qids_in_rank=valid_qids,
         qid_to_part=qid_to_part,
         eval_parts=eval_parts,
         device=device,

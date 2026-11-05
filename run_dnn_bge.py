@@ -8,19 +8,19 @@ but replaces the TwoTower/InfoNCE learner with SimpleBPRDNN + BPR loss.
 
 Main alignment points with run_twotower_bge.py:
 1) BGE feature cache construction/loading is unchanged.
-2) --train_parts controls the split used to build training pairs.
-3) --eval_parts controls final reporting independently from train valid_qids.
+2) --train_parts selects the training portions of a shared stratified split.
+3) --eval_parts selects the held-out portions used in evaluation.
 4) BGE feature matrices stay on CPU; only current train/eval batches move to GPU.
 5) Training cache key includes train_parts and pair_type=q_pos_neg_posTopK.
 
 Example:
 python run_dnn_bge.py \
-  --data_root path_to/AgentSelect/dataset \
+  --data_root ./data/AgentSelect \
   --device cuda:4 \
   --epochs 5 \
   --batch_size 512 \
   --embed_backend local \
-  --bge_model path_to/models/BAAI/bge-m3 \
+  --bge_model BAAI/bge-m3 \
   --bge_device cuda:4 \
   --bge_fp16 1 \
   --embed_batch 64 \
@@ -35,23 +35,26 @@ import math
 import os
 from contextlib import nullcontext
 from datetime import datetime
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence
 
 import numpy as np
 import torch
 from tqdm.auto import tqdm
 
 import agent_rec.features as features_mod
-from agent_rec.cli_common import add_shared_training_args
+from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
-from agent_rec.data import build_training_pairs, stratified_train_valid_split
+from agent_rec.data import build_training_pairs
+from agent_rec.eval import sample_eval_candidates
 from agent_rec.features import (
+    UNK_LLM_TOKEN,
     build_agent_content_view,
     build_twotower_bge_feature_cache,
     load_feature_cache,
     save_feature_cache,
 )
 from agent_rec.models.dnn import SimpleBPRDNN, bpr_loss
+from agent_rec.rerank_eval_utils import metrics_from_hits
 from agent_rec.run_common import (
     bootstrap_run,
     cache_key_from_meta,
@@ -60,20 +63,8 @@ from agent_rec.run_common import (
     shared_cache_dir,
 )
 
-# Reuse the same local eval utilities as run_twotower_bge.py when available.
-# The full DNN scorer is pairwise rather than dot-product two-tower, so the
-# actual sampled scoring loop below is DNN-specific, but output formatting and
-# soft-eval LLM mapping stay aligned with eval.py.
-try:
-    from eval import build_aid_to_llm, print_sample_recommendations  # type: ignore
-except Exception:  # pragma: no cover - only for environments without local eval.py
-    build_aid_to_llm = None
-    print_sample_recommendations = None
-
-try:
-    from utils import print_metrics_table
-except Exception:  # pragma: no cover
-    print_metrics_table = None
+from eval import build_aid_to_llm
+from utils import print_metrics_table
 
 
 # ===== BGE-M3 embedding backend: copied from run_twotower_bge.py =====
@@ -121,7 +112,7 @@ def bge_batch_embed(
     batch_size: int = 64,
     desc: str = "Embedding",
     *,
-    model_path: str = "path_to/models/BAAI/bge-m3",
+    model_path: str = "BAAI/bge-m3",
     device: str = "cuda",
     use_fp16: bool = True,
     normalize: bool = True,
@@ -189,45 +180,6 @@ def _pos_k_for_part(qid: str, qid_to_part: Dict[str, str], pos_topk_by_part: Dic
     return int(pos_topk_by_part.get(qid_to_part.get(qid, ""), default))
 
 
-def _metric_at_k(ranked_is_pos: Sequence[bool], num_pos: int, k: int) -> Dict[str, float]:
-    top = list(ranked_is_pos[:k])
-    hit_count = int(sum(top))
-    precision = hit_count / float(k) if k > 0 else 0.0
-    recall = hit_count / float(num_pos) if num_pos > 0 else 0.0
-    f1 = (2.0 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
-    hit = 1.0 if hit_count > 0 else 0.0
-
-    dcg = 0.0
-    for rank, ok in enumerate(top, start=1):
-        if ok:
-            dcg += 1.0 / math.log2(rank + 1.0)
-    ideal_hits = min(num_pos, k)
-    idcg = sum(1.0 / math.log2(rank + 1.0) for rank in range(1, ideal_hits + 1))
-    ndcg = dcg / idcg if idcg > 0 else 0.0
-
-    mrr = 0.0
-    for rank, ok in enumerate(top, start=1):
-        if ok:
-            mrr = 1.0 / float(rank)
-            break
-
-    return {"P": precision, "R": recall, "F1": f1, "Hit": hit, "nDCG": ndcg, "MRR": mrr}
-
-
-def _print_metrics(title: str, metrics: Dict[int, Dict[str, float]], exp_name: str, topk: int) -> None:
-    if print_metrics_table is not None:
-        print_metrics_table(title, metrics, ks=(topk,), filename=exp_name)
-        return
-    print(f"== {title} ==")
-    print("  @K |       P       R      F1     Hit    nDCG     MRR")
-    print("-" * 54)
-    m = metrics[topk]
-    print(
-        f"{topk:4d} | {m['P']:.4f} {m['R']:.4f} {m['F1']:.4f} "
-        f"{m['Hit']:.4f} {m['nDCG']:.4f} {m['MRR']:.4f}"
-    )
-
-
 def score_dnn_candidates(
     *,
     model: SimpleBPRDNN,
@@ -270,7 +222,7 @@ def evaluate_parts_dnn_bge(
     a_ids: Sequence[str],
     aid2idx: Dict[str, int],
     all_rankings: Dict[str, Sequence],
-    qids_in_rank: Sequence[str],
+    eval_qids: Sequence[str],
     qid_to_part: Dict[str, str],
     eval_parts: Sequence[str],
     device: torch.device,
@@ -286,10 +238,18 @@ def evaluate_parts_dnn_bge(
     pos_topk_default: int,
 ) -> None:
     """Sampled Top-K evaluation for DNN over precomputed BGE vectors."""
-    all_agent_indices = np.arange(len(a_ids), dtype=np.int64)
+    if soft_eval and aid_to_llm is None:
+        raise ValueError("Backbone evaluation requires an agent-to-LLM mapping")
+    llm_by_agent = aid_to_llm or {}
+    agents_by_llm = {}
+    if soft_eval:
+        for aid in a_ids:
+            llm = llm_by_agent.get(aid, "")
+            if llm not in ("", UNK_LLM_TOKEN):
+                agents_by_llm.setdefault(llm, set()).add(aid)
     eval_part_set = set(eval_parts)
     part_to_qids: Dict[str, List[str]] = {p: [] for p in eval_parts}
-    for qid in qids_in_rank:
+    for qid in eval_qids:
         part = qid_to_part.get(qid, "")
         if part in eval_part_set:
             part_to_qids.setdefault(part, []).append(qid)
@@ -305,7 +265,6 @@ def evaluate_parts_dnn_bge(
         sums = {"P": 0.0, "R": 0.0, "F1": 0.0, "Hit": 0.0, "nDCG": 0.0, "MRR": 0.0}
         done = 0
         skipped = 0
-        rng = np.random.default_rng(int(rng_seed) + abs(hash(part)) % 1000003)
         pbar = tqdm(qids_part, desc=f"Evaluating {part} (sampled DNN-BGE)", dynamic_ncols=True)
 
         for qid in pbar:
@@ -315,27 +274,19 @@ def evaluate_parts_dnn_bge(
                 continue
 
             pos_k = _pos_k_for_part(qid, qid_to_part, pos_topk_by_part, pos_topk_default)
-            pos_aids = [x[0] if isinstance(x, (list, tuple)) else x for x in list(ranking)[:pos_k]]
-            pos_idx = [aid2idx[a] for a in pos_aids if a in aid2idx]
-            if not pos_idx:
+            positives = list(dict.fromkeys(aid for aid in ranking[:pos_k] if aid in aid2idx))
+            if not positives:
                 skipped += 1
                 continue
 
-            pos_idx_set = set(pos_idx)
-            neg_pool = np.array([i for i in all_agent_indices if int(i) not in pos_idx_set], dtype=np.int64)
-            n_neg = max(0, int(cand_size) - len(pos_idx))
-            if n_neg > 0 and len(neg_pool) > 0:
-                if len(neg_pool) > n_neg:
-                    neg_idx = rng.choice(neg_pool, size=n_neg, replace=False).astype(np.int64)
-                else:
-                    neg_idx = neg_pool
-                cand_idx = np.concatenate([np.asarray(pos_idx, dtype=np.int64), neg_idx], axis=0)
-            else:
-                cand_idx = np.asarray(pos_idx, dtype=np.int64)
-
-            # Remove accidental duplicates while preserving order.
-            _, unique_pos = np.unique(cand_idx, return_index=True)
-            cand_idx = cand_idx[np.sort(unique_pos)]
+            relevant_llms = set()
+            if soft_eval:
+                relevant_llms = {llm_by_agent.get(aid, "") for aid in positives} - {"", UNK_LLM_TOKEN}
+            excluded = set().union(*(agents_by_llm[llm] for llm in relevant_llms))
+            candidates = sample_eval_candidates(
+                a_ids, positives, cand_size, qid=qid, seed=rng_seed, exclude=excluded
+            )
+            cand_idx = np.asarray([aid2idx[aid] for aid in candidates], dtype=np.int64)
 
             q_idx = int(qid2idx[qid])
             scores = score_dnn_candidates(
@@ -348,19 +299,22 @@ def evaluate_parts_dnn_bge(
                 chunk=int(eval_chunk),
                 amp=amp,
             )
-            order = np.argsort(-scores)
-            ranked_idx = cand_idx[order]
+            ranked_idx = cand_idx[np.argsort(-scores, kind="stable")[:topk]]
 
-            if soft_eval and aid_to_llm is not None:
-                gt_llms = {aid_to_llm.get(a_ids[i], "") for i in pos_idx}
-                gt_llms.discard("")
-                ranked_is_pos = [aid_to_llm.get(a_ids[int(i)], "") in gt_llms for i in ranked_idx]
-                num_pos_eval = max(1, len(gt_llms))
+            if relevant_llms:
+                unseen_llms = relevant_llms.copy()
+                ranked_is_pos = []
+                for i in ranked_idx:
+                    llm = llm_by_agent.get(a_ids[int(i)], "")
+                    ranked_is_pos.append(int(llm in unseen_llms))
+                    unseen_llms.discard(llm)
+                num_pos_eval = len(relevant_llms)
             else:
-                ranked_is_pos = [int(i) in pos_idx_set for i in ranked_idx]
-                num_pos_eval = len(pos_idx_set)
+                positive_set = set(positives)
+                ranked_is_pos = [int(a_ids[int(i)] in positive_set) for i in ranked_idx]
+                num_pos_eval = len(positive_set)
 
-            m = _metric_at_k(ranked_is_pos, num_pos_eval, int(topk))
+            m = metrics_from_hits(ranked_is_pos, num_pos_eval, (topk,))[topk]
             for key in sums:
                 sums[key] += m[key]
             done += 1
@@ -378,7 +332,7 @@ def evaluate_parts_dnn_bge(
             print(f"[eval] skip {part}: no valid examples after filtering")
             continue
         avg = {key: val / done for key, val in sums.items()}
-        _print_metrics(f"Validation {part} (sampled DNN-BGE)", {int(topk): avg}, exp_name, int(topk))
+        print_metrics_table(f"Validation {part} (sampled DNN-BGE)", {topk: avg}, ks=(topk,), filename=exp_name)
 
 
 def main() -> None:
@@ -401,7 +355,7 @@ def main() -> None:
     parser.add_argument("--embed_url", type=str, default="http://127.0.0.1:8502/get_embedding")
     parser.add_argument("--embed_batch", type=int, default=64)
     parser.add_argument("--embed_backend", type=str, default="local", choices=["local", "api"])
-    parser.add_argument("--bge_model", type=str, default="path_to/models/BAAI/bge-m3")
+    parser.add_argument("--bge_model", type=str, default="BAAI/bge-m3")
     parser.add_argument("--bge_device", type=str, default="", help="empty means use --device")
     parser.add_argument("--bge_fp16", type=int, default=1)
     parser.add_argument("--text_hidden", type=int, default=256)
@@ -530,26 +484,17 @@ def main() -> None:
         use_tool_content_vector=use_tool_content_vector,
     ).astype(np.float32)
 
-    aid_to_llm = None
-    if build_aid_to_llm is not None:
-        aid_to_llm = build_aid_to_llm(
-            a_ids=a_ids,
-            llm_vocab=list(feature_cache.llm_vocab),
-            agent_llm_idx=np.asarray(feature_cache.agent_llm_idx, dtype=np.int64),
-        )
+    aid_to_llm = build_aid_to_llm(
+        a_ids=a_ids,
+        llm_vocab=list(feature_cache.llm_vocab),
+        agent_llm_idx=np.asarray(feature_cache.agent_llm_idx, dtype=np.int64),
+    )
 
     tool_ids_np = feature_cache.agent_tool_idx_padded
     tool_mask_np = feature_cache.agent_tool_mask
 
-    train_parts = list(args.train_parts)
-    eval_parts = list(args.eval_parts)
-    qids_for_training = [qid for qid in qids_in_rank if qid_to_part.get(qid, "") in set(train_parts)]
-    if not qids_for_training:
-        raise RuntimeError(
-            f"No qids found for train_parts={train_parts}. "
-            f"Available parts include: {sorted(set(qid_to_part.values()))}"
-        )
-    print(f"[parts] train_parts={train_parts} -> qids={len(qids_for_training)}; eval_parts={eval_parts}")
+    train_parts = sorted(set(args.train_parts))
+    eval_parts = list(dict.fromkeys(args.eval_parts))
 
     want_meta = {
         "data_sig": data_sig,
@@ -564,13 +509,7 @@ def main() -> None:
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = stratified_train_valid_split(
-            qids_for_training,
-            qid_to_part=qid_to_part,
-            valid_ratio=args.valid_ratio,
-            seed=args.split_seed,
-        )
-        print(f"[split] train_parts={train_parts} train={len(train_qids)}  valid={len(valid_qids)}")
+        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
         pairs = build_training_pairs(
             {qid: all_rankings[qid] for qid in train_qids},
             a_ids,
@@ -707,7 +646,7 @@ def main() -> None:
         a_ids=a_ids,
         aid2idx=aid2idx,
         all_rankings=all_rankings,
-        qids_in_rank=qids_in_rank,
+        eval_qids=valid_qids,
         qid_to_part=qid_to_part,
         eval_parts=eval_parts,
         device=device,

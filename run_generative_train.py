@@ -18,6 +18,7 @@ Notes:
 from __future__ import annotations
 
 import argparse
+import inspect
 import os
 import random
 from dataclasses import dataclass
@@ -29,10 +30,11 @@ from transformers import (
     AutoModelForSeq2SeqLM,
     AutoTokenizer,
     DataCollatorForSeq2Seq,
-    Trainer,
-    TrainingArguments,
+    Seq2SeqTrainer,
+    Seq2SeqTrainingArguments,
 )
 
+from agent_rec.config import DEFAULT_DATA_ROOT
 from agent_rec.models.generative import GenerationConfig, build_training_pairs_from_data_root
 from agent_rec.run_common import set_global_seed
 
@@ -69,12 +71,11 @@ class PairDataset(Dataset):
             truncation=True,
             max_length=self.max_source_length,
         )
-        with self.tokenizer.as_target_tokenizer():
-            target_enc = self.tokenizer(
-                ex.target,
-                truncation=True,
-                max_length=self.max_target_length,
-            )
+        target_enc = self.tokenizer(
+            text_target=ex.target,
+            truncation=True,
+            max_length=self.max_target_length,
+        )
         return {
             "input_ids": torch.tensor(enc["input_ids"], dtype=torch.long),
             "attention_mask": torch.tensor(enc["attention_mask"], dtype=torch.long),
@@ -89,7 +90,7 @@ def parse_args() -> argparse.Namespace:
             "Pairs are constructed automatically from the benchmark data."
         )
     )
-    ap.add_argument("--data_root", type=str, required=True)
+    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
     ap.add_argument("--output_dir", type=str, required=True, help="Where to save checkpoints and tokenizer.")
     ap.add_argument("--model_name", type=str, default="t5-small", help="HF seq2seq base model to fine-tune.")
     ap.add_argument("--max_examples", type=int, default=0, help="Limit number of supervised pairs (0 = all).")
@@ -115,10 +116,12 @@ def parse_args() -> argparse.Namespace:
 
 
 def split_train_valid(pairs: Sequence[Dict[str, str]], valid_ratio: float, seed: int) -> tuple[list, list]:
+    if not 0.0 <= valid_ratio < 1.0:
+        raise ValueError("--valid_ratio must be in [0, 1).")
     rnd = random.Random(seed)
     rows = list(pairs)
     rnd.shuffle(rows)
-    n_valid = max(1, int(len(rows) * valid_ratio)) if rows else 0
+    n_valid = max(1, int(len(rows) * valid_ratio)) if valid_ratio > 0 and len(rows) > 1 else 0
     return rows[n_valid:], rows[:n_valid]
 
 
@@ -178,7 +181,11 @@ def main() -> None:
     ) if valid_rows else None
 
     collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model, padding="longest")
-    training_args = TrainingArguments(
+    eval_strategy_key = (
+        "eval_strategy" if "eval_strategy" in inspect.signature(Seq2SeqTrainingArguments).parameters
+        else "evaluation_strategy"
+    )
+    training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
@@ -188,20 +195,19 @@ def main() -> None:
         warmup_steps=args.warmup_steps,
         logging_steps=50,
         save_steps=500,
-        evaluation_strategy="steps" if valid_ds is not None else "no",
         eval_steps=500 if valid_ds is not None else None,
         save_total_limit=2,
         predict_with_generate=True,
         report_to=[],
         seed=args.seed,
+        **{eval_strategy_key: "steps" if valid_ds is not None else "no"},
     )
 
-    trainer = Trainer(
+    trainer = Seq2SeqTrainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
         eval_dataset=valid_ds,
-        tokenizer=tokenizer,
         data_collator=collator,
     )
     trainer.train()

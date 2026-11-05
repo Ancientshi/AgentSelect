@@ -14,265 +14,39 @@ What it does:
       * Unseen-valid-GT coverage and Hit@K on queries whose GT is unseen.
 """
 
-import os, json, math, argparse, random, zlib
-from datetime import datetime
-from typing import Dict, List, Tuple, Optional
-from collections import defaultdict
+import argparse
+import os
+from typing import Dict, List
 
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from tqdm.auto import tqdm
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import normalize
-from scipy.sparse import issparse
-
-from agent_rec.config import TFIDF_MAX_FEATURES, EVAL_TOPK, pos_topk_for_qid
-from agent_rec.data import stratified_train_valid_split
+from agent_rec.config import DEFAULT_DATA_ROOT, TFIDF_MAX_FEATURES, EVAL_TOPK, pos_topk_for_qid
+from agent_rec.data import collect_data, dataset_content_signature, load_tools, qids_with_rankings, stratified_train_valid_split
+from agent_rec.eval import sample_eval_candidates
 from agent_rec.run_common import set_global_seed, warn_if_topk_diff
 
-try:
-    from utils import print_metrics_table
-except Exception:
-    # fallback if your utils import path changes
-    def print_metrics_table(title, metrics, ks=(10,), filename=""):
-        print(f"\n==== {title} ====")
-        for k in ks:
-            m = metrics[k]
-            print(f"K={k} | P={m['P']:.4f} R={m['R']:.4f} F1={m['F1']:.4f} "
-                  f"Hit={m['Hit']:.4f} nDCG={m['nDCG']:.4f} MRR={m['MRR']:.4f}")
+from OneRec_seq import (
+    AgentVocab,
+    OneStepGenerator,
+    QueryEncoder,
+    build_q_vectorizer,
+    dataset_signature,
+    evaluate_sampled,
+    sample_qids_by_part,
+)
+from utils import print_metrics_table
 
-# ---------------------- json / data ----------------------
-
-def load_json(p: str):
-    with open(p, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-def collect_data(data_root: str):
-    parts = ["PartI", "PartII", "PartIII"]
-    all_agents: Dict[str, dict] = {}
-    all_questions: Dict[str, dict] = {}
-    all_rankings: Dict[str, List[str]] = {}
-    qid_to_part: Dict[str, str] = {}
-
-    for part in parts:
-        agents_path = os.path.join(data_root, part, "agents", "merge.json")
-        questions_path = os.path.join(data_root, part, "questions", "merge.json")
-        rankings_path = os.path.join(data_root, part, "rankings", "merge.json")
-
-        if os.path.exists(agents_path):
-            all_agents.update(load_json(agents_path))
-
-        if os.path.exists(questions_path):
-            qd = load_json(questions_path)
-            all_questions.update(qd)
-            for qid in qd.keys():
-                qid_to_part.setdefault(qid, part)
-
-        if os.path.exists(rankings_path):
-            r = load_json(rankings_path)
-            rr = r.get("rankings", {})
-            all_rankings.update(rr)
-            for qid in rr.keys():
-                qid_to_part.setdefault(qid, part)
-
-    tools_path = os.path.join(data_root, "Tools", "merge.json")
-    tools = load_json(tools_path) if os.path.exists(tools_path) else {}
-    return all_agents, all_questions, all_rankings, tools, qid_to_part
-
-def build_text_corpora(all_agents, all_questions, tools):
-    q_ids = sorted(all_questions.keys())
-    q_texts = [all_questions[qid].get("input", "") for qid in q_ids]
-
-    def _tool_text(tn: str) -> str:
-        t = tools.get(tn, {})
-        desc = t.get("description", "")
-        return f"{tn} {desc}".strip()
-
-    a_ids = sorted(all_agents.keys())
-    a_texts = []
-    for aid in a_ids:
-        a = all_agents[aid]
-        mname = a.get("M", {}).get("name", "")
-        tool_list = a.get("T", {}).get("tools", []) or []
-        concat_tool_desc = " ".join([_tool_text(tn) for tn in tool_list])
-        text = f"{mname} {concat_tool_desc}".strip()
-        a_texts.append(text)
-
-    return q_ids, q_texts, a_ids, a_texts
-
-def dataset_signature(a_ids: List[str], all_rankings: Dict[str, List[str]]) -> str:
-    payload = {"a_ids": a_ids, "rankings": {k: all_rankings[k] for k in sorted(all_rankings.keys())}}
-    blob = json.dumps(payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
-    sig = zlib.crc32(blob) & 0xFFFFFFFF
-    return f"{sig:08x}"
-
-# ---------------------- metrics ----------------------
-
-def _dcg_at_k(binary_hits, k):
-    dcg = 0.0
-    for i, h in enumerate(binary_hits[:k]):
-        if h:
-            dcg += 1.0 / math.log2(i + 2.0)
-    return dcg
-
-@torch.no_grad()
-def evaluate_sampled(pred_ids_topk: List[str], rel_set: set, ks=(10,)):
-    bin_hits = [1 if aid in rel_set else 0 for aid in pred_ids_topk]
-    out = {}
-    for k in ks:
-        Hk = sum(bin_hits[:k])
-        P = Hk / float(k)
-        R = Hk / float(len(rel_set)) if len(rel_set) > 0 else 0.0
-        F1 = (2*P*R)/(P+R) if (P+R) > 0 else 0.0
-        Hit = 1.0 if Hk > 0 else 0.0
-        dcg = _dcg_at_k(bin_hits, k)
-        ideal = min(len(rel_set), k)
-        idcg = sum(1.0 / math.log2(i + 2.0) for i in range(ideal)) if ideal > 0 else 0.0
-        nDCG = (dcg / idcg) if idcg > 0 else 0.0
-        rr = 0.0
-        for i in range(k):
-            if bin_hits[i]:
-                rr = 1.0 / float(i+1)
-                break
-        out[k] = {"P":P, "R":R, "F1":F1, "Hit":Hit, "nDCG":nDCG, "MRR":rr}
-    return out
-
-# ---------------------- vocab / model defs ----------------------
-
-class AgentVocab:
-    def __init__(self, a_ids: List[str]):
-        self.PAD = 0
-        self.BOS = 1
-        self.offset = 2
-        self.a_ids = a_ids
-        self.vocab_size = len(a_ids) + self.offset
-        self.aid2tok = {aid: i + self.offset for i, aid in enumerate(a_ids)}
-        self.tok2aid = {i + self.offset: aid for i, aid in enumerate(a_ids)}
-
-    def aid_to_token(self, aid: str) -> int:
-        return self.aid2tok[aid]
-
-    def token_to_aid(self, tok: int) -> Optional[str]:
-        if tok < self.offset:
-            return None
-        return self.tok2aid.get(tok, None)
-
-class QueryEncoder(nn.Module):
-    def __init__(self, d_q: int, hidden: int = 512, dropout: float = 0.1):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(d_q, hidden),
-            nn.GELU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden, hidden),
-            nn.GELU(),
-            nn.LayerNorm(hidden),
-        )
-        for m in self.net:
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight)
-                nn.init.zeros_(m.bias)
-
-    def forward(self, q_vec: torch.Tensor) -> torch.Tensor:
-        return self.net(q_vec)
-
-class OneStepGenerator(nn.Module):
-    def __init__(self, enc_dim: int, vocab_size: int, tok_dim: int = 256, hidden: int = 512, dropout: float = 0.1):
-        super().__init__()
-        self.enc_dim = enc_dim
-        self.vocab_size = vocab_size
-        self.tok_dim = tok_dim
-
-        self.tok_emb = nn.Embedding(vocab_size, tok_dim)
-        self.q_proj = nn.Sequential(
-            nn.Linear(enc_dim, hidden),
-            nn.GELU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden, tok_dim, bias=False),
-        )
-        self.a_proj = nn.Linear(tok_dim, enc_dim, bias=False)
-
-        nn.init.xavier_uniform_(self.tok_emb.weight)
-        for m in self.q_proj:
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight)
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-        nn.init.xavier_uniform_(self.a_proj.weight)
-
-        with torch.no_grad():
-            self.tok_emb.weight.data[0].zero_()
-            self.tok_emb.weight.data[1].zero_()
-
-    def score(self, enc_vec: torch.Tensor, cand_tok: torch.Tensor) -> torch.Tensor:
-        q = self.q_proj(enc_vec)             # (B, tok_dim)
-        Wc = self.tok_emb(cand_tok)          # (B, C, tok_dim)
-        logits = torch.einsum("be,bce->bc", q, Wc)
-        return logits
-
-    @torch.no_grad()
-    def generate(self, enc_vec: torch.Tensor, topk: int, cand_tok: torch.Tensor, temperature: float = 0.0):
-        was_training = self.training
-        self.eval()
-        try:
-            B, C = cand_tok.shape
-            K = min(topk, C)
-
-            logits = self.score(enc_vec, cand_tok)
-            invalid = (cand_tok < 2)
-
-            logits2 = logits.masked_fill(invalid, float("-inf"))
-            idx = torch.topk(logits2, k=K, dim=-1).indices
-            out = cand_tok.gather(1, idx)
-
-            if K < topk:
-                pad = torch.full((B, topk - K), 0, dtype=torch.long, device=out.device)
-                out = torch.cat([out, pad], dim=1)
-            return out
-        finally:
-            self.train(was_training)
-
-# ---------------------- sampling helpers ----------------------
-
-def sample_qids_by_part(
-    qids: List[str],
-    qid_to_part: Dict[str, str],
-    per_part: int,
-    seed: int,
-    parts: Optional[List[str]] = None
-) -> List[str]:
-    if per_part <= 0:
-        return list(qids)
-
-    rng = random.Random(seed)
-    buckets = defaultdict(list)
-    for q in qids:
-        buckets[qid_to_part.get(q, "Unknown")].append(q)
-
-    if parts is None:
-        parts = sorted(buckets.keys())
-
-    out = []
-    for p in parts:
-        lst = buckets.get(p, [])
-        rng.shuffle(lst)
-        out.extend(lst[: min(per_part, len(lst))])
-
-    rng.shuffle(out)
-    return out
 
 def build_train_seen_agent_set(
     qids: List[str],
     all_rankings: Dict[str, List[str]],
     qid_to_part: Dict[str, str],
-    topk_eval: int
 ) -> set:
     s = set()
     for qid in qids:
-        k_pos = min(topk_eval, pos_topk_for_qid(qid, qid_to_part))
+        k_pos = pos_topk_for_qid(qid, qid_to_part)
         gt = all_rankings.get(qid, [])[:k_pos]
         s.update(gt)
     return s
@@ -284,7 +58,6 @@ def eval_with_diag(
     gen: OneStepGenerator,
     q_enc: QueryEncoder,
     Q_csr,
-    q_ids: List[str],
     qid2idx: Dict[str,int],
     a_ids: List[str],
     all_rankings: Dict[str, List[str]],
@@ -298,7 +71,7 @@ def eval_with_diag(
 ):
     vocab = AgentVocab(a_ids)
     all_agent_set = set(a_ids)
-    rnd = random.Random(rng_seed)
+
 
     ks = (topk,)
     agg = {k: {"P":0.0,"R":0.0,"F1":0.0,"Hit":0.0,"nDCG":0.0,"MRR":0.0} for k in ks}
@@ -321,8 +94,7 @@ def eval_with_diag(
 
     pbar = tqdm(eval_qids, desc="Eval", total=len(eval_qids))
     for qid in pbar:
-        part = qid_to_part.get(qid, "Unknown")
-        k_pos = min(topk, pos_topk_for_qid(qid, qid_to_part))
+        k_pos = pos_topk_for_qid(qid, qid_to_part)
         gt_list = [aid for aid in all_rankings.get(qid, [])[:k_pos] if aid in all_agent_set]
         if not gt_list:
             skipped += 1
@@ -331,29 +103,10 @@ def eval_with_diag(
         rel_set = set(gt_list)
 
         # build sampled candidate pool (ensure GT included)
-        neg_pool = list(all_agent_set - rel_set)
-        need_neg = max(0, cand_size - len(gt_list))
-        if need_neg > 0 and len(neg_pool) > 0:
-            k = min(need_neg, len(neg_pool))
-            sampled_negs = rnd.sample(neg_pool, k)
-            cand_ids = gt_list + sampled_negs
-        else:
-            cand_ids = gt_list
+        cand_ids = sample_eval_candidates(a_ids, gt_list, cand_size, qid=qid, seed=rng_seed)
 
-        # unique + pad to cand_size
-        cand_tok_list = [vocab.aid_to_token(a) for a in cand_ids]
-        seen = set()
-        cand_tok_u = []
-        for t in cand_tok_list:
-            if t in seen:
-                continue
-            seen.add(t)
-            cand_tok_u.append(t)
-
-        while len(cand_tok_u) < cand_size:
-            cand_tok_u.append(vocab.PAD)
-        cand_tok_u = cand_tok_u[:cand_size]
-        cand_tok = torch.tensor([cand_tok_u], dtype=torch.long, device=device)
+        cand_tokens = [vocab.aid_to_token(a) for a in cand_ids]
+        cand_tok = torch.tensor([cand_tokens], dtype=torch.long, device=device)
 
         # encode q (densify only this row)
         qi = qid2idx[qid]
@@ -393,7 +146,8 @@ def eval_with_diag(
             unseen_gt_query_cnt += 1
             hit_unseen = 1 if any(a in unseen_gt_set for a in pred_ids) else 0
             unseen_gt_hit_cnt += hit_unseen
-            unseen_gt_pred_cover_sum += sum(1 for a in pred_ids if a in unseen_gt_set) / float(len(pred_ids) if pred_ids else 1.0)
+            if pred_ids:
+                unseen_gt_pred_cover_sum += sum(a in unseen_gt_set for a in pred_ids) / len(pred_ids)
 
         if cnt > 0 and (cnt % 50 == 0):
             pbar.set_postfix({
@@ -436,22 +190,23 @@ def pretty_print_diag(title: str, diag: dict):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_root", type=str, required=True)
+    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
     ap.add_argument("--device", type=str, default="cpu")
 
     # TF-IDF / shape must match ckpt
-    ap.add_argument("--max_features", type=int, default=TFIDF_MAX_FEATURES)
+    ap.add_argument("--max_features", type=int, help="Use the checkpoint value when omitted.")
 
     # split
-    ap.add_argument("--valid_ratio", type=float, default=0.2)
-    ap.add_argument("--split_seed", type=int, default=42)
+    ap.add_argument("--valid_ratio", type=float, help="Use the checkpoint value when omitted.")
+    ap.add_argument("--split_seed", type=int, help="Use the checkpoint value when omitted.")
 
     # eval
     ap.add_argument("--topk", type=int, default=EVAL_TOPK)
-    ap.add_argument("--eval_candidate_size", type=int, default=1000)
-    ap.add_argument("--eval_per_part", type=int, default=200)
-    ap.add_argument("--eval_parts", type=str, default="PartI,PartII,PartIII")
-    ap.add_argument("--seed", type=int, default=1234)
+    ap.add_argument("--eval_candidate_size", type=int, help="Use the checkpoint value when omitted.")
+    ap.add_argument("--eval_per_part", type=int, help="Use the checkpoint value when omitted.")
+    ap.add_argument("--eval_parts", type=str, help="Use the checkpoint scope when omitted.")
+    ap.add_argument("--seed", type=int, help="Seed for sampling evaluation queries.")
+    ap.add_argument("--eval_seed", type=int, help="Seed for sampled evaluation candidates.")
 
     # ckpt
     ap.add_argument("--ckpt", type=str, default=None,
@@ -460,16 +215,16 @@ def main():
                     help="Cache prefix used during training (default: OneRec_seq).")
 
     args = ap.parse_args()
-    eval_parts = [x.strip() for x in args.eval_parts.split(",") if x.strip()]
-
-    warn_if_topk_diff(args.topk, expected=EVAL_TOPK)
-    set_global_seed(args.seed)
-
     device = torch.device(args.device)
 
     # ---------- load data ----------
-    all_agents, all_questions, all_rankings, tools, qid_to_part = collect_data(args.data_root)
-    q_ids, q_texts, a_ids, a_texts = build_text_corpora(all_agents, all_questions, tools)
+    bundle = collect_data(args.data_root)
+    all_questions = bundle.all_questions
+    all_rankings = bundle.all_rankings
+    qid_to_part = bundle.qid_to_part
+    q_ids = sorted(all_questions)
+    q_texts = [all_questions[qid].get("input", "") for qid in q_ids]
+    a_ids = sorted(bundle.all_agents)
     qid2idx = {qid:i for i,qid in enumerate(q_ids)}
     vocab = AgentVocab(a_ids)
 
@@ -485,19 +240,45 @@ def main():
         )
         args.ckpt = ckpt
 
-    assert os.path.exists(args.ckpt), f"ckpt not found: {args.ckpt}"
+    if not os.path.isfile(args.ckpt):
+        raise FileNotFoundError(f"OneRec checkpoint not found: {args.ckpt}")
     print(f"[ckpt] load: {args.ckpt}")
+    ck = torch.load(args.ckpt, map_location=device)
+    if not isinstance(ck, dict) or "q_enc" not in ck or "gen" not in ck:
+        raise ValueError(f"Invalid OneRec checkpoint: {args.ckpt}")
+    if ck.get("data_sig") != data_sig:
+        raise ValueError("Checkpoint does not match the selected dataset's agent IDs and rankings.")
+    if ck.get("content_sig") is not None:
+        current_sig = dataset_content_signature(bundle, load_tools(args.data_root))
+        if ck["content_sig"] != current_sig:
+            raise ValueError("Checkpoint data has changed. Use the original dataset or retrain OneRec.")
+
+    settings = ck.get("args", {})
+    for name, default in (("max_features", TFIDF_MAX_FEATURES), ("valid_ratio", 0.2), ("split_seed", 42)):
+        requested = getattr(args, name)
+        saved = settings.get(name)
+        if requested is not None and saved is not None and requested != saved:
+            raise ValueError(f"--{name}={requested} does not match checkpoint value {saved}.")
+        if requested is None:
+            setattr(args, name, saved if saved is not None else default)
+    for name, default in (("eval_candidate_size", 1000), ("eval_per_part", 200), ("seed", 1234), ("eval_seed", 42)):
+        if getattr(args, name) is None:
+            setattr(args, name, settings.get(name, default))
+    if args.eval_parts is None:
+        scope = ck.get("dpo_part_scope", "ALL")
+        args.eval_parts = scope if scope != "ALL" else settings.get("eval_parts", "PartI,PartII,PartIII")
+    eval_parts = [part.strip() for part in args.eval_parts.split(",") if part.strip()]
+    if args.topk <= 0 or args.eval_candidate_size < args.topk:
+        raise ValueError("--eval_candidate_size must be at least --topk, and --topk must be positive.")
+    warn_if_topk_diff(args.topk, expected=EVAL_TOPK)
+    set_global_seed(args.seed)
 
     # ---------- rebuild TF-IDF ----------
-    q_vec = TfidfVectorizer(max_features=args.max_features, lowercase=True)
-    Q_csr = q_vec.fit_transform(q_texts)
-    A_in_Q_csr = q_vec.transform(a_texts)
-    if not issparse(Q_csr) or not issparse(A_in_Q_csr):
-        raise ValueError("Q_csr / A_in_Q_csr must be sparse.")
-    print(f"[tfidf] Q={Q_csr.shape} A_in_Q={A_in_Q_csr.shape}")
+    _, Q_csr = build_q_vectorizer(q_texts, args.max_features)
+    print(f"[tfidf] Q={Q_csr.shape}")
 
     # ---------- split ----------
-    qids_in_rank = [qid for qid in q_ids if qid in all_rankings]
+    qids_in_rank = qids_with_rankings(q_ids, all_rankings)
     train_qids, valid_qids = stratified_train_valid_split(
         qids_in_rank,
         qid_to_part=qid_to_part,
@@ -508,24 +289,22 @@ def main():
 
     # ---------- build train-seen GT agent set ----------
     train_seen_agents = build_train_seen_agent_set(
-        train_qids, all_rankings, qid_to_part, topk_eval=args.topk
+        train_qids, all_rankings, qid_to_part
     )
     valid_seen_agents = build_train_seen_agent_set(
-        valid_qids, all_rankings, qid_to_part, topk_eval=args.topk
+        valid_qids, all_rankings, qid_to_part
     )
     unseen_valid_agents = valid_seen_agents - train_seen_agents
     print(f"[agents] train_seen_gt={len(train_seen_agents)} valid_gt={len(valid_seen_agents)} unseen_valid_gt={len(unseen_valid_agents)}")
 
     # ---------- build models and load weights ----------
-    ck = torch.load(args.ckpt, map_location=device)
-
-    # ckpt may be "SFT or SFT+DPO; just read state dict keys
-    q_sd = ck.get("q_enc", None)
-    g_sd = ck.get("gen", None)
-    assert q_sd is not None and g_sd is not None, f"bad ckpt keys: {list(ck.keys())}"
+    q_sd = ck["q_enc"]
+    g_sd = ck["gen"]
 
     # infer dims from ckpt tensors (DO NOT GUESS)
     d_q = Q_csr.shape[1]
+    if q_sd["net.0.weight"].shape[1] != d_q or g_sd["tok_emb.weight"].shape[0] != vocab.vocab_size:
+        raise ValueError("Checkpoint dimensions do not match the rebuilt query features and agent vocabulary.")
 
     # QueryEncoder hidden (=enc_dim) from first Linear: net.0.weight is (enc_dim, d_q)
     enc_dim = int(q_sd["net.0.weight"].shape[0])
@@ -553,16 +332,16 @@ def main():
     # ---------- sample qids ----------
     parts = eval_parts
     train_eval_qids = sample_qids_by_part(train_qids, qid_to_part, per_part=args.eval_per_part, seed=args.seed, parts=parts)
-    valid_eval_qids = sample_qids_by_part(valid_qids, qid_to_part, per_part=args.eval_per_part, seed=args.seed + 7, parts=parts)
+    valid_eval_qids = sample_qids_by_part(valid_qids, qid_to_part, per_part=args.eval_per_part, seed=args.seed, parts=parts)
     print(f"[eval] train_sampled={len(train_eval_qids)} valid_sampled={len(valid_eval_qids)} per_part={args.eval_per_part} parts={parts}")
 
     # ---------- run eval: train ----------
     m_train, d_train = eval_with_diag(
-        gen=gen, q_enc=q_enc, Q_csr=Q_csr, q_ids=q_ids, qid2idx=qid2idx,
+        gen=gen, q_enc=q_enc, Q_csr=Q_csr, qid2idx=qid2idx,
         a_ids=a_ids, all_rankings=all_rankings, eval_qids=train_eval_qids,
         qid_to_part=qid_to_part, train_seen_agents=train_seen_agents,
         device=device, topk=args.topk, cand_size=args.eval_candidate_size,
-        rng_seed=args.seed + 11
+        rng_seed=args.eval_seed
     )
     print_metrics_table("TRAIN (sampled per-part)", m_train, ks=(args.topk,), filename="OneRec_infer")
     pretty_print_diag("TRAIN", d_train)
@@ -573,22 +352,22 @@ def main():
         if not q_part:
             continue
         mp, dp = eval_with_diag(
-            gen=gen, q_enc=q_enc, Q_csr=Q_csr, q_ids=q_ids, qid2idx=qid2idx,
+            gen=gen, q_enc=q_enc, Q_csr=Q_csr, qid2idx=qid2idx,
             a_ids=a_ids, all_rankings=all_rankings, eval_qids=q_part,
             qid_to_part=qid_to_part, train_seen_agents=train_seen_agents,
             device=device, topk=args.topk, cand_size=args.eval_candidate_size,
-            rng_seed=args.seed + 100 + hash(p) % 1000
+            rng_seed=args.eval_seed
         )
         print_metrics_table(f"TRAIN {p} (n={len(q_part)})", mp, ks=(args.topk,), filename="OneRec_infer")
         pretty_print_diag(f"TRAIN {p}", dp)
 
     # ---------- run eval: valid ----------
     m_valid, d_valid = eval_with_diag(
-        gen=gen, q_enc=q_enc, Q_csr=Q_csr, q_ids=q_ids, qid2idx=qid2idx,
+        gen=gen, q_enc=q_enc, Q_csr=Q_csr, qid2idx=qid2idx,
         a_ids=a_ids, all_rankings=all_rankings, eval_qids=valid_eval_qids,
         qid_to_part=qid_to_part, train_seen_agents=train_seen_agents,
         device=device, topk=args.topk, cand_size=args.eval_candidate_size,
-        rng_seed=args.seed + 19
+        rng_seed=args.eval_seed
     )
     print_metrics_table("VALID (sampled per-part)", m_valid, ks=(args.topk,), filename="OneRec_infer")
     pretty_print_diag("VALID", d_valid)
@@ -599,11 +378,11 @@ def main():
         if not q_part:
             continue
         mp, dp = eval_with_diag(
-            gen=gen, q_enc=q_enc, Q_csr=Q_csr, q_ids=q_ids, qid2idx=qid2idx,
+            gen=gen, q_enc=q_enc, Q_csr=Q_csr, qid2idx=qid2idx,
             a_ids=a_ids, all_rankings=all_rankings, eval_qids=q_part,
             qid_to_part=qid_to_part, train_seen_agents=train_seen_agents,
             device=device, topk=args.topk, cand_size=args.eval_candidate_size,
-            rng_seed=args.seed + 200 + hash(p) % 1000
+            rng_seed=args.eval_seed
         )
         print_metrics_table(f"VALID {p} (n={len(q_part)})", mp, ks=(args.topk,), filename="OneRec_infer")
         pretty_print_diag(f"VALID {p}", dp)

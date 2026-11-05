@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export HF_ENDPOINT=https://hf-mirror.com
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../common_env.sh"
 
-DEVICE="cuda:4"
 EPOCHS=5
 BATCH_SIZE=256
 LR=1e-3
@@ -19,7 +17,7 @@ POOLING="${POOLING:-cls}"
 MAX_LEN="${MAX_LEN:-128}"
 TEXT_HIDDEN="${TEXT_HIDDEN:-256}"
 TOPK="${TOPK:-10}"
-PRETRAINED_MODEL="${PRETRAINED_MODEL:-path_to/models/distilbert-base-uncased}"
+PRETRAINED_MODEL="${PRETRAINED_MODEL:-distilbert-base-uncased}"
 ENCODER_LR="${ENCODER_LR:-5e-5}"
 ENCODER_WEIGHT_DECAY="${ENCODER_WEIGHT_DECAY:-0.01}"
 LORA_R="${LORA_R:-8}"
@@ -28,7 +26,7 @@ LORA_DROPOUT="${LORA_DROPOUT:-0.1}"
 LORA_TARGETS="${LORA_TARGETS:-q_lin,k_lin,v_lin,out_lin}"
 
 
-python "$SCRIPT_DIR/../../run_bpr_bert.py" \
+"$PYTHON_BIN" "$SCRIPT_DIR/../../run_bpr_bert.py" \
   --eval_cand_size "$EVAL_CAND_SIZE" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \

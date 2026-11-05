@@ -12,8 +12,9 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
+from agent_rec.cli_common import split_ranked_queries
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
-from agent_rec.data import build_training_pairs, stratified_train_valid_split
+from agent_rec.data import build_training_pairs
 from agent_rec.graph_utils import GraphFeaturePack, build_graph_features
 from agent_rec.models.graph import bpr_loss
 from agent_rec.run_common import build_pos_pairs, cache_key_from_meta, load_or_build_training_cache, shared_cache_dir
@@ -58,15 +59,13 @@ def prepare_graph_data(
         "rng_seed_pairs": int(args.rng_seed_pairs),
         "split_seed": int(args.split_seed),
         "valid_ratio": float(args.valid_ratio),
+        "train_parts": sorted(set(args.train_parts)),
+        "pair_type": "q_pos_neg_posTopK",
     }
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = stratified_train_valid_split(
-            qids_in_rank, qid_to_part=qid_to_part, valid_ratio=args.valid_ratio, seed=args.split_seed
-        )
-        print(f"[split] train={len(train_qids)}  valid={len(valid_qids)}")
-
+        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
         rankings_train = {qid: all_rankings[qid] for qid in train_qids}
         pairs = build_training_pairs(
             rankings_train,

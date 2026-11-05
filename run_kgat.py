@@ -124,6 +124,7 @@ def main():
     print(f"[save] model -> {ckpt_path}")
     print(f"[save] meta  -> {meta_path}")
 
+    model.eval()
     knn_path = os.path.join(exp_cache_dir, "knn_copy.pkl")
     build_knn_cache(
         train_qids=data_pack.train_qids,
@@ -135,7 +136,6 @@ def main():
     print("[cache] saved KNN-copy cache")
     knn_cache = load_knn_cache(knn_path)
 
-    model.eval()
     topk = int(args.topk)
 
     # overall_metrics = evaluate_sampled_knn_top10(
@@ -157,7 +157,7 @@ def main():
     # print_metrics_table("Validation Overall (KNN q-vector)", overall_metrics, ks=(topk,), filename=args.exp_name)
 
     part_splits = split_eval_qids_by_part(data_pack.valid_qids, qid_to_part=boot.bundle.qid_to_part)
-    for part in ["PartI", "PartII", "PartIII"]:
+    for part in dict.fromkeys(args.eval_parts):
         qids_part = part_splits.get(part, [])
         if not qids_part:
             continue
@@ -169,6 +169,7 @@ def main():
             eval_qids=qids_part,
             knn_cache=knn_cache,
             cand_size=args.eval_cand_size,
+            seed=args.rng_seed_pairs,
             knn_N=args.knn_N,
             qid_to_part=boot.bundle.qid_to_part,
             pos_topk_by_part=POS_TOPK_BY_PART,

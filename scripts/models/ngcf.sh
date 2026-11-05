@@ -7,7 +7,7 @@ source "$SCRIPT_DIR/../common_env.sh"
 EPOCHS=10
 BATCH_SIZE=4096
 
-python "$SCRIPT_DIR/../../run_ngcf.py" \
+"$PYTHON_BIN" "$SCRIPT_DIR/../../run_ngcf.py" \
   --data_root "$DATA_ROOT" \
   --device "$DEVICE" \
   --epochs "$EPOCHS" \

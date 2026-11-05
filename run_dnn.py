@@ -310,9 +310,9 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-from agent_rec.cli_common import add_shared_training_args
+from agent_rec.cli_common import add_shared_training_args, split_ranked_queries
 from agent_rec.config import EVAL_TOPK, POS_TOPK, POS_TOPK_BY_PART, TFIDF_MAX_FEATURES
-from agent_rec.data import build_training_pairs, stratified_train_valid_split
+from agent_rec.data import build_training_pairs
 from agent_rec.features import (
     build_feature_cache,
     build_unified_corpora,
@@ -432,27 +432,8 @@ def main():
     tool_ids_np = feature_cache.agent_tool_idx_padded
     tool_mask_np = feature_cache.agent_tool_mask
 
-    # Align with the TF-IDF/Table-5 style flow:
-    #   1) --train_parts controls which question parts can enter the train/valid split.
-    #   2) --eval_parts controls final reporting independently of the train valid split.
-    #   3) train_parts is part of the training-cache key, so stale PartI+II+III
-    #      pair caches cannot be silently reused for PartIII-only runs.
-    train_parts = list(args.train_parts)
-    eval_parts = list(args.eval_parts)
-    train_part_set = set(train_parts)
-    qids_for_training = [
-        qid for qid in qids_in_rank
-        if qid_to_part.get(qid, "") in train_part_set
-    ]
-    if not qids_for_training:
-        raise RuntimeError(
-            f"No qids found for train_parts={train_parts}. "
-            f"Available parts include: {sorted(set(qid_to_part.values()))}"
-        )
-    print(
-        f"[parts] train_parts={train_parts} -> qids={len(qids_for_training)}; "
-        f"eval_parts={eval_parts}"
-    )
+    train_parts = sorted(set(args.train_parts))
+    eval_parts = list(dict.fromkeys(args.eval_parts))
 
     want_meta = {
         "data_sig": data_sig,
@@ -467,17 +448,7 @@ def main():
     training_cache_dir = shared_cache_dir(args.data_root, "training", f"{data_sig}_{cache_key_from_meta(want_meta)}")
 
     def build_cache():
-        train_qids, valid_qids = stratified_train_valid_split(
-            qids_for_training,
-            qid_to_part=qid_to_part,
-            valid_ratio=args.valid_ratio,
-            seed=args.split_seed,
-        )
-        print(
-            f"[split] train_parts={train_parts} "
-            f"train={len(train_qids)}  valid={len(valid_qids)}"
-        )
-
+        train_qids, valid_qids = split_ranked_queries(args, qids_in_rank, qid_to_part)
         rankings_train = {qid: all_rankings[qid] for qid in train_qids}
         pairs = build_training_pairs(
             rankings_train,
@@ -610,16 +581,7 @@ def main():
     model.eval()
     topk = int(args.topk)
 
-    # Final evaluation follows --eval_parts, not valid_qids.
-    # valid_qids only belongs to the split inside --train_parts; using it here
-    # would incorrectly prevent cross-part evaluation such as:
-    #   --train_parts PartIII --eval_parts PartI PartII PartIII
-    eval_part_set = set(eval_parts)
-    eval_qids = [
-        qid for qid in qids_in_rank
-        if qid_to_part.get(qid, "") in eval_part_set
-    ]
-    part_splits = split_eval_qids_by_part(eval_qids, qid_to_part=qid_to_part)
+    part_splits = split_eval_qids_by_part(valid_qids, qid_to_part=qid_to_part)
 
     print(
         "[eval] "
@@ -644,6 +606,7 @@ def main():
             q_vectorizer=q_vectorizer_runtime,
             A_text_full=A_text_full_np,
             cand_size=args.eval_cand_size,
+            seed=args.rng_seed_pairs,
             qid_to_part=qid_to_part,
             pos_topk_by_part=POS_TOPK_BY_PART,
             pos_topk_default=POS_TOPK,

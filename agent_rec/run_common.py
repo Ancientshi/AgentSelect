@@ -9,7 +9,7 @@ import numpy as np
 import torch
 
 from agent_rec.config import EVAL_TOPK
-from agent_rec.data import collect_data, dataset_signature, ensure_cache_dir, load_tools, qids_with_rankings
+from agent_rec.data import collect_data, dataset_content_signature, ensure_cache_dir, load_tools, qids_with_rankings
 
 DEFAULT_PARTS = ("PartI", "PartII", "PartIII")
 
@@ -137,7 +137,7 @@ def bootstrap_run(
 
     q_ids, a_ids, qid2idx, aid2idx = build_id_maps(bundle.all_questions, bundle.all_agents)
     qids_in_rank = qids_with_rankings_and_log(q_ids, bundle.all_rankings)
-    data_sig = dataset_signature(qids_in_rank, a_ids, {k: bundle.all_rankings[k] for k in qids_in_rank})
+    data_sig = dataset_content_signature(bundle, tools if tools is not None else load_tools(data_root))
     exp_cache_dir = ensure_cache_dir(data_root, exp_name)
 
     return RunBootstrap(

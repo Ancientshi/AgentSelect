@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../common_env.sh"
 
-python "$SCRIPT_DIR/../../OneRec_seq.py" \
+"$PYTHON_BIN" "$SCRIPT_DIR/../../OneRec_seq.py" \
   --data_root "$DATA_ROOT" \
-  --device cuda:0 \
+  --device "$DEVICE" \
   --mode dpo \
   --dpo_part_scope PartI \
   --topk 10 \

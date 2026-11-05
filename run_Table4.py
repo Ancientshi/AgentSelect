@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-Table-4 Counterfactual Capability Sensitivity (offline eval)
+Table 4 counterfactual capability sensitivity
 
 Pipeline per query Q:
 1) TwoTower retriever:
    - LLM shortlist: topK_llm from global LLMs/merge.json (via best agent score)
    - Tool pool: topK_tool_pool from global Tools/merge.json (via best agent score, using tool_query)
-2) Build "Most idealized" agent A_full:
-   - Default: GPT picks backbone + tools (can pick from large tool pool, not limited to top10)
-   - Fallback (no OPENAI_API_KEY): heuristic = top1 LLM + top3 tools
+2) Build the idealized agent A_full:
+   - Heuristic: top-ranked LLM and top three tools
+   - With --use_gpt: GPT selects a backbone and tools, with the heuristic as fallback
 3) Counterfactual interventions (single controlled change):
    - Remove key tool
    - Remove secondary tool
@@ -41,7 +41,7 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-from agent_rec.config import TFIDF_MAX_FEATURES
+from agent_rec.config import DEFAULT_DATA_ROOT, TFIDF_MAX_FEATURES
 from agent_rec.features import (
     UNK_LLM_TOKEN,
     UNK_TOOL_TOKEN,
@@ -51,8 +51,8 @@ from agent_rec.features import (
     load_vectorizers,
 )
 from agent_rec.models.two_tower import TwoTowerTFIDF
-from agent_rec.run_common import bootstrap_run, shared_cache_dir
-from agent_rec.data import load_tools as load_tools_json, load_LLMs as load_llms_json
+from agent_rec.run_common import bootstrap_run
+from agent_rec.data import dataset_signature, load_tools as load_tools_json, load_LLMs as load_llms_json
 
 
 # ----------------------------
@@ -123,10 +123,8 @@ def _extract_scores(api_resp: object, n_docs: int) -> List[float]:
     if not scores:
         raise RuntimeError(f"Scoring API response has no parsable scores. resp={str(api_resp)[:500]}")
 
-    if len(scores) < n_docs:
-        scores = scores + ([-1e9] * (n_docs - len(scores)))
-    elif len(scores) > n_docs:
-        scores = scores[:n_docs]
+    if len(scores) != n_docs or not np.all(np.isfinite(scores)):
+        raise RuntimeError(f"Expected {n_docs} finite scores from the scoring API, got {len(scores)}.")
     return scores
 
 
@@ -241,12 +239,22 @@ def _load_checkpoint(model_path: str, device: torch.device) -> dict:
 
 
 def _resolve_feature_cache_dir(data_root: str, max_features: int, data_sig: str) -> str:
-    return shared_cache_dir(data_root, "features", f"twotower_tfidf_{max_features}_{data_sig}")
+    root = os.path.join(data_root, ".cache", "shared", "features")
+    cache_dir = os.path.join(root, f"tfidf_{max_features}_{data_sig}")
+    if feature_cache_exists(cache_dir):
+        return cache_dir
+    legacy_dir = os.path.join(root, f"twotower_tfidf_{max_features}_{data_sig}")
+    return legacy_dir if feature_cache_exists(legacy_dir) else cache_dir
 
 
 def _build_encoder(*, ckpt: dict, feature_cache, device: torch.device) -> TwoTowerTFIDF:
-    flags = ckpt.get("flags", {}) if isinstance(ckpt, dict) else {}
-    dims = ckpt.get("dims", {}) if isinstance(ckpt, dict) else {}
+    flags = ckpt.get("flags", {})
+    dims = ckpt.get("dims", {})
+    weights = ckpt["state_dict"]
+    part_weights = next(
+        (weights[key] for key in ("emb_part.weight", "q_gate.2.weight", "part_cls.weight") if key in weights),
+        None,
+    )
 
     encoder = TwoTowerTFIDF(
         d_q=int(dims.get("d_q", feature_cache.Q.shape[1])),
@@ -264,13 +272,22 @@ def _build_encoder(*, ckpt: dict, feature_cache, device: torch.device) -> TwoTow
         agent_tool_idx_padded=torch.tensor(feature_cache.agent_tool_idx_padded, dtype=torch.long, device=device),
         agent_tool_mask=torch.tensor(feature_cache.agent_tool_mask, dtype=torch.float32, device=device),
         agent_llm_idx=torch.tensor(feature_cache.agent_llm_idx, dtype=torch.long, device=device),
-        use_tool_id_emb=bool(flags.get("use_tool_id_emb", True)),
-        use_llm_id_emb=bool(flags.get("use_llm_id_emb", False)),
+        use_tool_id_emb=bool(flags.get("use_tool_id_emb", "emb_tool.weight" in weights)),
+        use_llm_id_emb=bool(flags.get("use_llm_id_emb", "emb_llm.weight" in weights)),
         num_agents=len(feature_cache.a_ids),
         num_queries=len(feature_cache.q_ids),
-        use_query_id_emb=bool(flags.get("use_query_id_emb", False)),
+        use_query_id_emb=bool(flags.get("use_query_id_emb", "emb_query.weight" in weights)),
+        use_agent_id_emb=bool(flags.get("use_agent_id_emb", "emb_agent.weight" in weights)),
+        num_parts=int(part_weights.shape[0]) if part_weights is not None else 0,
+        use_part_emb="emb_part.weight" in weights,
+        use_moe_q="q_gate.0.weight" in weights,
+        gate_hid=int(weights["q_gate.0.weight"].shape[0]) if "q_gate.0.weight" in weights else 128,
+        use_part_aux_loss="part_cls.weight" in weights,
     ).to(device)
-    encoder.load_state_dict(ckpt["state_dict"], strict=False)
+    for name in ("tool_idx", "tool_mask", "llm_idx"):
+        if name in weights and not torch.equal(getattr(encoder, name), weights[name]):
+            raise ValueError(f"Checkpoint {name} does not match the feature cache. Use the original training cache.")
+    encoder.load_state_dict(weights)
     encoder.eval()
     return encoder
 
@@ -281,10 +298,9 @@ class TwoTowerRetriever:
       - score agents by dot(q_emb, agent_emb)
       - lift to LLM/tool candidates by max score over agents containing that component
     """
-    def __init__(self, *, data_root: str, model_path: str, device: torch.device, max_features: int) -> None:
+    def __init__(self, *, data_root: str, model_path: Optional[str], device: torch.device, max_features: Optional[int]) -> None:
         self.data_root = data_root
         self.device = device
-        self.max_features = max_features
 
         boot = bootstrap_run(
             data_root=data_root,
@@ -295,17 +311,50 @@ class TwoTowerRetriever:
         )
         self.bundle = boot.bundle
 
+        legacy_sig = dataset_signature(
+            boot.qids_in_rank, boot.a_ids,
+            {qid: self.bundle.all_rankings[qid] for qid in boot.qids_in_rank},
+        )
+        if model_path is None:
+            exp_name = "two_tower_tfidf"
+            model_dir = os.path.join(data_root, ".cache", exp_name, "models")
+            current_path = os.path.join(model_dir, f"{exp_name}_{boot.data_sig}.pt")
+            legacy_path = os.path.join(model_dir, f"{exp_name}_{legacy_sig}.pt")
+            model_path = next((path for path in (current_path, legacy_path) if os.path.isfile(path)), None)
+            if model_path is None:
+                raise FileNotFoundError(
+                    f"No matching TwoTower TF-IDF checkpoint in {model_dir}. "
+                    "Train it on DATA_ROOT or pass --model_path."
+                )
         ckpt = _load_checkpoint(model_path, device)
         self.ckpt = ckpt
-        self.data_sig = ckpt.get("data_sig", boot.data_sig)
+        saved_sig = ckpt.get("data_sig")
+        if saved_sig not in (None, boot.data_sig, legacy_sig):
+            raise RuntimeError("Checkpoint does not match DATA_ROOT. Retrain TwoTower TF-IDF on this dataset.")
+        self.data_sig = saved_sig or boot.data_sig
+        saved_max_features = ckpt.get("args", {}).get("max_features")
+        if max_features is not None and saved_max_features is not None and max_features != saved_max_features:
+            raise ValueError(f"--max_features must match the checkpoint value ({saved_max_features}).")
+        self.max_features = max_features if max_features is not None else saved_max_features or TFIDF_MAX_FEATURES
+        if self.max_features <= 0:
+            raise ValueError("--max_features must be positive.")
 
-        cache_dir = _resolve_feature_cache_dir(data_root, max_features, self.data_sig)
+        cache_dir = _resolve_feature_cache_dir(data_root, self.max_features, self.data_sig)
         if not feature_cache_exists(cache_dir):
             raise RuntimeError(
                 f"未找到特征缓存: {cache_dir}\n"
                 "请确认使用相同 data_root/max_features 训练过 TwoTower TF-IDF 并生成了 feature cache。"
             )
         self.feature_cache = load_feature_cache(cache_dir)
+        mappings = ckpt.get("mappings", {})
+        expected_mappings = {
+            "q_ids": boot.q_ids, "a_ids": boot.a_ids, "tool_names": sorted(boot.tools or {})
+        }
+        for key, expected in expected_mappings.items():
+            if list(getattr(self.feature_cache, key)) != expected:
+                raise RuntimeError(f"TF-IDF cache {key} do not match DATA_ROOT. Rebuild the feature cache.")
+            if (key in mappings or saved_sig != boot.data_sig) and mappings.get(key) != expected:
+                raise RuntimeError(f"Checkpoint {key} do not match the feature cache.")
 
         vecs = load_vectorizers(cache_dir)
         if vecs is None or not hasattr(vecs, "q_vec"):
@@ -313,7 +362,8 @@ class TwoTowerRetriever:
         self.q_vectorizer = vecs.q_vec
 
         flags = ckpt.get("flags", {}) if isinstance(ckpt, dict) else {}
-        self.use_query_id_emb = bool(flags.get("use_query_id_emb", False))
+        if flags.get("use_query_id_emb", "emb_query.weight" in ckpt["state_dict"]):
+            raise ValueError("Table 4 scores free text, including rewritten queries. Use a checkpoint trained with --use_query_id_emb 0.")
         use_model_content_vector = bool(flags.get("use_model_content_vector", True))
         use_tool_content_vector = bool(flags.get("use_tool_content_vector", True))
 
@@ -364,9 +414,8 @@ class TwoTowerRetriever:
     def _encode_query(self, text: str) -> np.ndarray:
         vec = self.q_vectorizer.transform([text]).toarray().astype(np.float32)
         q = torch.from_numpy(vec).to(self.device)
-        q_idx = torch.zeros(1, dtype=torch.long, device=self.device) if self.use_query_id_emb else None
         with torch.no_grad():
-            qe = self.encoder.encode_q(q, q_idx=q_idx).cpu().numpy()  # (1, d)
+            qe = self.encoder.encode_q(q).cpu().numpy()  # (1, d)
         return qe
 
     def score_all_agents(self, text: str) -> np.ndarray:
@@ -559,17 +608,18 @@ class Agg:
 def load_questions(jsonl_path: str) -> List[str]:
     qs = []
     with open(jsonl_path, "r", encoding="utf-8") as f:
-        for line in f:
+        for line_number, line in enumerate(f, start=1):
             line = line.strip()
             if not line:
                 continue
             try:
                 obj = json.loads(line)
-            except Exception:
-                continue
-            q = (obj.get("question") or "").strip()
-            if q:
-                qs.append(q)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"Invalid JSON in {jsonl_path}:{line_number}") from exc
+            q = (obj.get("query") or obj.get("question") or obj.get("input")) if isinstance(obj, dict) else None
+            if not isinstance(q, str) or not q.strip():
+                raise ValueError(f"Missing query text in {jsonl_path}:{line_number}")
+            qs.append(q.strip())
     return qs
 
 
@@ -578,12 +628,12 @@ def load_questions(jsonl_path: str) -> List[str]:
 # ----------------------------
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser("Table-4 counterfactual capability sensitivity")
-    ap.add_argument("--data_root", type=str, required=True)
-    ap.add_argument("--model_path", type=str, required=True)
-    ap.add_argument("--questions_jsonl", type=str, required=True)
+    ap.add_argument("--data_root", type=str, default=DEFAULT_DATA_ROOT)
+    ap.add_argument("--model_path", type=str, help="Override the matching TwoTower TF-IDF checkpoint in DATA_ROOT.")
+    ap.add_argument("--questions_jsonl", type=str, help="Optional query sample. Defaults to Part III in DATA_ROOT.")
     ap.add_argument("--scoring_url", type=str, default="http://127.0.0.1:8501/compute_scores")
     ap.add_argument("--device", type=str, default="cpu")
-    ap.add_argument("--max_features", type=int, default=TFIDF_MAX_FEATURES)
+    ap.add_argument("--max_features", type=int, help="TF-IDF setting used by the checkpoint. Defaults to its saved value.")
 
     ap.add_argument("--N", type=int, default=100, help="number of queries sampled")
     ap.add_argument("--seed", type=int, default=1234)
@@ -600,6 +650,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    if args.N <= 0:
+        raise ValueError("--N must be positive.")
     random.seed(args.seed)
     np.random.seed(args.seed)
 
@@ -611,9 +663,17 @@ def main() -> None:
         max_features=args.max_features,
     )
 
-    questions = load_questions(args.questions_jsonl)
+    if args.questions_jsonl:
+        questions = load_questions(args.questions_jsonl)
+    else:
+        bundle = retriever.bundle
+        questions = [
+            q["input"].strip()
+            for qid, q in sorted(bundle.all_questions.items())
+            if bundle.qid_to_part[qid] == "PartIII" and q.get("input", "").strip()
+        ]
     if not questions:
-        raise RuntimeError(f"No valid 'question' found in {args.questions_jsonl}")
+        raise RuntimeError(f"No query text found in {args.questions_jsonl or 'Part III'}.")
 
     if len(questions) >= args.N:
         sampled = random.sample(questions, args.N)
@@ -716,12 +776,10 @@ def main() -> None:
 
         api_resp = _http_post_json(args.scoring_url, {"query": q, "documents": docs}, timeout_s=35.0)
         scores = _extract_scores(api_resp, n_docs=len(docs))
-        scores_np = np.array(scores, dtype=np.float32)
+        scores_np = np.asarray(scores, dtype=np.float64)
 
-        # ranks within the 6-item set (higher score = better rank)
-        order = np.argsort(-scores_np)
-        ranks = np.empty_like(order)
-        ranks[order] = np.arange(1, len(scores_np) + 1)  # rank starts at 1
+        # Equal scores share a rank.
+        ranks = 1 + (scores_np[None, :] > scores_np[:, None]).sum(axis=1)
 
         s_full = float(scores_np[0])
         r_full = int(ranks[0])

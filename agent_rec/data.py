@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import hashlib
 import os
 import json
 import random
@@ -39,6 +40,19 @@ class DatasetBundle:
     aid_to_part: Dict[str, str]
 
 
+def dataset_content_signature(bundle: DatasetBundle, tools: Dict[str, dict]) -> str:
+    """Fingerprint the data that determines indexed rows and text features."""
+    digest = hashlib.sha256()
+    for records in (
+        bundle.all_questions, bundle.all_agents, bundle.all_rankings, bundle.qid_to_part, tools
+    ):
+        for key in sorted(records):
+            digest.update(json.dumps((key, records[key]), sort_keys=True, ensure_ascii=False).encode("utf-8"))
+            digest.update(b"\n")
+        digest.update(b"\n")
+    return digest.hexdigest()[:16]
+
+
 def collect_data(data_root: str, parts: Optional[List[str]] = None) -> DatasetBundle:
     """Reads PartI/II/III agents/questions/rankings and merges them,
     while tracking qid/aid -> part mapping for per-part evaluation."""
@@ -57,19 +71,31 @@ def collect_data(data_root: str, parts: Optional[List[str]] = None) -> DatasetBu
         questions_path = os.path.join(data_root, part, "questions", "merge.json")
         rankings_path = os.path.join(data_root, part, "rankings", "merge.json")
 
-        agents = load_json(agents_path)
-        questions = load_json(questions_path)
-        rankings = load_json(rankings_path)["rankings"]
+        try:
+            agents = load_json(agents_path)
+            questions = load_json(questions_path)
+            rankings = load_json(rankings_path)["rankings"]
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(
+                f"Missing prepared data file: {exc.filename}. Extract Dataset.zip, run "
+                "scripts/prepare_optimized_dataset.py, and pass its output directory as --data_root."
+            ) from exc
 
         for aid, aobj in agents.items():
+            if aid in all_agents and all_agents[aid] != aobj:
+                raise ValueError(f"Conflicting definitions for agent {aid!r} in {aid_to_part[aid]} and {part}")
             all_agents[aid] = aobj
-            aid_to_part[aid] = part
+            aid_to_part.setdefault(aid, part)
 
         for qid, qobj in questions.items():
+            if qid in all_questions:
+                raise ValueError(f"Query {qid!r} is present in {qid_to_part[qid]} and {part}")
             all_questions[qid] = qobj
             qid_to_part[qid] = part
 
         for qid, ranked in rankings.items():
+            if qid not in questions:
+                raise ValueError(f"{part}: ranking has no matching query {qid!r}")
             all_rankings[qid] = ranked
 
     return DatasetBundle(
@@ -95,7 +121,7 @@ def load_LLMs(data_root: str) -> Dict[str, dict]:
 
 
 def qids_with_rankings(q_ids: List[str], rankings: Dict[str, List[str]]) -> List[str]:
-    return [qid for qid in q_ids if qid in rankings]
+    return [qid for qid in q_ids if rankings.get(qid)]
 
 
 def stratified_train_valid_split(
@@ -142,7 +168,8 @@ def build_training_pairs(
     """Returns [(qid, pos_aid, neg_aid)]"""
     rnd = random.Random(rng_seed)
     pairs: List[Tuple[str, str, str]] = []
-    all_agent_set = set(all_agent_ids)
+    agent_ids = sorted(set(all_agent_ids))
+    all_agent_set = set(agent_ids)
     from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
 
     topk_map = pos_topk_by_part or POS_TOPK_BY_PART
@@ -153,15 +180,21 @@ def build_training_pairs(
             k = topk_map.get(qid_to_part.get(qid), topk_default)
         else:
             k = topk_default
-        pos = [aid for aid in ranked[:k] if aid in all_agent_set]
+        pos = list(dict.fromkeys(aid for aid in ranked[:k] if aid in all_agent_set))
         if not pos:
             continue
         pos_set = set(pos)
-        neg_pool = list(all_agent_set - pos_set) or list(all_agent_ids)
+        if len(pos_set) == len(agent_ids):
+            continue
+        # The positives are sparse in the full catalog. Only materialize the
+        # complement for tiny or dense catalogs where retries are expensive.
+        neg_pool = [aid for aid in agent_ids if aid not in pos_set] if len(pos_set) * 2 > len(agent_ids) else agent_ids
 
         for pos_a in pos:
             for _ in range(neg_per_pos):
                 neg_a = rnd.choice(neg_pool)
+                while neg_a in pos_set:
+                    neg_a = rnd.choice(neg_pool)
                 pairs.append((qid, pos_a, neg_a))
 
     return pairs

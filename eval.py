@@ -11,9 +11,7 @@ while keeping their own feature/cache construction separate.
 
 from __future__ import annotations
 
-import hashlib
-import math
-import random
+from collections import defaultdict
 from contextlib import nullcontext
 from typing import Dict, List, Tuple
 
@@ -22,15 +20,9 @@ import torch
 from tqdm.auto import tqdm
 
 from agent_rec.config import POS_TOPK, POS_TOPK_BY_PART
-from agent_rec.eval import split_eval_qids_by_part
+from agent_rec.eval import sample_eval_candidates, split_eval_qids_by_part, stable_seed_from_qid
+from agent_rec.rerank_eval_utils import metrics_from_hits
 from utils import print_metrics_table
-
-
-def stable_seed_from_qid(qid: str, rng_seed: int) -> int:
-    """Stable per-query seed; do not use Python hash(), which changes across processes."""
-    h = hashlib.blake2b(str(qid).encode("utf-8"), digest_size=8).digest()
-    q_seed = int.from_bytes(h, byteorder="little", signed=False)
-    return (q_seed ^ (int(rng_seed) * 16777619)) & 0xFFFFFFFF
 
 
 def build_aid_to_llm(a_ids: List[str], llm_vocab: List[str], agent_llm_idx: np.ndarray) -> Dict[str, str]:
@@ -71,21 +63,19 @@ def evaluate_sampled_twotower(
     soft_eval mode: relevance is backbone-LLM match, counted at most once.
     """
     max_k = max(ks)
+    encoder.eval()
     aid2idx = {aid: i for i, aid in enumerate(a_ids)}
+    catalog = sorted(aid2idx)
     if soft_eval and aid_to_llm is None:
         raise ValueError("soft_eval=True requires aid_to_llm mapping (agent_id -> backbone_llm).")
 
-    def _binary_hits_soft(pred_ids: List[str], rel_llm_set: set[str], k: int) -> List[int]:
-        hits = []
-        seen = set()
-        for aid in pred_ids[:k]:
-            llm = aid_to_llm.get(aid, "")  # type: ignore[union-attr]
-            if llm in rel_llm_set and llm not in seen:
-                hits.append(1)
-                seen.add(llm)
-            else:
-                hits.append(0)
-        return hits
+    aid_to_llm = aid_to_llm or {}
+    llm_to_agents = defaultdict(set)
+    if soft_eval:
+        for aid in catalog:
+            llm = aid_to_llm.get(aid)
+            if llm and llm != "<UNK_LLM>":
+                llm_to_agents[llm].add(aid)
 
     agg = {k: {"P": 0.0, "R": 0.0, "F1": 0.0, "Hit": 0.0, "nDCG": 0.0, "MRR": 0.0} for k in ks}
     cnt = 0
@@ -102,35 +92,12 @@ def evaluate_sampled_twotower(
             continue
 
         rel_set = set(gt_list)
-        rel_llm_set: set[str] = set()
-        if soft_eval:
-            rel_llm_set = {aid_to_llm.get(aid, "") for aid in gt_list}  # type: ignore[union-attr]
-            rel_llm_set.discard("")
-            if not rel_llm_set:
-                skipped += 1
-                pbar.set_postfix({"done": cnt, "skipped": skipped})
-                continue
-
-        rnd = random.Random(stable_seed_from_qid(qid, rng_seed))
-        need_neg = max(0, cand_size - len(gt_list))
-
-        neg_ids: List[str] = []
-        if need_neg > 0:
-            attempts = 0
-            while len(neg_ids) < need_neg and attempts < need_neg * 80:
-                aid = rnd.choice(a_ids)
-                attempts += 1
-                if aid in rel_set:
-                    continue
-                if soft_eval:
-                    llm = aid_to_llm.get(aid, "")  # type: ignore[union-attr]
-                    if llm in rel_llm_set:
-                        continue
-                if aid in neg_ids:
-                    continue
-                neg_ids.append(aid)
-
-        cand_ids = gt_list + neg_ids
+        rel_llms = {aid_to_llm.get(aid) for aid in rel_set} if soft_eval else set()
+        rel_llms.intersection_update(llm_to_agents)
+        excluded = set().union(*(llm_to_agents[llm] for llm in rel_llms))
+        cand_ids = sample_eval_candidates(
+            catalog, gt_list, cand_size, qid=qid, seed=rng_seed, exclude=excluded
+        )
         cand_idx = [aid2idx[a] for a in cand_ids]
 
         qi = qid2idx[qid]
@@ -149,40 +116,24 @@ def evaluate_sampled_twotower(
             ae = encoder.encode_a(av, a_idx_t)
             scores = (qe @ ae.t()).float().squeeze(0).cpu().numpy()
 
-        order = np.argsort(-scores)[:max_k]
+        order = np.argsort(-scores, kind="stable")[:max_k]
         pred_ids = [cand_ids[i] for i in order]
 
-        if not soft_eval:
-            bin_hits_full = [1 if aid in rel_set else 0 for aid in pred_ids]
+        if not rel_llms:
+            hits = [int(aid in rel_set) for aid in pred_ids]
             num_rel = len(rel_set)
-            get_top_hits = lambda kk: bin_hits_full[:kk]
         else:
-            num_rel = len(rel_llm_set)
-            get_top_hits = lambda kk: _binary_hits_soft(pred_ids, rel_llm_set, kk)
+            remaining = set(rel_llms)
+            hits = []
+            for aid in pred_ids:
+                llm = aid_to_llm.get(aid)
+                hits.append(int(llm in remaining))
+                remaining.discard(llm)
+            num_rel = len(rel_llms)
 
-        for k in ks:
-            top = get_top_hits(k)
-            Hk = sum(top)
-            P = Hk / float(k)
-            R = Hk / float(num_rel) if num_rel else 0.0
-            F1 = (2 * P * R) / (P + R) if (P + R) else 0.0
-            Hit = 1.0 if Hk > 0 else 0.0
-            dcg = sum(1.0 / math.log2(i + 2.0) for i, h in enumerate(top) if h)
-            ideal = min(k, num_rel)
-            idcg = sum(1.0 / math.log2(i + 2.0) for i in range(ideal)) if ideal else 0.0
-            nDCG = (dcg / idcg) if idcg > 0 else 0.0
-            rr = 0.0
-            for i, h in enumerate(top):
-                if h:
-                    rr = 1.0 / float(i + 1)
-                    break
-
-            agg[k]["P"] += P
-            agg[k]["R"] += R
-            agg[k]["F1"] += F1
-            agg[k]["Hit"] += Hit
-            agg[k]["nDCG"] += nDCG
-            agg[k]["MRR"] += rr
+        for k, metrics in metrics_from_hits(hits, num_rel, ks).items():
+            for name, value in metrics.items():
+                agg[k][name] += value
 
         cnt += 1
         ref = agg[ref_k]
@@ -276,6 +227,7 @@ def recommend_topk_for_qid(
     chunk: int = 8192,
 ) -> List[Tuple[str, float]]:
     """Chunked full-candidate top-k inference for one query id."""
+    encoder.eval()
     qi = qid2idx[qid]
     qv = torch.from_numpy(Q_cpu[qi : qi + 1]).to(device)
     q_idx_t = torch.tensor([qi], dtype=torch.long, device=device)

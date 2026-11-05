@@ -18,7 +18,7 @@ SPLIT_SEED="${SPLIT_SEED:-42}"
 
 BGE_BASE_MODEL="${BGE_BASE_MODEL:-BAAI/bge-reranker-base}"
 BGE_BASE_DIR="${BGE_BASE_DIR:-$BGE_BASE_MODEL}"
-BGE_LORA_DIR="${BGE_LORA_DIR:-/home/username/Data/workspace/QueryAgentMatch/benchmark/BGE-Rerank/reranker}"
+BGE_LORA_DIR="${BGE_LORA_DIR:-}"
 
 EASYREC_BASE_URL="${EASYREC_BASE_URL:-http://127.0.0.1:8500/compute_scores}"
 EASYREC_LORA_URL="${EASYREC_LORA_URL:-http://127.0.0.1:8501/compute_scores}"
@@ -69,7 +69,7 @@ EASYREC_LORA_URL="${EASYREC_LORA_URL:-http://127.0.0.1:8501/compute_scores}"
 #   --seed "$SEED" \
 #   --split_seed "$SPLIT_SEED" \
 
-python "$SCRIPT_DIR/../infer_EasyRec.py" \
+"$PYTHON_BIN" "$SCRIPT_DIR/../infer_EasyRec.py" \
   --data_root "$DATA_ROOT" \
   --exp_name "infer_easyrec_lora" \
   --service_url "$EASYREC_LORA_URL" \

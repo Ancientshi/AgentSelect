@@ -40,7 +40,9 @@ This command retrieves agents by text similarity and formats their configuration
 
 ## Evaluation
 
-The benchmark uses the top 10, 1, and 5 positive agents for Parts I, II, and III, respectively. The reported ranking cutoff is top 10; results are reported for each part and overall. See the training and evaluation scripts for the sampling and split configuration.
+Training and evaluation scripts default to `data/AgentSelect` inside the repository. Use `DATA_ROOT` or `--data_root` to point to a different prepared dataset. Compatible artifacts are reused from `<data_root>/.cache/`.
+
+Evaluation uses a held-out query split within each part and reports metrics at top 10. The positive sets use the first 10, 1, and 5 ranked agents for Parts I, II, and III. For comparable sampled results, use the same split, candidate size, and sampling seed.
 
 ## Citation
 
