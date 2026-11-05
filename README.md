@@ -16,10 +16,8 @@
   <img src="other/images/Figure1.png" alt="Figure 1" width="800"/>
 </div>
 
-> **Status:** this repository is **under active refinement**. We are progressively cleaning code, adding missing scripts/docs, and improving reproducibility. If, during review, you notice incomplete parts or rough edges, please treat them as ongoing engineering work—we are actively consolidating everything.
 
 ---
-
 
 
 
