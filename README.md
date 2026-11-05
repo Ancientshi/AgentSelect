@@ -214,12 +214,6 @@ WITH_METADATA=1 \
 
 ---
 
-## Reproducibility Notes 🧪
-
-* We will keep adding: dataset build scripts, caching, and deterministic evaluation harnesses.
-* If you are reviewing this work and find a missing script or unclear step, it likely reflects ongoing repository cleanup rather than missing methodology; please feel free to flag it—we are actively addressing gaps.
-
----
 
 ## Citation 📚
 
