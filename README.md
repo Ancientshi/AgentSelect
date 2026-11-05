@@ -22,6 +22,9 @@
 
 
 ## News 
+
+* **2026-11-05:** We released a [cleaned dataset](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link) with shared IDs for identical agent configurations across Parts I–III and a unified `Merged/` directory. We recommend this version for evaluations requiring consistent agent identities across parts.
+
 * We have updated the camera-ready paper: `icml2026_AgentSelection_cr.pdf`.
 
 * We have further cleaned Part III dataset.
@@ -125,7 +128,7 @@ pip install -r requirements.txt
 
 ### 3) Prepare dataset
 
-Download the latest [Dataset.zip](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link). The archive contains `PartI/`, `PartII/`, and `PartIII/`, each with:
+Download the latest [Dataset_update.zip](https://drive.google.com/file/d/1YyuE6GLp_p73PGE5emAmPrnpSrRVlpxi/view?usp=drive_link). The archive contains `PartI/`, `PartII/`, and `PartIII/`, each with:
 
 * `queries.jsonl`: query IDs and natural-language text.
 * `agents.jsonl`: agent IDs, language models, and tool lists.
