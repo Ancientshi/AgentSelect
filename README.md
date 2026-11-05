@@ -11,8 +11,6 @@
 
 **AgentSelectBench (AGENTSELECT)** is a unified-supervision benchmark for **narrative query-to-agent recommendation**: given a free-form natural-language request, rank **deployable agent configurations** represented as capability profiles **(backbone LLM, toolkit)**. It systematically converts heterogeneous evaluation artifacts (LLM leaderboards, tool-use benchmarks, etc.) into **query-conditioned, positive-only** interactions for training and evaluating agent recommenders at scale.
 
-🔗 **Getting Started / Documentation:** https://v0-agent-recommendation-website.vercel.app/#getting-started  
-🧪 **Online Demo (Agent Recommendation API, WIP):** https://api.achieva-ai.com/OneAgent/
 
 <div align="center">
   <img src="other/images/Figure1.png" alt="Figure 1" width="800"/>
